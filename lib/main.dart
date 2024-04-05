@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:go_trip/utils/app_routes.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 
 void main(){
   runApp(const MyApp());

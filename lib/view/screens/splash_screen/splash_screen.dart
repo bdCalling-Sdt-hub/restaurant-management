@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_trip/utils/app_colors.dart';
-import 'package:go_trip/view/screens/onboarding_screen/onboarding_screen.dart';
-import 'package:go_trip/view/widgets/custom_text.dart';
+
+import '../../../utils/app_colors.dart';
+import '../../widgets/custom_text.dart';
+import '../onboarding_screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,7 +26,7 @@ Get.to(const Onboarding());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.blackNormal,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

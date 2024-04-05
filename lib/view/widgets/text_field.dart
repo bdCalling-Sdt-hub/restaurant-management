@@ -20,7 +20,7 @@ class CustomTextField extends StatefulWidget {
     this.label,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
-    this.cursorColor = AppColors.black80,
+    this.cursorColor = AppColors.blackNormal,
     this.inputTextStyle,
     this.textAlignVertical = TextAlignVertical.center,
     this.textAlign = TextAlign.start,
@@ -33,12 +33,12 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.suffixIconColor,
     this.fieldBorderRadius = 8,
-    this.fieldBorderColor = AppColors.black80,
+    this.fieldBorderColor = AppColors.greenNormal ,
     this.isPassword = false,
     this.readOnly = false,
     super.key,
     this.isPrefixIcon = false,
-    this.focusBorderColor = AppColors.black90,
+    this.focusBorderColor = AppColors.greenNormal,
     this.onTap,
     this.icon,
     this.maxLength,
@@ -98,7 +98,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textInputAction: widget.textInputAction,
       cursorColor: widget.cursorColor,
       style: GoogleFonts.openSans(
-        color: AppColors.black90,
+        color: AppColors.whiteColor,
         fontSize: 14,
         fontWeight: FontWeight.w500,
 
@@ -111,14 +111,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         counterText: "",
         hintText: widget.hintText,
         hintStyle: GoogleFonts.openSans(
-            color: AppColors.black80,
+            color: AppColors.blackLight,
             fontWeight: FontWeight.w400,
             fontSize: 14),
         fillColor: widget.fillColor,
         filled: true,
         labelText:widget.labelText ,
-        floatingLabelStyle:  TextStyle(color: AppColors.green),
-        labelStyle:    TextStyle(color: AppColors.black80,fontSize: 14.0,fontWeight: FontWeight.w400),
+        floatingLabelStyle:  TextStyle(color: AppColors.greenNormal),
+        labelStyle:    TextStyle(color: AppColors.blackLight,fontSize: 14.0,fontWeight: FontWeight.w400),
         prefixIcon: widget.isPrefixIcon
             ?  widget.icon
             : null,
@@ -131,10 +131,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
               child: obscureText
                   ?  Icon(
                 Icons.visibility_off_outlined,
-                color: AppColors.black90,
+                color: AppColors.blackLight,
               )
                   : const Icon(Icons.visibility_outlined,
-                  color: AppColors.black90),
+                  color: AppColors.blackLight),
             ))
             : widget.suffixIcon,
         suffixIconColor: widget.suffixIconColor,

@@ -43,7 +43,7 @@ class _OnboardingState extends State<Onboarding> {
                 bottom: 12,
               ),
               ///===========================description======================///
-              CustomText(text: data["description"][currentPosition].toString(),color:AppColors.black80,
+              CustomText(text: data["description"][currentPosition].toString(),color:AppColors.blackNormal,
                 fontWeight: FontWeight.w600,
                 maxLines: 3,
                 fontSize:16,),
@@ -117,7 +117,7 @@ class _OnboardingState extends State<Onboarding> {
                   height: 10,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: index == currentPosition ? AppColors.black90 : AppColors.green
+                      color: index == currentPosition ? AppColors.blackNormal : AppColors.greenNormal
                   ),
                 )),
               ),

@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:go_trip/view/screens/splash_screen/splash_screen.dart';
+
 
 import '../view/screens/abou_us_screen/about_us_screen.dart';
+import '../view/screens/splash_screen/splash_screen.dart';
 
 class AppRoute{
   static const String aboutUsScreen = "/about_us_screen";

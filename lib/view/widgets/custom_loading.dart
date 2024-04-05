@@ -10,7 +10,7 @@ class CustomElevatedLoadingButton extends StatelessWidget {
   final double? buttonWidth;
 
   const CustomElevatedLoadingButton({
-    this.buttonColor = AppColors.primaryColor,
+    this.buttonColor = AppColors.greenNormal,
     this.buttonRadius = 8,
     this.buttonHeight = 56,
     this.buttonWidth,
