@@ -14,7 +14,7 @@ class CustomText extends StatelessWidget {
         this.top = 0,
         this.bottom = 0,
         this.fontSize = 14,
-        this.fontWeight =FontWeight.w500,
+        this.fontWeight =FontWeight.w400,
         this.color = AppColors.whiteColor,
         required this.text, this.overflow = TextOverflow.ellipsis});
 
@@ -38,7 +38,7 @@ class CustomText extends StatelessWidget {
         textAlign: textAlign,
         text,maxLines: maxLines,
         overflow: overflow,
-        style: GoogleFonts.openSans(
+        style: GoogleFonts.roboto(
           fontSize: fontSize,
           fontWeight: fontWeight,
           color: color,

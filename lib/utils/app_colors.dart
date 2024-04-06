@@ -7,7 +7,7 @@ class AppColors{
   static const Color blackLightHover = Color(0xffd9d9d9);
   static const Color blackLightActive = Color(0xffb0b0b0);
   static const Color blackNormal = Color(0xff000000);
-  static const Color blackNormalhover = Color(0xff000000);
+  static const Color blackNormalhover = Color(0xff535763);
 
 
   ///===================== Green ========================///

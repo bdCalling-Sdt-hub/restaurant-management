@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../utils/app_colors.dart';
-import '../../widgets/custom_text.dart';
 import '../onboarding_screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,15 +23,13 @@ Get.to(const Onboarding());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.blackNormal,
+      backgroundColor: AppColors.whiteColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            Image.asset("assets/images/logo.png",height: 200,width: 200,),
+            Image.asset("assets/images/logo.png",height: 250,width: 300,),
             //const CustomText(text: "Go Trip",color: AppColors.whiteColor,fontSize: 18,top: 16,)
-
           ],
         ),
       ),

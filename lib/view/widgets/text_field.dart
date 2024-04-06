@@ -92,8 +92,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
       cursorColor: widget.cursorColor,
-      style: GoogleFonts.openSans(
-        color: AppColors.whiteColor,
+      style: GoogleFonts.roboto(
+        color: AppColors.blackNormal,
         fontSize: 14,
         fontWeight: FontWeight.w500,
 
@@ -105,15 +105,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
         errorMaxLines: 2,
         counterText: "",
         hintText: widget.hintText,
-        hintStyle: GoogleFonts.openSans(
-            color: AppColors.blackLight,
-            fontWeight: FontWeight.w400,
+        hintStyle: GoogleFonts.roboto (
+            color: AppColors.blackLightActive,
+            fontWeight: FontWeight.w300,
             fontSize: 14),
         fillColor: widget.fillColor,
         filled: true,
         labelText:widget.labelText ,
-        floatingLabelStyle:  TextStyle(color: AppColors.greenNormal),
-        labelStyle:    TextStyle(color: AppColors.blackLight,fontSize: 14.0,fontWeight: FontWeight.w400),
+        floatingLabelStyle:  const TextStyle(color: AppColors.greenNormal),
+        labelStyle:   const TextStyle(color: AppColors.blackLight,fontSize: 14.0,fontWeight: FontWeight.w400),
         prefixIcon: widget.isPrefixIcon
             ?  widget.icon
             : null,
@@ -124,7 +124,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               padding: const EdgeInsetsDirectional.symmetric(
                   horizontal: 16, vertical: 14),
               child: obscureText
-                  ?  Icon(
+                  ?  const Icon(
                 Icons.visibility_off_outlined,
                 color: AppColors.blackLight,
               )
