@@ -16,11 +16,11 @@ class _OnboardingState extends State<Onboarding> {
 
   Map <String,dynamic> data = {
 
-    "image" : ["assets/images/images.png","assets/images/images (1).jpg","assets/images/images (2).jpg"],
-    "shortDescription" : ["Get matched today","Send video, voice & text", "Claim your happiness"],
-    "description": ["Talk to a therapist in the comfort of your space" ,
-      "No appointments required. Therapy that works well with your schedule and routine" ,
-      "It starts with a single message.  We'll Give Everything We Can for Your Mental Health"],
+    "image" : ["assets/images/onbording_1.png","assets/images/onbording_2.png"],
+    "shortDescription" : ["Food variety ","Many Restaurant Listed",],
+    "description": ["Lorem ipsum is a placeholder text commonly used to demonstrate the visual." ,
+      "Lorem ipsum is a placeholder text commonly used to demonstrate the visual." ,
+     ],
   };
 
   final PageController controller = PageController();
@@ -104,7 +104,7 @@ class _OnboardingState extends State<Onboarding> {
         ),
       ),
 
-      bottomNavigationBar:Padding(
+  /*    bottomNavigationBar:Padding(
         padding:  const EdgeInsets.symmetric(vertical: 40, horizontal: 80),
         child: Column(
           children: [
@@ -125,7 +125,7 @@ class _OnboardingState extends State<Onboarding> {
 
           ],
         ),
-      ),
+      ),*/
 
     );
   }

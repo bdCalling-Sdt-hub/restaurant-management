@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,10 +8,6 @@ import '../../utils/app_colors.dart';
 
 
 class CustomTextField extends StatefulWidget {
-
-
-
-  static void _defaultOnTap() {}
   const CustomTextField({
     this.textEditingController,
     this.focusNode,

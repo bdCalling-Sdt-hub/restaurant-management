@@ -31,8 +31,9 @@ Get.to(const Onboarding());
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/log.jpg",height: 120,width: 120,),
-            const CustomText(text: "Go Trip",color: AppColors.whiteColor,fontSize: 18,top: 16,)
+
+            Image.asset("assets/images/logo.png",height: 200,width: 200,),
+            //const CustomText(text: "Go Trip",color: AppColors.whiteColor,fontSize: 18,top: 16,)
 
           ],
         ),
