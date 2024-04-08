@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
 import '../../../utils/app_colors.dart';
@@ -41,7 +43,7 @@ class _MenuScreenState extends State<MenuScreen> {
           SizedBox(
               height: 120,
           child: ListView.builder(
-            padding: EdgeInsetsDirectional.symmetric(horizontal: 20),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
             scrollDirection: Axis.horizontal,
             itemCount: 10,
             itemBuilder:(context,index){
@@ -87,10 +89,14 @@ SizedBox(height: 24,),
                             ),
                             image: DecorationImage(image:NetworkImage("https://media.istockphoto.com/id/503818102/photo/mediterranean-pizza.jpg?s=1024x1024&w=is&k=20&c=KcMHR_aWxtBBuSC0gp0ccvT7EAYIxV6SGg7qTeHxrBg="),fit: BoxFit.fill),)
                           ,),
-                  FittedBox(child: CustomText(text: "PIZZA",color: AppColors.blackNormal,fontWeight: FontWeight.w700,)),
-                  CustomText(text: "\$ 389.00",color: AppColors.blackNormal,),
+                      FittedBox(child: CustomText(text: "PIZZA",color: AppColors.blackNormal,fontWeight: FontWeight.w700,)),
+                       CustomText(text: "\$ 389.00",color: AppColors.blackNormal,),
 
-                      CustomElevatedButton(onPressed: (){}, titleText: "Order",buttonHeight: 40,)
+                      CustomElevatedButton(onPressed: (){
+                        Get.toNamed(AppRoute.orderDetailsScreen);
+
+
+                      }, titleText: "Order",buttonHeight: 40,)
                     ],
                   )
                 );
