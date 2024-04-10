@@ -15,7 +15,7 @@ class CustomText extends StatelessWidget {
         this.bottom = 0,
         this.fontSize = 14,
         this.fontWeight =FontWeight.w400,
-        this.color = AppColors.whiteColor,
+        this.color = AppColors.blackNormal,
         required this.text, this.overflow = TextOverflow.ellipsis});
 
   final double left;
