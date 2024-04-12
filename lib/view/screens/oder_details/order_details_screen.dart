@@ -121,8 +121,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     fontWeight: FontWeight.w300,
                     fontSize: 16,
                     text: "Our classic cheeseburger is made with a fresh, never-frozen beef patty that is cooked to perfection and topped with melted American cheese, lettuce, tomato, pickles, and onions. It is served on a toasted bun and is sure to satisfy your hunger."),
-                CustomElevatedButton(onPressed: (){}, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
+                CustomElevatedButton(onPressed: (){
 
+                }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
               ],
             ),
           );
