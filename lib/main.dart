@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoute.showMenu,
+      initialRoute: AppRoute.favourite,
       navigatorKey: Get.key,
       getPages: AppRoute.routes,
     );

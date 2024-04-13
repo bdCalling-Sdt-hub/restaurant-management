@@ -4,9 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:restaurant_management/controller/product_deatails_controller.dart';
+import 'package:restaurant_management/view/screens/cart_screen/cart_screen.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
 import '../../../utils/app_colors.dart';
+import '../../../utils/app_routes.dart';
 import '../../widgets/custom_text.dart';
 
 class OrderDetailScreen extends StatefulWidget {
@@ -25,18 +27,23 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         toolbarHeight: 80,
         leading: Row(
           children: [
-            Container(
-                height: 40,
-                width: 40,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                ),
-                child: const Icon(Icons.arrow_back,color: Colors.white,)),
+            GestureDetector(
+              onTap: ()=>Get.back(),
+              child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                  ),
+                  child: const Icon(Icons.arrow_back,color: Colors.white,)),
+            ),
           ],
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_outline_outlined))
+          IconButton(onPressed: (){
+
+          }, icon: const Icon(Icons.favorite_outline_outlined))
         ],
         centerTitle: true,
         title:const CustomText(text: "Details",color: AppColors.blackNormal,fontSize: 24,fontWeight: FontWeight.w600,),
@@ -123,6 +130,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     text: "Our classic cheeseburger is made with a fresh, never-frozen beef patty that is cooked to perfection and topped with melted American cheese, lettuce, tomato, pickles, and onions. It is served on a toasted bun and is sure to satisfy your hunger."),
                 CustomElevatedButton(onPressed: (){
 
+                       Get.toNamed(AppRoute.orderCartScreen);
                 }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
               ],
             ),
