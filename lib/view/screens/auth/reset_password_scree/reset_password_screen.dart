@@ -42,52 +42,23 @@ class ResetPassword extends StatelessWidget {
         padding: EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
         child:  Column(
           children: [
-            Image.asset("assets/images/reset+pass.png"),
-            const CustomText(text: "Login to your Account ",color: AppColors.greenNormal,fontWeight: FontWeight.w600,fontSize: 24,),
-            const SizedBox(height: 16,),
-            /// ======================Email===========================///
-            const CustomTextField(
-              hintText: "Email",
-            ),
+            Image.asset("assets/images/reset+pass.png",height: 200,width: 200,),
+            const CustomText(text: "Reset Password",color: AppColors.greenNormal,fontWeight: FontWeight.w600,fontSize: 24,),
             const SizedBox(height: 16,),
             /// ======================password===========================///
             const CustomTextField(
               hintText: "Password",
+              isPassword: true,
             ),
-            const SizedBox(height: 6,),
-
-            Align(alignment:Alignment.centerRight,child:  TextButton(onPressed: (){
-
-              Get.to(ForgotPassScreen());
-            }, child: const CustomText(text: "Forgot Password?",fontWeight: FontWeight.w700,color: AppColors.greenNormal,))),
-            const SizedBox(height: 6,),
-            CustomElevatedButton(onPressed: (){}, titleText: "Login",titleSize: 20,titleWeight: FontWeight.w700,),
-            const SizedBox(height: 12,),
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Already have an Account? ',
-                    style: GoogleFonts.roboto(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  TextSpan(
-                    text: 'Register Now',
-                    recognizer: TapGestureRecognizer()..onTap = (){
-                      Get.toNamed(AppRoute.signup);
-                    },
-                    style: GoogleFonts.roboto(
-                      color: const Color(0xFF4C9A29),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
+            const SizedBox(height: 16,),
+            /// ======================confirm password===========================///
+            const CustomTextField(
+              hintText: "Confirm password",
+              isPassword: true,
             ),
+            const SizedBox(height: 24,),
+            CustomElevatedButton(onPressed: (){}, titleText: "Reset",titleSize: 20,titleWeight: FontWeight.w700,),
+
           ],
         ),
       ),

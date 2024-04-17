@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/view/screens/edit_personal_info/edit_personal_info.dart';
 
-import '../../../utils/app_colors.dart';
-import '../../widgets/custom_text.dart';
+import '../../../../../utils/app_colors.dart';
+import '../../../../widgets/custom_text.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
@@ -112,7 +112,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                           borderRadius: BorderRadius.circular(6),
                           color: AppColors.whiteColor),
                       child: const CustomText(
-                        text: "Edit Profila",
+                        text: "Edit Profile",
                         color: AppColors.greenNormal,
                         fontWeight: FontWeight.w600,
                       ),

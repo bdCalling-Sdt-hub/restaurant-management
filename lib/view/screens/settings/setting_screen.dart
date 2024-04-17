@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/view/screens/settings/inner_screens/change_password_screen.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/restaurant_owner_screen.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
@@ -54,6 +55,9 @@ class _SettingScreenState extends State<SettingScreen> {
               return GestureDetector(
                 onTap: (){
                   print(index);
+                  if(index==0){
+                    Get.to(const ChangePassWordScreen());
+                  }
                   if(index==3){
                   Get.to(const RestaurantOwnerScreen());
                   }
@@ -103,7 +107,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 right: -16,
                 child: GestureDetector(
                   onTap: (){
-                   Navigator.pop(context);
+
                   },
                   child: Container(
                     height: 32,
@@ -112,7 +116,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         shape: BoxShape.circle,
                         color: Colors.grey
                       ),
-                      child: const Icon(Icons.close,color: AppColors.whiteColor,size: 16,)),
+                      child:IconButton(onPressed: (){  Get.back();}, icon:  const Icon(Icons.close,color: AppColors.whiteColor,size: 16,)
+                      ),)
                 ))
           ],
         ),

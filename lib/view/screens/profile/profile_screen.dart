@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
-import 'package:restaurant_management/view/screens/personal_info/personal_info_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
+
+import 'inner_screen/personal_info/personal_info_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

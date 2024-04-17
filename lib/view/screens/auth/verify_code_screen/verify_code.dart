@@ -76,7 +76,12 @@ class VerifyCodeScreen extends StatelessWidget {
                 },
                 appContext: context,
               ),
-              const SizedBox(height: 24,),
+              TextButton(
+                onPressed: (){},
+                child: CustomText(text: "Resend Code?",  color: Color(0xFFB0B0B0),
+                  ),
+              ),
+              const SizedBox(height: 12,),
               CustomElevatedButton(onPressed: (){
               Get.to(const ResetPassword());
 
