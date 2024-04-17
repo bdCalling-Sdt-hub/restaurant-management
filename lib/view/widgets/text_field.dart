@@ -93,9 +93,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textInputAction: widget.textInputAction,
       cursorColor: widget.cursorColor,
       style: GoogleFonts.roboto(
-        color: AppColors.blackNormal,
+        color:const Color(0xff333333),
         fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
 
       ),
       maxLines: widget.maxLines,

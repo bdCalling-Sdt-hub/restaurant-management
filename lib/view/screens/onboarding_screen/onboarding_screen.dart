@@ -95,9 +95,8 @@ class _OnboardingState extends State<Onboarding> {
                 buttonWidth: MediaQuery.of(context).size.width/2,
                 onPressed: () {
                   if (isLastPage) {
-                    Get.offAndToNamed(AppRoute.homeScreen);
+                    Get.offAndToNamed(AppRoute.welcome);
                   } else {
-
                     controller.nextPage(
                       duration: const Duration(milliseconds: 900),
                       curve: Curves.easeInSine,
@@ -105,9 +104,8 @@ class _OnboardingState extends State<Onboarding> {
                   }
                 },
                 titleText: "Next",),
-              
               TextButton(onPressed: (){
-                Get.offAndToNamed(AppRoute.homeScreen);
+                Get.offAndToNamed(AppRoute.welcome);
               }, child: const CustomText(text: "Skip",color: AppColors.greenNormal,))
 
             ],

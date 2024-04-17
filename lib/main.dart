@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
 
@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialRoute: AppRoute.favourite,
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRoute.splashScreen,
       navigatorKey: Get.key,
       getPages: AppRoute.routes,
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/app_colors.dart';
@@ -39,33 +40,47 @@ class FavouriteScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      body: Column(children: [
-        
-       Divider(),
-       
-       ListView.builder(itemBuilder: (context,index){
-         return Column(
-           children: [
-             Row(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 20),
+        child: Column(children: [
+         const Divider(),
+         Expanded(
+           child: ListView.builder(itemBuilder: (context,index){
+             return Column(
                children: [
-                 Container(
-                   height: 60,
-                   width: 60,
-                   decoration: BoxDecoration(
-                     borderRadius: BorderRadius.circular(8),
-                     image: const DecorationImage(
-                       fit: BoxFit.fill,
-                       image: NetworkImage("https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8fHww"),
-                     ),
+                 Padding(
+                   padding: EdgeInsetsDirectional.symmetric(vertical: 8,),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       Container(
+                         height: 60,
+                         width: 60,
+                         decoration: BoxDecoration(
+                           borderRadius: BorderRadius.circular(8),
+                           image: const DecorationImage(
+                             fit: BoxFit.fill,
+                             image: NetworkImage("https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8fHww"),
+                           ),
+                         ),
+                       ),
+                       const CustomText(text: "Biriyani with ALu",fontWeight:  FontWeight.w700,fontSize: 16,),
+                       const Row(
+                         children: [
+                           CustomText(text: "\$23",fontWeight:  FontWeight.w500,fontSize: 14,),
+                           Icon(Icons.arrow_forward_ios,size: 16,)
+                         ],
+                       ),
+                     ],
                    ),
                  ),
+                 const Divider()
                ],
-             ),
-             Divider()
-           ],
-         );
-       },itemCount: 12,) 
-      ],),
+             );
+           },itemCount: 12,),
+         )
+        ],),
+      ),
     );
   }
 }
