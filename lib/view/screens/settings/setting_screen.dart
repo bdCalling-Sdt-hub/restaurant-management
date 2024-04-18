@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/change_password_screen.dart';
+import 'package:restaurant_management/view/screens/settings/inner_screens/privacy_policy.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/restaurant_owner_screen.dart';
+import 'package:restaurant_management/view/screens/settings/inner_screens/term_conditions.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
 import '../../../utils/app_colors.dart';
@@ -58,6 +60,14 @@ class _SettingScreenState extends State<SettingScreen> {
                   if(index==0){
                     Get.to(const ChangePassWordScreen());
                   }
+
+                  if(index==1){
+                    Get.to(const TermConditionScreen());
+                  }
+
+                  if(index==2){
+                    Get.to(const PrivacyPolicy());
+                  }
                   if(index==3){
                   Get.to(const RestaurantOwnerScreen());
                   }
@@ -72,8 +82,18 @@ class _SettingScreenState extends State<SettingScreen> {
                     children: [
                     CustomText(text: settingName[index],color: index==4?Colors.red:const Color(0xff333333),fontSize: 16,) ,
                       IconButton(onPressed: (){
+                        if(index==0){
+                          Get.to(const ChangePassWordScreen());
+                        }
+                        if(index==1){
+                          Get.to(const TermConditionScreen());
+                        }
+
+                        if(index==2){
+                          Get.to(const PrivacyPolicy());
+                        }
                         if(index==3){
-                          Get.to(RestaurantOwnerScreen());
+                          Get.to(const RestaurantOwnerScreen());
                         }
                       }, icon: index==4?const SizedBox():  const Icon(Icons.arrow_forward_ios))
                     ],

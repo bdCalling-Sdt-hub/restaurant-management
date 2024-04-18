@@ -39,7 +39,7 @@ class ResetPassword extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
         child:  Column(
           children: [
             Image.asset("assets/images/reset+pass.png",height: 200,width: 200,),
@@ -57,7 +57,10 @@ class ResetPassword extends StatelessWidget {
               isPassword: true,
             ),
             const SizedBox(height: 24,),
-            CustomElevatedButton(onPressed: (){}, titleText: "Reset",titleSize: 20,titleWeight: FontWeight.w700,),
+            CustomElevatedButton(onPressed: (){
+              Get.offAllNamed(AppRoute.signin);
+
+            }, titleText: "Reset",titleSize: 20,titleWeight: FontWeight.w700,),
 
           ],
         ),

@@ -1,13 +1,12 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
+import 'package:restaurant_management/view/screens/my_orders/my_order_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 
-import 'inner_screen/personal_info/personal_info_screen.dart';
+import '../../widgets/elevated_button.dart';
+import 'inner_screen/personal_info_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -44,7 +43,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
+          Flexible(
+            flex: 3,
             child: Container(
               width: Get.width,
               decoration: const BoxDecoration(
@@ -53,29 +53,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               child:  Column(
                 children: [
-                  SizedBox(height: 50,),
-                  CustomText(text: "Profile",color: AppColors.whiteColor,fontSize: 24,fontWeight: FontWeight.w600,),
-                  SizedBox(height: 40,),
+                  const SizedBox(height: 50,),
+                  const CustomText(text: "Profile",color: AppColors.whiteColor,fontSize: 24,fontWeight: FontWeight.w600,),
+                  const SizedBox(height: 40,),
                   Container(
                     height: 100,
                     width: 100,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage("https://plus.unsplash.com/premium_photo-1713184149461-67ad584d82e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8fA%3D%3D"))
                     ),
                   ),
-                  SizedBox(height: 30,),
-                  CustomText(text: "Kabir",color: AppColors.whiteColor,fontSize: 20,fontWeight: FontWeight.w500,),
-                  CustomText(text: "kabir@gmail.com",color: AppColors.whiteColor,fontSize: 12),
+                  const SizedBox(height: 30,),
+                  const CustomText(text: "Kabir",color: AppColors.whiteColor,fontSize: 20,fontWeight: FontWeight.w500,),
+                  const CustomText(text: "kabir@gmail.com",color: AppColors.whiteColor,fontSize: 12),
 
                 ],
               ),
             ),
           ),
           const SizedBox(height: 16,),
-          Expanded(
+          Flexible(
+            flex: 4,
             child: Container(
             width: Get.width,
               decoration: const BoxDecoration(
@@ -88,18 +89,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                        return GestureDetector(
                          onTap: (){
                            if(index==0){
-                           Get.to(PersonalInfoScreen());
+                           Get.to(const PersonalInfoScreen());
                            }
-
                            if(index==1){
-                             Get.to(PersonalInfoScreen());
+                             Get.to(const MyOrderScreen(text: 'My Orders', index: 0,));
                            }
-
                            if(index==2){
-                             Get.to(PersonalInfoScreen());
+                             Get.to(const MyOrderScreen(text: 'My Booking', index: 1,));
                            }
                            if(index==3){
-                             Get.to(SettingScreen());
+                             Get.to(const SettingScreen());
+                           }
+                           if(index==4){
+                             alertDialog();
                            }
                          },
                          child: Padding(
@@ -110,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                  children: [
                                    data[index]["icon"],
                                   // Icon(Icons.person_outline_rounded,color: Colors.black,),
-                                   CustomText(text: data[index]["routeName"].toString(),color: data[index]["routeName"]=="Logout"? Colors.red : Color(0xff333333),left: 20,)
+                                   CustomText(text: data[index]["routeName"].toString(),color: data[index]["routeName"]=="Logout"? Colors.red : const Color(0xff333333),left: 20,)
                                  ],
                                ),
                                const Divider(color: AppColors.greenLightActive,)
@@ -131,5 +133,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+  alertDialog(){
+    showDialog(context: context, builder: (context){
+      return  AlertDialog(
+        backgroundColor: AppColors.whiteColor,
+        /* content: Stack(
+          children: [
+            Positioned(child: Container(
+              child: IconButton(onPressed: (){}, icon: Icon(Icons.close)),
+            ),top: 0,)
+          ],
+        ),*/
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12)
+        ),
+        title:  const Center(child: CustomText(text: "Do you want to logout ?",textAlign: TextAlign.center,)),
+        actions: [
+          Row(
+            children: [
+              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "No",buttonHeight: 32,borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,)),
+              const SizedBox(width: 12,),
+              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "Yes",buttonHeight: 32,)),
+            ],
+          ),
+
+        ],
+
+      );
+    });
   }
 }

@@ -12,6 +12,8 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Identify profile picture</string>
 	<key>CFBundleName</key>
 	<string>restaurant_management</string>
 	<key>CFBundlePackageType</key>

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoute.profile,
+      initialRoute: AppRoute.splashScreen,
       navigatorKey: Get.key,
       getPages: AppRoute.routes,
     );

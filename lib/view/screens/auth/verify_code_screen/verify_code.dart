@@ -36,7 +36,7 @@ class VerifyCodeScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
         child:  Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -50,6 +50,7 @@ class VerifyCodeScreen extends StatelessWidget {
                 obscureText: false,
              //   controller: controller.otpController,
                 keyboardType: TextInputType.number,
+                cursorColor: AppColors.blackNormalhover,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 textStyle: GoogleFonts.poppins(
                     fontSize: 14,
@@ -58,7 +59,7 @@ class VerifyCodeScreen extends StatelessWidget {
                 pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.circular(8),
-                    disabledColor: Colors.blue,
+                  //  disabledColor: Colors.blue,
                     fieldHeight: 56,
                     fieldWidth: 44,
                     activeColor: AppColors.greenNormal,
@@ -66,6 +67,7 @@ class VerifyCodeScreen extends StatelessWidget {
                     activeFillColor: AppColors.whiteColor,
                     inactiveFillColor: AppColors.whiteColor,
                     selectedFillColor: AppColors.whiteColor,
+
                     selectedColor: AppColors.greenNormal),
                 backgroundColor: Colors.transparent,
                 enableActiveFill: false,

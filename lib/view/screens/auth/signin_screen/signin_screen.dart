@@ -16,7 +16,7 @@ class SigninScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+     /* appBar: AppBar(
         toolbarHeight: 80,
         leading: Row(
           children: [
@@ -37,7 +37,7 @@ class SigninScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ),*/
       body: SingleChildScrollView(
         padding: EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
         child:  Column(
@@ -61,7 +61,9 @@ class SigninScreen extends StatelessWidget {
               Get.to(ForgotPassScreen());
             }, child: const CustomText(text: "Forgot Password?",fontWeight: FontWeight.w700,color: AppColors.greenNormal,))),
             const SizedBox(height: 6,),
-            CustomElevatedButton(onPressed: (){}, titleText: "Login",titleSize: 20,titleWeight: FontWeight.w700,),
+            CustomElevatedButton(onPressed: (){
+              Get.toNamed(AppRoute.homeScreen);
+            }, titleText: "Login",titleSize: 20,titleWeight: FontWeight.w700,),
             const SizedBox(height: 12,),
             Text.rich(
               TextSpan(

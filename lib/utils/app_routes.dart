@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:restaurant_management/view/screens/auth/signin_screen/signin_screen.dart';
 import 'package:restaurant_management/view/screens/auth/signup_screen/signup_screen.dart';
 import 'package:restaurant_management/view/screens/cart_screen/cart_screen.dart';
+import 'package:restaurant_management/view/screens/home_screen/home_screen.dart';
 import 'package:restaurant_management/view/screens/menu/menu_screen.dart';
 import 'package:restaurant_management/view/screens/notification/notification_screen.dart';
 import 'package:restaurant_management/view/screens/oder_details/order_details_screen.dart';
@@ -31,6 +32,7 @@ class AppRoute{
   static List<GetPage> routes = [
     GetPage(name: aboutUsScreen, page: () => const AboutUsScreen()),
     GetPage(name: splashScreen, page: () => const SplashScreen()),
+    GetPage(name: homeScreen, page: () => const HomeScreen()),
     GetPage(name: showMenu, page: () => const MenuScreen()),
     GetPage(name: orderDetailsScreen, page: () => const OrderDetailScreen()),
     GetPage(name: orderCartScreen, page: () => const CartScreen()),

@@ -108,6 +108,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintStyle: GoogleFonts.roboto (
             color: AppColors.blackLightActive,
             fontWeight: FontWeight.w300,
+
             fontSize: 14),
         fillColor: widget.fillColor,
         filled: true,

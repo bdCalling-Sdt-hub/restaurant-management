@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/view/screens/edit_personal_info/edit_personal_info.dart';
 
-import '../../../../../utils/app_colors.dart';
-import '../../../../widgets/custom_text.dart';
+import '../../../../utils/app_colors.dart';
+import '../../../widgets/custom_text.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
@@ -48,6 +48,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       body: Column(
         children: [
           Expanded(
+            flex: 3,
             child: Container(
               width: Get.width,
               decoration: const BoxDecoration(
@@ -59,7 +60,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 50,
+                    height: 40,
                   ),
                   Row(
                     children: [
@@ -93,7 +94,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                 "https://plus.unsplash.com/premium_photo-1713184149461-67ad584d82e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8fA%3D%3D"))),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 24,
                   ),
                   const CustomText(
                     text: "Kabir",
@@ -123,6 +124,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             ),
           ),
           Expanded(
+            flex: 4,
             child: Container(
               width: Get.width,
               decoration: const BoxDecoration(color: AppColors.whiteColor),
