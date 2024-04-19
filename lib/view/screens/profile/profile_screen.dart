@@ -5,6 +5,7 @@ import 'package:restaurant_management/view/screens/my_orders/my_order_screen.dar
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 
+import '../../widgets/bottom_nav/bottom_nav.dart';
 import '../../widgets/elevated_button.dart';
 import 'inner_screen/personal_info_screen.dart';
 
@@ -132,8 +133,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         ],
       ),
+      bottomNavigationBar: const CustomBottomNavBar(currentIndex: 3),
     );
   }
+
+  ///=================Alert Dialoge==================//
   alertDialog(){
     showDialog(context: context, builder: (context){
       return  AlertDialog(
@@ -161,6 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
 
       );
-    });
+    }
+    );
   }
 }

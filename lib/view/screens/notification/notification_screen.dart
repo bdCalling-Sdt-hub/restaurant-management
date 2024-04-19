@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:restaurant_management/view/widgets/bottom_nav/bottom_nav.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../widgets/custom_text.dart';
@@ -13,24 +13,7 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        leading: Row(
-          children: [
-            GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                  ),
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  )),
-            ),
-          ],
-        ),
+
         centerTitle: true,
         title: const CustomText(
           text: "Notification",
@@ -63,6 +46,7 @@ class NotificationScreen extends StatelessWidget {
           }))
         ],
       ),
+      bottomNavigationBar: CustomBottomNavBar(currentIndex: 2),
     );
   }
 }

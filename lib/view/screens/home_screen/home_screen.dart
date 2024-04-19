@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
 import 'package:restaurant_management/view/screens/table_booking_screen/table_booking_screen.dart';
+import 'package:restaurant_management/view/widgets/bottom_nav/bottom_nav.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 import 'package:restaurant_management/view/widgets/text_field.dart';
@@ -57,13 +58,17 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Column(
             children: [
-              const CustomTextField(
-                fieldBorderColor: Colors.transparent,
-                focusBorderColor: Colors.transparent,
-                fillColor: Color(0xffE6E7E9),
-                hintText: "Search",
-                isPrefixIcon: true,
-                icon: Icon(Icons.search,color: AppColors.blackLightActive,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const CustomTextField(
+
+                  fieldBorderColor: Colors.transparent,
+                  focusBorderColor: Colors.transparent,
+                  fillColor: Color(0xffE6E7E9),
+                  hintText: "Search",
+                  isPrefixIcon: true,
+                  icon: Icon(Icons.search,color: AppColors.blackLightActive,),
+                ),
               ),
               /// =================== top banner ======================
               SizedBox(
@@ -386,7 +391,8 @@ class _HomeScreenState extends State<HomeScreen> {
            )
 
         ],
-      )
+      ),
+        bottomNavigationBar: const CustomBottomNavBar(currentIndex: 0),
     );
   }
 }

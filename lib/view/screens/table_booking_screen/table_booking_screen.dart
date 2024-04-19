@@ -53,7 +53,6 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
         centerTitle: true,
         title:const FittedBox(child: CustomText(text: "Sea Grill North Miami Beach",color: AppColors.blackNormal,fontSize: 24,fontWeight: FontWeight.w600,)),
       ),
-
       body:  GetBuilder<TableBookController>(
         builder: (controller) {
           return SingleChildScrollView(

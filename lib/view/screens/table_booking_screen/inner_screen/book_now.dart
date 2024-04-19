@@ -40,27 +40,27 @@ class BookNow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 20),
         child: Column(
           children: [
-            Row(
+            const Row(
               children: [
                 Icon(Icons.calendar_month_rounded,size: 18,),
                 CustomText(text: "Date and time from backend",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
               ],
             ),
-            SizedBox(height: 12,),
-            Row(
+            const SizedBox(height: 12,),
+            const Row(
               children: [
                 Icon(Icons.group,size: 18,),
                 CustomText(text: "2 Guests",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
               ],
             ),
-            SizedBox(height: 12,),
-            Row(
+            const SizedBox(height: 12,),
+            const Row(
               children: [
                 Icon(Icons.table_restaurant_outlined,size: 18,),
                 CustomText(text: "Indoor",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
               ],
             ),
-            SizedBox(height: 32,),
+            const SizedBox(height: 32,),
             CustomElevatedButton(onPressed: (){
               alertDialog(context);
             }, titleText: "Book Now",buttonHeight: 40,buttonWidth: Get.width/1.2,)
@@ -87,27 +87,27 @@ class BookNow extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             const Center(child: CustomText(text: "Table Booked Successfully",textAlign: TextAlign.center,fontWeight: FontWeight.w700,fontSize: 16,)),
-            Positioned(
-                top: -16,
-                right: -16,
-                child: GestureDetector(
-                    onTap: (){
-                     Get.back();
-                    },
-                    child: Container(
-                      alignment: AlignmentDirectional.center,
-                      height: 32,
-                      width: 32,
-                      decoration:  BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: AppColors.blackNormal)
-                      ),
-                      child:IconButton(onPressed: (){
-                        Navigator.pop(context);
-                        },
-                          icon:  const Icon(Icons.close,color: AppColors.blackNormal,size: 16,)
-                      ),)
-                ))
+            // Positioned(
+            //     top: -16,
+            //     right: -16,
+            //     child: GestureDetector(
+            //         onTap: (){
+            //          Get.back();
+            //         },
+            //         child: Container(
+            //           alignment: AlignmentDirectional.center,
+            //           height: 32,
+            //           width: 32,
+            //           decoration:  BoxDecoration(
+            //               shape: BoxShape.circle,
+            //               border: Border.all(color: AppColors.blackNormal)
+            //           ),
+            //           child:IconButton(onPressed: (){
+            //             Navigator.pop(context);
+            //             },
+            //               icon:  const Icon(Icons.close,color: AppColors.blackNormal,size: 16,)
+            //           ),)
+            //     ))
           ],
         ),
         actions: [
