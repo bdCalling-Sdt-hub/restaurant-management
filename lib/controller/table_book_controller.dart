@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +11,7 @@ class TableBookController extends GetxController{
   /// ====================== Date picker====================/
   DateTime? startDate;
   TimeOfDay? selectedTime;
-
+String  selectPerson = "";
   TextEditingController validationController = TextEditingController();
   TextEditingController timePickController = TextEditingController();
 
@@ -43,6 +45,16 @@ class TableBookController extends GetxController{
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
+      builder: (context, child) => Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: Colors.green, // Change primary color as needed
+            onPrimary: Colors.white, // Change text color as needed
+            onSurface: Colors.black, // Change text color as needed
+          ),
+        ),
+        child: child!,
+      ),
     );
 
     if (pickedTime != null && pickedTime != selectedTime) {

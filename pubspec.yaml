@@ -41,6 +41,8 @@ dependencies:
   google_fonts: ^6.2.1
   pin_code_fields: ^8.0.1
   image_picker: ^1.0.7
+  carousel_slider:
+  dots_indicator:
 dev_dependencies:
   flutter_test:
     sdk: flutter
