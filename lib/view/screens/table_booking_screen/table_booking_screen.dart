@@ -155,8 +155,6 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                   ],
                 ),
 
-
-
                 ///==========================================price------------------------------->
               const SizedBox(height: 12,),
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
+import 'package:restaurant_management/view/screens/book_table_all/book_table_all_screen.dart';
 import 'package:restaurant_management/view/screens/table_booking_screen/table_booking_screen.dart';
 import 'package:restaurant_management/view/widgets/bottom_nav/bottom_nav.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
@@ -58,10 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const CustomTextField(
-
+             /* const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CustomTextField(
                   fieldBorderColor: Colors.transparent,
                   focusBorderColor: Colors.transparent,
                   fillColor: Color(0xffE6E7E9),
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   isPrefixIcon: true,
                   icon: Icon(Icons.search,color: AppColors.blackLightActive,),
                 ),
-              ),
+              ),*/
               /// =================== top banner ======================
               SizedBox(
                 height: 200,
@@ -187,6 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                        ),
                        GestureDetector(
                            onTap: () {
+                             Get.to(BookTableAll(title: 'Book e table',));
                            },
                            child: const Row(
                              children: [
@@ -284,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                        ),
                        GestureDetector(
                            onTap: () {
+                             Get.to(const BookTableAll(title: 'Explore Restaurant',));
                            },
                            child: const Row(
                              children: [
