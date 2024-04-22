@@ -101,7 +101,7 @@ class VerifyCodeScreen extends StatelessWidget {
                       if(formKey.currentState!.validate()){
 
                         controller.verifyOtp();
-                        if(controller.)
+
                       }
 
                   //  Get.to(const ResetPassword());

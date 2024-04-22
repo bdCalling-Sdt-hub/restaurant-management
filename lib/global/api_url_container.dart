@@ -8,5 +8,7 @@ class ApiUrl {
   static const signUp = "$baseUrl/users/create-user";
   static const otpVerify = "$baseUrl/otp/verify-otp";
   static const resendOtp = "$baseUrl/otp/resend-otp";
+  static const signIn = "$baseUrl/auth/login";
+  static const forgotPass = "$baseUrl/auth/forgot-password";
 
 }

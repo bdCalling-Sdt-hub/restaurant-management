@@ -15,7 +15,8 @@ class ApiService {
   static Future<ApiResponseModel> postApi(String url, body, {Map<String, String> ? header}) async {
     dynamic responseJson;
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.token,
+      'Authorization': PrefsHelper.accessToken,
+      'Content-Type': 'application/json'
 
     };
     print("==================================================> url $url");
@@ -45,7 +46,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.token,
+      'Authorization': PrefsHelper.accessToken,
+      'Content-Type': 'application/json'
     };
 
     print("==================================================> url $url");
@@ -70,7 +72,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.token,
+      'Authorization': PrefsHelper.accessToken,
+      'Content-Type': 'application/json'
     };
 
     try {
@@ -94,7 +97,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.token,
+      'Authorization': PrefsHelper.accessToken,
+      'Content-Type': 'application/json'
     };
 
     try {
@@ -123,7 +127,8 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.token,
+      'Authorization': PrefsHelper.accessToken,
+      'Content-Type': 'application/json'
     };
 
     try {
@@ -173,7 +178,8 @@ class ApiService {
       }
 
       Map<String, String> mainHeader = {
-        'Authorization': PrefsHelper.token,
+        'Authorization': PrefsHelper.accessToken,
+        'Content-Type': 'application/json'
        // 'Accept-Language': PrefsHelper.localizationLanguageCode
       };
 

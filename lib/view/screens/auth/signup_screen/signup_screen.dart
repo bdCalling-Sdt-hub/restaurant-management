@@ -72,6 +72,7 @@ class SignupScreen extends StatelessWidget {
                    CustomTextField(
                     hintText: "Email",
                      textEditingController: controller.emailController,
+                     keyboardType: TextInputType.emailAddress,
                      validator: (value) {
                        if (value!.isEmpty) {
                          return "This field is required";
@@ -122,6 +123,7 @@ class SignupScreen extends StatelessWidget {
                     hintText: "Confirm password",
                     isPassword: true,
                     textEditingController: controller.confirmPasswordController,
+
                     validator: (value){
                       if(value.isEmpty){
                         return "Please enter your confirm password";

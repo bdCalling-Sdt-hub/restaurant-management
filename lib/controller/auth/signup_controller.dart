@@ -25,6 +25,7 @@ class SignupController extends GetxController{
   final formKey = GlobalKey<FormState>();
   String  otpToken = "";
  bool isLoading = false;
+ bool isVerifyOtp = false;
   ///-----------------------OtpVerify------------------------>
  Future<void> signUpRepo() async {
     isLoading = true;

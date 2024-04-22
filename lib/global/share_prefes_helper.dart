@@ -3,7 +3,7 @@ import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsHelper extends GetxController {
-  static String token = "";
+  static String accessToken = "";
   static String otpToken = "";
   static String email = "";
   static bool isLogin = false;
@@ -15,7 +15,7 @@ class PrefsHelper extends GetxController {
 
   static Future<void> getAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    token = preferences.getString("token") ?? "";
+    accessToken = preferences.getString("accessToken") ?? "";
     otpToken = preferences.getString("token") ?? "";
     email = preferences.getString("email") ?? "";
     refreshToken = preferences.getString("refreshToken") ?? "";
@@ -65,7 +65,7 @@ class PrefsHelper extends GetxController {
       pref.setString("refreshToken", "");
       pref.setString("token", "");
 
-      token = "";
+      accessToken = "";
       isLogin = false;
       refreshToken = "";
       Get.offAllNamed(AppRoute.signin);
