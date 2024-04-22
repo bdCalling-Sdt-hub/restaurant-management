@@ -12,13 +12,12 @@ class ApiService {
   static const int timeOut = 30;
   ///<<<======================== Post Request  ==============================>>>
 
-  static Future<ApiResponseModel> postApi(String url, body, {Map<String, String>? header}) async {
+  static Future<ApiResponseModel> postApi(String url, body, {Map<String, String> ? header}) async {
     dynamic responseJson;
-
     Map<String, String> mainHeader = {
       'Authorization': PrefsHelper.token,
-    };
 
+    };
     print("==================================================> url $url");
     print("==================================================> body $body");
     print("==================================================> mainHeader $mainHeader");
@@ -175,7 +174,7 @@ class ApiService {
 
       Map<String, String> mainHeader = {
         'Authorization': PrefsHelper.token,
-        'Accept-Language': PrefsHelper.localizationLanguageCode
+       // 'Accept-Language': PrefsHelper.localizationLanguageCode
       };
 
       Map<String, String> headers = header ?? mainHeader;

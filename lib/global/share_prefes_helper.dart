@@ -4,22 +4,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsHelper extends GetxController {
   static String token = "";
+  static String otpToken = "";
+  static String email = "";
   static bool isLogin = false;
-  static bool bankInfo = false;
-  static String role = "";
+
   static String refreshToken = "";
-  static String localizationLanguageCode = "";
-  static String userId = "";
-  static String name = "";
-  static String categoryId = "";
-  static String shopId = "";
-  static String isDelivered = "no";
+
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
   static Future<void> getAllPrefData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     token = preferences.getString("token") ?? "";
+    otpToken = preferences.getString("token") ?? "";
+    email = preferences.getString("email") ?? "";
     refreshToken = preferences.getString("refreshToken") ?? "";
 
   }
@@ -64,23 +62,12 @@ class PrefsHelper extends GetxController {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.clear();
-      pref.setString("userId", "");
       pref.setString("refreshToken", "");
       pref.setString("token", "");
-      pref.setString("shopId", "");
-      pref.setString("isDelivered", "no");
 
       token = "";
       isLogin = false;
-      role = "";
       refreshToken = "";
-      localizationLanguageCode = "";
-      userId = "";
-      name = "";
-      categoryId = "";
-      shopId = "";
-      isDelivered = "no";
-
       Get.offAllNamed(AppRoute.signin);
     } catch (e) {
       print(e.toString());

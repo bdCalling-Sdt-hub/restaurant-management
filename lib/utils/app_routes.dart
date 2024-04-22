@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:restaurant_management/view/screens/auth/signin_screen/signin_screen.dart';
 import 'package:restaurant_management/view/screens/auth/signup_screen/signup_screen.dart';
+import 'package:restaurant_management/view/screens/auth/verify_code_screen/verify_code.dart';
 import 'package:restaurant_management/view/screens/cart_screen/cart_screen.dart';
 import 'package:restaurant_management/view/screens/home_screen/home_screen.dart';
 import 'package:restaurant_management/view/screens/menu/menu_screen.dart';
@@ -28,6 +29,7 @@ class AppRoute{
   static const String welcome = "/welcome_screen";
   static const String signup = "/signup_screen";
   static const String signin = "/signin_screen";
+  static const String otpVerify = "/otpVerify_screen";
 
   static List<GetPage> routes = [
     GetPage(name: aboutUsScreen, page: () => const AboutUsScreen()),
@@ -41,8 +43,9 @@ class AppRoute{
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
     GetPage(name: welcome, page: () => const WelcomeScreen()),
-    GetPage(name: signup, page: () => const SignupScreen()),
+    GetPage(name: signup, page: () =>  SignupScreen()),
     GetPage(name: signin, page: () => const SigninScreen()),
+    GetPage(name: otpVerify, page: () =>  VerifyCodeScreen()),
 
   ];
 

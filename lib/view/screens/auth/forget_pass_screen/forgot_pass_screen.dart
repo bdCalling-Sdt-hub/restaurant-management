@@ -53,7 +53,7 @@ class ForgotPassScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24,),
               CustomElevatedButton(onPressed: (){
-                Get.to(const VerifyCodeScreen());
+                Get.to( VerifyCodeScreen());
               }, titleText: "Next",titleSize: 20,titleWeight: FontWeight.w700,),
             ],
           ),
