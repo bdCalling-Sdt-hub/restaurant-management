@@ -16,8 +16,8 @@ import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
 
 class SignupScreen extends StatelessWidget {
-   SignupScreen({super.key});
-  SignupController controller =  Get.put(SignupController());
+   const SignupScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

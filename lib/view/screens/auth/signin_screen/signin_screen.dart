@@ -16,11 +16,10 @@ class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(SignInController());
+    // Get.put(SignInController());
     return GetBuilder<SignInController>(
       builder: (controller) {
         return Scaffold(
-
           body: Form(
             key: controller.formKey,
             child: SingleChildScrollView(

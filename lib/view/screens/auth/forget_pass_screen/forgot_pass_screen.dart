@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/auth/forgot_password_controller.dart';
-import 'package:restaurant_management/global/share_prefes_helper.dart';
-import 'package:restaurant_management/view/screens/auth/verify_code_screen/verify_code.dart';
+
 import 'package:restaurant_management/view/widgets/custom_loading.dart';
 import '../../../../utils/app_colors.dart';
-import '../../../../utils/app_routes.dart';
+
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/elevated_button.dart';
 import '../../../widgets/text_field.dart';

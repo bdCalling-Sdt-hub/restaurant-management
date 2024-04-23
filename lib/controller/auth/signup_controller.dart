@@ -66,7 +66,7 @@ class SignupController extends GetxController{
       PrefsHelper.email = jsonDecode(response.responseJson)['data']['user']['email'];
 
       print(response.responseJson);
-      Get.offAllNamed(AppRoute.otpVerify);
+      Get.toNamed(AppRoute.otpVerify);
     } else {
      // Utils.toastMessage(response.message);
       print(response.statusCode);
