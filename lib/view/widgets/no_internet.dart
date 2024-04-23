@@ -1,0 +1,59 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../utils/app_colors.dart';
+import 'custom_text.dart';
+import 'elevated_button.dart';
+
+class NoInternet extends StatelessWidget {
+  const NoInternet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "No Internet".tr,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Center(
+                child: Icon(
+                  Icons.wifi_off,
+                  size: 100,
+                )),
+            CustomText(
+              text: "No Internet".tr,
+              fontSize: 18,
+              top: 16,
+            ),
+            CustomText(
+              text: "check Internet".tr,
+              top: 8,
+              bottom: 20,
+            ),
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                  decoration: BoxDecoration(
+                      color: AppColors.blackNormal,
+                      borderRadius: BorderRadius.circular(4)),
+                  child: CustomText(
+                    text: "back".tr,
+                    color: AppColors.whiteColor,
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

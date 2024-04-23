@@ -10,5 +10,6 @@ class ApiUrl {
   static const resendOtp = "$baseUrl/otp/resend-otp";
   static const signIn = "$baseUrl/auth/login";
   static const forgotPass = "$baseUrl/auth/forgot-password";
+  static const resetPAss = "$baseUrl/auth/reset-password";
 
 }

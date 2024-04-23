@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PrefsHelper extends GetxController {
   static String accessToken = "";
   static String otpToken = "";
+  static String forgotToken = "";
   static String email = "";
   static bool isLogin = false;
 
@@ -17,6 +18,7 @@ class PrefsHelper extends GetxController {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     accessToken = preferences.getString("accessToken") ?? "";
     otpToken = preferences.getString("token") ?? "";
+    forgotToken = preferences.getString("forgotToken") ?? "";
     email = preferences.getString("email") ?? "";
     refreshToken = preferences.getString("refreshToken") ?? "";
 

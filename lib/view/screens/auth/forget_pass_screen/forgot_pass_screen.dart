@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:restaurant_management/controller/auth/forgot_password_controller.dart';
 import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/view/screens/auth/verify_code_screen/verify_code.dart';
+import 'package:restaurant_management/view/widgets/custom_loading.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_routes.dart';
 import '../../../widgets/custom_text.dart';
@@ -67,9 +68,10 @@ class ForgotPassScreen extends StatelessWidget {
                        } ,
                     ),
                     const SizedBox(height: 24,),
-                    CustomElevatedButton(onPressed: (){
+                   controller.isLoading?const CustomElevatedLoadingButton(): CustomElevatedButton(onPressed: (){
                       if(controller.formKey.currentState!.validate()){
                         controller.forgotPassRepo();
+
                         // Get.toNamed(AppRoute.otpVerify);
                       }
 

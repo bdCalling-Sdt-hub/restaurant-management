@@ -13,6 +13,8 @@ class SignInController extends GetxController{
   TextEditingController emailController =  TextEditingController();
   TextEditingController passwordController =  TextEditingController();
   final formKey = GlobalKey<FormState>();
+  RegExp emailRegexp = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   bool isLoading = false;
   Future<void> signInRepo()async {
 

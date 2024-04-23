@@ -7,6 +7,7 @@ import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 import '../global/api_response_model.dart';
 import '../global/share_prefes_helper.dart';
+import '../utils/app_routes.dart';
 
 class ApiService {
   static const int timeOut = 30;
@@ -28,7 +29,7 @@ class ApiService {
       responseJson = handleResponse(response);
       print(response.body);
     } on SocketException {
-      //Get.toNamed(AppRoute.noInternet);
+      Get.toNamed(AppRoute.noInternet);
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
@@ -56,7 +57,7 @@ class ApiService {
       final response = await http.get(Uri.parse(url), headers: header ?? mainHeader).timeout(const Duration(seconds: timeOut));
       responseJson = handleResponse(response);
     } on SocketException {
-      //Get.toNamed(AppRoute.noInternet);
+      Get.toNamed(AppRoute.noInternet);
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
@@ -80,7 +81,7 @@ class ApiService {
       final response = await http.put(Uri.parse(url), body: body, headers: header ?? mainHeader).timeout(const Duration(seconds: timeOut));
       responseJson = handleResponse(response);
     } on SocketException {
-   //   Get.toNamed(AppRoute.noInternet);
+      Get.toNamed(AppRoute.noInternet);
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
@@ -110,8 +111,8 @@ class ApiService {
         responseJson = handleResponse(response);
       }
     } on SocketException {
-     // Get.toNamed(AppRoute.noInternet);
-      return ApiResponseModel(503, "No internet connection".tr, '');
+     Get.toNamed(AppRoute.noInternet);
+      return ApiResponseModel(500, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');
     } on TimeoutException {

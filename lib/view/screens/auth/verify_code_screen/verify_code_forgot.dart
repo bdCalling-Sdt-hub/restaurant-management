@@ -4,18 +4,18 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:restaurant_management/controller/auth/forgot_password_controller.dart';
 import 'package:restaurant_management/controller/auth/signup_controller.dart';
 import 'package:restaurant_management/view/screens/auth/reset_password_scree/reset_password_screen.dart';
-import 'package:restaurant_management/view/widgets/custom_loading.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
 import '../../../widgets/elevated_button.dart';
-class VerifyCodeScreen extends StatelessWidget {
-   VerifyCodeScreen({super.key});
+class VerifyCodeForgot extends StatelessWidget {
+   VerifyCodeForgot({super.key});
   final formKey =  GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Get.put(SignupController());
+    Get.put(ForgotPasswordController());
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -39,7 +39,7 @@ class VerifyCodeScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: GetBuilder<SignupController>(
+      body: GetBuilder<ForgotPasswordController>(
         builder: (controller) {
           return SingleChildScrollView(
             padding: const EdgeInsetsDirectional.symmetric(horizontal: 20,vertical: 24),
@@ -94,11 +94,11 @@ class VerifyCodeScreen extends StatelessWidget {
                       onPressed: (){
                         controller.resendOtp();
                       },
-                      child: controller.isLoading?const CircularProgressIndicator(color: AppColors.greenNormal,): const CustomText(text: "Resend Code?",  color: Color(0xFFB0B0B0),
+                      child: const CustomText(text: "Resend Code?",  color: Color(0xFFB0B0B0),
                         ),
                     ),
                     const SizedBox(height: 12,),
-                  controller.isLoading?const CustomElevatedLoadingButton() : CustomElevatedButton(onPressed: (){
+                    CustomElevatedButton(onPressed: (){
                       if(formKey.currentState!.validate()){
 
                         controller.verifyOtp();

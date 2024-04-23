@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/utils/app_utils.dart';
+import 'package:restaurant_management/view/screens/auth/reset_password_scree/reset_password_screen.dart';
 import '../../global/api_url_container.dart';
 import '../../global/share_prefes_helper.dart';
 import '../../service/api_service.dart';
@@ -25,7 +27,7 @@ class SignupController extends GetxController{
   final formKey = GlobalKey<FormState>();
   String  otpToken = "";
  bool isLoading = false;
- bool isVerifyOtp = false;
+
   ///-----------------------OtpVerify------------------------>
  Future<void> signUpRepo() async {
     isLoading = true;
@@ -75,16 +77,22 @@ class SignupController extends GetxController{
   }
 ///-----------------------OtpVerify------------------------>
  Future<void> verifyOtp() async{
-
+   isLoading = true;
+   update();
    Map<String,String> body ={
      "otp" : otpController.text
    };
 
-   Map<String,String> header ={
+   Map<String,String> header = {
      "token" : PrefsHelper.otpToken,
      'Content-Type': 'application/json'
    };
+
+
+
    print("=========Header>>>>>>>> $header");
+
+
    var encodedBody = jsonEncode(body);
    var response = await ApiService.postApi(ApiUrl.otpVerify, encodedBody,header: header);
 
@@ -99,25 +107,50 @@ class SignupController extends GetxController{
 
 
    if(response.statusCode==200){
-     Get.toNamed(AppRoute.signin);
+     Get.to( ResetPassword());
+     otpController.clear();
+     Utils.toastMessage(response.message);
    }
-
+   else{
+     otpController.clear();
+     Utils.toastMessage(response.message);
+   }
+   isLoading = false;
+   update();
   }
 
 
 ///-----------------------resent otp------------------------>
 
 Future<void> resendOtp() async{
-   Map<String,String> header = {
-     'Content-Type': 'application/json'
-   };
+  isLoading = true;
+  update();
+  Map<String,String> header = {
+    "token" : PrefsHelper.otpToken,
+    'Content-Type': 'application/json'
+  };
+
+
+
+  print("=========Header>>>>>>>> $header");
+
 
    Map<String,String> body = {
      "email" : PrefsHelper.email
    };
 
-var encodedBody =  jsonEncode(body);
-   var response  = await ApiService.postApi(ApiUrl.resendOtp,encodedBody,header: header);
+   var encodedBody =  jsonEncode(body);
+
+
+   var response  = await ApiService.postApi(ApiUrl.resendOtp, encodedBody,header: header);
+   if(response.statusCode==200){
+     otpController.clear();
+     Utils.toastMessage(response.message);
+   }else{
+     otpController.clear();
+     Utils.toastMessage(response.message);
+   }
+
    if (kDebugMode) {
      print("=====================================>response $encodedBody");
      print("=====================================>response $header");
@@ -125,6 +158,10 @@ var encodedBody =  jsonEncode(body);
    if (kDebugMode) {
      print(response.responseJson);
    }
+  isLoading = false;
+  update();
 }
+
+
 
 }

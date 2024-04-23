@@ -20,28 +20,7 @@ class SigninScreen extends StatelessWidget {
     return GetBuilder<SignInController>(
       builder: (controller) {
         return Scaffold(
-         /* appBar: AppBar(
-            toolbarHeight: 80,
-            leading: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 16),
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black,
-                      ),
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      )),
-                ),
-              ],
-            ),
-          ),*/
+
           body: Form(
             key: controller.formKey,
             child: SingleChildScrollView(
@@ -56,17 +35,23 @@ class SigninScreen extends StatelessWidget {
                     hintText: "Email",
                     textEditingController: controller.emailController,
                      keyboardType: TextInputType.emailAddress,
-                     validator: (v){
-                       if(v.isEmpty){
-                         return "Please your password";
+                       validator: (value) {
+                         if (value!.isEmpty) {
+                           return "This field is required";
+                         } else if (!controller.emailRegexp
+                             .hasMatch(controller.emailController.text)) {
+                           return 'Enter valid email';
+                         }else {
+                           return null;
+                         }
                        }
-                     },
                   ),
                   const SizedBox(height: 16,),
                   /// ======================password===========================///
                    CustomTextField(
                     hintText: "Password",
                      textEditingController: controller.passwordController,
+                     isPassword: true,
                      validator: (v){
                       if(v.isEmpty){
                         return "Please your password";
