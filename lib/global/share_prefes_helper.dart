@@ -3,14 +3,14 @@ import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsHelper extends GetxController {
+
   static String accessToken = "";
   static String otpToken = "";
   static String forgotToken = "";
+  static String forgotMail = "";
   static String email = "";
   static bool isLogin = false;
-
   static String refreshToken = "";
-
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -21,6 +21,9 @@ class PrefsHelper extends GetxController {
     forgotToken = preferences.getString("forgotToken") ?? "";
     email = preferences.getString("email") ?? "";
     refreshToken = preferences.getString("refreshToken") ?? "";
+    forgotMail =  preferences.getString("forgotEmail") ?? "";
+
+    print("==================> Save Access token $accessToken");
 
   }
 

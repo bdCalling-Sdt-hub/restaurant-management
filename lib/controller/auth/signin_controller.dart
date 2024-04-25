@@ -10,8 +10,8 @@ import 'package:restaurant_management/utils/app_utils.dart';
 import '../../global/share_prefes_helper.dart';
 
 class SignInController extends GetxController{
-  TextEditingController emailController =  TextEditingController();
-  TextEditingController passwordController =  TextEditingController();
+  TextEditingController emailController =  TextEditingController(text: kDebugMode?"xakep40186@togito.com" : "");
+  TextEditingController passwordController =  TextEditingController(text: kDebugMode?"111222" : "");
   final formKey = GlobalKey<FormState>();
   RegExp emailRegexp = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -31,11 +31,19 @@ class SignInController extends GetxController{
       if(response.statusCode == 200){
         Get.offAndToNamed(AppRoute.homeScreen);
         Utils.toastMessage(response.message);
+
       ///-----------------------Save data in sharePrefs ----------------------->>
         PrefsHelper.setString("accessToken", jsonDecode(response.responseJson)['data']['accessToken']);
         PrefsHelper.setString("refreshToken", jsonDecode(response.responseJson)['data']['refreshToken']);
+
         PrefsHelper.accessToken = jsonDecode(response.responseJson)['data']['accessToken'];
         PrefsHelper.refreshToken = jsonDecode(response.responseJson)['data']['refreshToken'];
+
+        if (kDebugMode) {
+          print("=============Token    >>>>>>>>>>> ${jsonDecode(response.responseJson)['data']['accessToken']}");
+        }
+
+
         
       }
       else{

@@ -11,12 +11,14 @@ import '../utils/app_routes.dart';
 
 class ApiService {
   static const int timeOut = 30;
+
+ static String tokenType = "Bearer";
   ///<<<======================== Post Request  ==============================>>>
 
   static Future<ApiResponseModel> postApi(String url, body, {Map<String, String> ? header}) async {
     dynamic responseJson;
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.accessToken,
+      'Authorization':"$tokenType ${PrefsHelper.accessToken}",
       'Content-Type': 'application/json'
 
     };
@@ -47,9 +49,11 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.accessToken,
+      'Authorization':"$tokenType ${PrefsHelper.accessToken}",
       'Content-Type': 'application/json'
     };
+
+    print("======================Mainheade$mainHeader");
 
     print("==================================================> url $url");
 
@@ -73,7 +77,7 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.accessToken,
+      'Authorization':"$tokenType ${PrefsHelper.accessToken}",
       'Content-Type': 'application/json'
     };
 
@@ -98,7 +102,7 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.accessToken,
+      'Authorization':"$tokenType ${PrefsHelper.accessToken}",
       'Content-Type': 'application/json'
     };
 
@@ -128,7 +132,7 @@ class ApiService {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
-      'Authorization': PrefsHelper.accessToken,
+      'Authorization':"$tokenType ${PrefsHelper.accessToken}",
       'Content-Type': 'application/json'
     };
 
@@ -145,7 +149,7 @@ class ApiService {
 
       ;
     } on SocketException {
-  //    Get.toNamed(AppRoute.noInternet);
+  Get.toNamed(AppRoute.noInternet);
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad response request".tr, '');
@@ -179,7 +183,7 @@ class ApiService {
       }
 
       Map<String, String> mainHeader = {
-        'Authorization': PrefsHelper.accessToken,
+        'Authorization':"$tokenType ${PrefsHelper.accessToken}",
         'Content-Type': 'application/json'
        // 'Accept-Language': PrefsHelper.localizationLanguageCode
       };
@@ -201,7 +205,7 @@ class ApiService {
             response.statusCode, jsonDecode(data)['message'], data);
       }
     } on SocketException {
-      //Get.toNamed(AppRoute.noInternet);
+      Get.toNamed(AppRoute.noInternet);
       return ApiResponseModel(503, "No internet connection".tr, '');
     } on FormatException {
       return ApiResponseModel(400, "Bad Response Request".tr, '');

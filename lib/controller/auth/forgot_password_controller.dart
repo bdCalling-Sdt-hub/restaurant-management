@@ -17,9 +17,10 @@ class ForgotPasswordController extends GetxController{
   TextEditingController otpController =  TextEditingController();
   TextEditingController newPassController =  TextEditingController();
   TextEditingController confirmPassController =  TextEditingController();
-  final formKey = GlobalKey<FormState>();
-bool isForgot = false;
- bool isLoading = false;
+
+   final formKey = GlobalKey<FormState>();
+   bool isForgot = false;
+   bool isLoading = false;
 
 
 ///-------------forgot password------------------>
@@ -42,9 +43,11 @@ bool isForgot = false;
       Get.to(VerifyCodeForgot());
 
       PrefsHelper.setString("forgotToken", jsonDecode(response.responseJson)['data']['token']);
+      PrefsHelper.setString("forgotEmail", jsonDecode(response.responseJson)['data']['email']);
+      PrefsHelper.forgotMail = jsonDecode(response.responseJson)['data']['email'];
       PrefsHelper.forgotToken = jsonDecode(response.responseJson)['data']['token'];
 
-      emailController.clear();
+      //emailController.clear();
 
       if (kDebugMode) {
         print(jsonDecode(response.responseJson)['data']['token']);
@@ -53,7 +56,7 @@ bool isForgot = false;
     }
     else{
       Utils.toastMessage(response.message);
-      emailController.clear();
+     // emailController.clear();
     }
     isLoading = false;
     update();
@@ -109,7 +112,7 @@ bool isForgot = false;
     isLoading = true;
     update();
     Map<String,String> body = {
-      "email" : emailController.text
+      "email" :  emailController.text
     };
 
     var encodedBody =  jsonEncode(body);
@@ -154,7 +157,7 @@ bool isForgot = false;
     }
 
     if(response.statusCode==200){
-      Get.offAndToNamed(AppRoute.signin);
+      Get.offAllNamed(AppRoute.signin);
       Utils.toastMessage(response.message);
       clearData();
     }
@@ -169,6 +172,8 @@ bool isForgot = false;
   clearData(){
     newPassController.clear();
     confirmPassController.clear();
+    emailController.clear();
+    otpController.clear();
   }
 
 }

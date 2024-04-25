@@ -107,7 +107,7 @@ class SignupController extends GetxController{
 
 
    if(response.statusCode==200){
-     Get.to( ResetPassword());
+     Get.offAndToNamed(AppRoute.signin);
      otpController.clear();
      Utils.toastMessage(response.message);
    }
