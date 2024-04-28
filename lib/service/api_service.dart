@@ -178,7 +178,7 @@ class ApiService {
 
       if (imagePath != null) {
         var mimeType = lookupMimeType(imagePath.path);
-        var img = await http.MultipartFile.fromPath(imageFieldName, imagePath.path, contentType: MediaType.parse(mimeType!));
+        var img = await http.MultipartFile.fromPath("file", imagePath.path, contentType: MediaType.parse(mimeType!));
         request.files.add(img);
       }
 

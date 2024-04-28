@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/controller/profile_controller/personal_info_controller.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/screens/edit_personal_info/edit_personal_info.dart';
 
+import '../../../../controller/profile_controller/edit_personal_info_controller.dart';
+import '../../../../global/api_url_container.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
 
@@ -44,252 +48,278 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(PersonalInfoController());
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
-              width: Get.width,
-              decoration: const BoxDecoration(
-                  color: AppColors.greenNormal,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  )),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Row(
+      body: GetBuilder<PersonalInfoController>(
+        builder: (controller) {
+          return Column(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  width: Get.width,
+                  decoration: const BoxDecoration(
+                      color: AppColors.greenNormal,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      )),
+                  child: Column(
                     children: [
-                      IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: AppColors.whiteColor,
-                          )),
-                      const CustomText(
-                        text: "Personal Information",
-                        color: AppColors.whiteColor,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
+                      const SizedBox(
+                        height: 40,
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Container(
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back,
+                                color: AppColors.whiteColor,
+                              )),
+                          const CustomText(
+                            text: "Personal Information",
+                            color: AppColors.whiteColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                  controller.model.data?.image==null || controller.image.isEmpty ? Container(
                     height: 100,
                     width: 100,
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/images/profile_image.png"))
+                    ),
+                  ) : Container(
+                    height: 100,
+                    width: 100,
+                    decoration:  BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
                             fit: BoxFit.fill,
-                            image: NetworkImage(
-                                "https://plus.unsplash.com/premium_photo-1713184149461-67ad584d82e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8fA%3D%3D"))),
+                            image: NetworkImage("${controller.image}")
+                          //  image: NetworkImage("${ApiUrl.baseUrl}${controller.model.data?.image}")
+
+                        )
+                    ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const CustomText(
-                    text: "Kabir",
-                    color: AppColors.whiteColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      Get.to(const EditPersonalInfo());
-                    },
-                    child: Container(
-                      padding: const EdgeInsetsDirectional.symmetric(
-                          vertical: 8, horizontal: 12),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: AppColors.whiteColor),
-                      child: const CustomText(
-                        text: "Edit Profile",
-                        color: AppColors.greenNormal,
-                        fontWeight: FontWeight.w600,
+                      const SizedBox(
+                        height: 24,
                       ),
-                    ),
+                       CustomText(
+                        text: controller.model.data?.fullName??"",
+                        color: AppColors.whiteColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      GestureDetector(
+                        onTap: (){
+
+                          EditPersonalInfoController editPersonalInfoController = Get.put(EditPersonalInfoController());
+
+                          editPersonalInfoController.nameController.text = controller.model.data?.fullName.toString() ?? "";
+                          editPersonalInfoController.numberController.text = controller.model.data?.phoneNumber.toString() ?? "";
+
+                          editPersonalInfoController.profileImage = controller.image;
+
+
+                          Get.toNamed(AppRoute.editProfile);
+                        },
+                        child: Container(
+                          padding: const EdgeInsetsDirectional.symmetric(
+                              vertical: 8, horizontal: 12),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: AppColors.whiteColor),
+                          child: const CustomText(
+                            text: "Edit Profile",
+                            color: AppColors.greenNormal,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              width: Get.width,
-              decoration: const BoxDecoration(color: AppColors.whiteColor),
-              child: const Column(
-                children: [
-                  ///=====================Name ========================>
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                    child: Column(
-                      children: [
-                        Row(
+              Expanded(
+                flex: 4,
+                child: Container(
+                  width: Get.width,
+                  decoration: const BoxDecoration(color: AppColors.whiteColor),
+                  child:  Column(
+                    children: [
+                      ///=====================Name ========================>
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Column(
                           children: [
-                            Icon(
-                              Icons.person_outline_rounded,
-                              color: Colors.black,
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.person_outline_rounded,
+                                  color: Colors.black,
+                                ),
+                                CustomText(
+                                  text: controller.model.data?.fullName??"",
+                                  color: Color(0xff333333),
+                                  left: 20,
+                                )
+                              ],
                             ),
-                            CustomText(
-                              text: "Name",
-                              color: Color(0xff333333),
-                              left: 20,
+                            const Divider(
+                              color: AppColors.greenLightActive,
                             )
                           ],
                         ),
-                        Divider(
-                          color: AppColors.greenLightActive,
-                        )
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  ///=====================DOB ========================>
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                    child: Column(
-                      children: [
-                        Row(
+                  /*    ///=====================DOB ========================>
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Column(
                           children: [
-                            Icon(
-                              Icons.cake_outlined,
-                              color: Colors.black,
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.cake_outlined,
+                                  color: Colors.black,
+                                ),
+                                CustomText(
+                                  text: controller.model.data??"",
+                                  color: Color(0xff333333),
+                                  left: 20,
+                                )
+                              ],
                             ),
-                            CustomText(
-                              text: "12-03-1999",
-                              color: Color(0xff333333),
-                              left: 20,
+                            Divider(
+                              color: AppColors.greenLightActive,
                             )
                           ],
                         ),
-                        Divider(
-                          color: AppColors.greenLightActive,
-                        )
-                      ],
-                    ),
-                  ),
+                      ),*/
 
-                  ///=====================Gender ========================>
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                    child: Column(
-                      children: [
-                        Row(
+                    /*  ///=====================Gender ========================>
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Column(
                           children: [
-                            Icon(
-                              Icons.male_outlined,
-                              color: Colors.black,
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.male_outlined,
+                                  color: Colors.black,
+                                ),
+                                CustomText(
+                                  text: "Male",
+                                  color: Color(0xff333333),
+                                  left: 20,
+                                )
+                              ],
                             ),
-                            CustomText(
-                              text: "Male",
-                              color: Color(0xff333333),
-                              left: 20,
+                            Divider(
+                              color: AppColors.greenLightActive,
                             )
                           ],
                         ),
-                        Divider(
-                          color: AppColors.greenLightActive,
-                        )
-                      ],
-                    ),
-                  ),
+                      ),*/
 
-                  ///=====================phone number ========================>
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                    child: Column(
-                      children: [
-                        Row(
+                      ///=====================phone number ========================>
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Column(
                           children: [
-                            Icon(
-                              Icons.call,
-                              color: Colors.black,
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.call,
+                                  color: Colors.black,
+                                ),
+                                CustomText(
+                                  text: controller.model.data?.phoneNumber??"",
+                                  color: Color(0xff333333),
+                                  left: 20,
+                                )
+                              ],
                             ),
-                            CustomText(
-                              text: "012345234",
-                              color: Color(0xff333333),
-                              left: 20,
+                            Divider(
+                              color: AppColors.greenLightActive,
                             )
                           ],
                         ),
-                        Divider(
-                          color: AppColors.greenLightActive,
-                        )
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  ///=====================email ========================>
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                    child: Column(
-                      children: [
-                        Row(
+                      ///=====================email ========================>
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Column(
                           children: [
-                            Icon(
-                              Icons.email_outlined,
-                              color: Colors.black,
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.email_outlined,
+                                  color: Colors.black,
+                                ),
+                                CustomText(
+                                  text: controller.model.data?.email??"",
+                                  color: Color(0xff333333),
+                                  left: 20,
+                                )
+                              ],
                             ),
-                            CustomText(
-                              text: "kabir@gmail.com",
-                              color: Color(0xff333333),
-                              left: 20,
+                            Divider(
+                              color: AppColors.greenLightActive,
                             )
                           ],
                         ),
-                        Divider(
-                          color: AppColors.greenLightActive,
-                        )
-                      ],
-                    ),
+                      ),
+/*
+                      ///=====================location ========================>
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  color: Colors.black,
+                                ),
+                                CustomText(
+                                  text: "Dhaka",
+                                  color: Color(0xff333333),
+                                  left: 20,
+                                )
+                              ],
+                            ),
+                            Divider(
+                              color: AppColors.greenLightActive,
+                            )
+                          ],
+                        ),
+                      )*/
+                    ],
                   ),
-
-                  ///=====================location ========================>
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.black,
-                            ),
-                            CustomText(
-                              text: "Dhaka",
-                              color: Color(0xff333333),
-                              left: 20,
-                            )
-                          ],
-                        ),
-                        Divider(
-                          color: AppColors.greenLightActive,
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                ),
               ),
-            ),
-          ),
-        ],
+            ],
+          );
+        }
       ),
     );
   }

@@ -3,6 +3,7 @@ class ApiUrl {
  // static const socketUrl = "https://server.united-cadz.fr";
  // static const serverUrl = "https://server.united-cadz.fr";
   static const baseUrl = "http://103.145.138.78:5000/api/v1";
+  static const imageUrl = "http://103.145.138.78:5000";
 
 
   static const signUp = "$baseUrl/users/create-user";
@@ -12,5 +13,7 @@ class ApiUrl {
   static const forgotPass = "$baseUrl/auth/forgot-password";
   static const resetPAss = "$baseUrl/auth/reset-password";
   static const profileInfo = "$baseUrl/users";
+  static const userUpdate = "$baseUrl/users";
+  static const homeEndPoint = "$baseUrl/restaurants";
 
 }

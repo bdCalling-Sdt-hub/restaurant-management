@@ -12,6 +12,7 @@ import 'package:restaurant_management/view/screens/settings/setting_screen.dart'
 import 'package:restaurant_management/view/screens/welcome_screen/welcome_screen.dart';
 import 'package:restaurant_management/view/widgets/no_internet.dart';
 import '../view/screens/abou_us_screen/about_us_screen.dart';
+import '../view/screens/edit_personal_info/edit_personal_info.dart';
 import '../view/screens/favourite/favourite_screen.dart';
 import '../view/screens/splash_screen/splash_screen.dart';
 
@@ -32,6 +33,7 @@ class AppRoute{
   static const String signin = "/signin_screen";
   static const String otpVerify = "/otpVerify_screen";
   static const String noInternet = "/noInternet_screen";
+  static const String editProfile = "/editProfile_screen";
 
   static List<GetPage> routes = [
     GetPage(name: aboutUsScreen, page: () => const AboutUsScreen()),
@@ -45,10 +47,11 @@ class AppRoute{
     GetPage(name: profile, page: () => const ProfileScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
     GetPage(name: welcome, page: () => const WelcomeScreen()),
-    GetPage(name: signup, page: () =>  SignupScreen()),
+    GetPage(name: signup, page: () =>  const SignupScreen()),
     GetPage(name: signin, page: () => const SigninScreen()),
     GetPage(name: otpVerify, page: () =>  VerifyCodeScreen()),
-    GetPage(name: noInternet, page: () =>  NoInternet()),
+    GetPage(name: noInternet, page: () =>  const NoInternet()),
+    GetPage(name: editProfile, page: () =>   EditPersonalInfo()),
 
   ];
 

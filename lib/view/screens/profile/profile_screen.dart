@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/profile_controller/personal_info_controller.dart';
+import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
 import 'package:restaurant_management/view/screens/my_orders/my_order_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
@@ -17,7 +20,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List<Map<String ,dynamic>> data = [
+  List<Map<String ,dynamic>> data1 = [
     {
     "routeName": "Personal Information",
       "icon" : const Icon(Icons.person_outline_rounded,color: Colors.black,)
@@ -39,24 +42,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "icon" : const Icon(Icons.logout,color: Colors.red,)
     }
   ];
+
+  PersonalInfoController controller = Get.put(PersonalInfoController());
   @override
   void initState() {
-   PersonalInfoController controller = Get.put(PersonalInfoController());
-   controller.getPersonalInfoData();
 
+    Future.delayed(Duration.zero, () {
+     controller.getPersonalInfoData();
+    },) ;
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<PersonalInfoController>(
         builder: (controller) {
-          return Column(
+          return  Column(
             children: [
               Flexible(
                 flex: 3,
-                child: Container(
+                child:   controller.isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): Container(
                   width: Get.width,
                   decoration: const BoxDecoration(
                     color: AppColors.greenNormal,
@@ -67,19 +74,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 50,),
                       const CustomText(text: "Profile",color: AppColors.whiteColor,fontSize: 24,fontWeight: FontWeight.w600,),
                       const SizedBox(height: 40,),
-                      Container(
+                      controller.model.data?.image==null || controller.image.isEmpty ? Container(
                         height: 100,
                         width: 100,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage("https://plus.unsplash.com/premium_photo-1713184149461-67ad584d82e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0Mnx8fGVufDB8fHx8fA%3D%3D"))
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/images/profile_image.png"))
+                        ),
+                      ) : Container(
+                        height: 100,
+                        width: 100,
+                        decoration:  BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(controller.image)
+                            )
                         ),
                       ),
                       const SizedBox(height: 30,),
-                      const CustomText(text: "Kabir",color: AppColors.whiteColor,fontSize: 20,fontWeight: FontWeight.w500,),
-                      const CustomText(text: "kabir@gmail.com",color: AppColors.whiteColor,fontSize: 12),
+                       CustomText(text: "${controller.model.data?.fullName.toString()}",color: AppColors.whiteColor,fontSize: 20,fontWeight: FontWeight.w500,),
+                       CustomText(text: "${controller.model.data?.email.toString()}" ,color: AppColors.whiteColor,fontSize: 12),
 
                     ],
                   ),
@@ -96,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                        Column(
-                         children: List.generate(data.length, (index){
+                         children: List.generate(data1.length, (index){
                            return GestureDetector(
                              onTap: (){
                                if(index==0){
@@ -121,9 +138,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                  children: [
                                    Row(
                                      children: [
-                                       data[index]["icon"],
+                                       data1[index]["icon"],
                                       // Icon(Icons.person_outline_rounded,color: Colors.black,),
-                                       CustomText(text: data[index]["routeName"].toString(),color: data[index]["routeName"]=="Logout"? Colors.red : const Color(0xff333333),left: 20,)
+                                       CustomText(text: data1[index]["routeName"].toString(),color: data1[index]["routeName"]=="Logout"? Colors.red : const Color(0xff333333),left: 20,)
                                      ],
                                    ),
                                    const Divider(color: AppColors.greenLightActive,)
