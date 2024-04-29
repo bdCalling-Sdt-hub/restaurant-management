@@ -1,18 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/view/screens/table_booking_screen/inner_screen/book_now.dart';
+import 'package:restaurant_management/view/widgets/custom_loading.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
-
 import '../../../controller/table_book_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../widgets/custom_text.dart';
-import '../../widgets/text_field.dart';
+
 
 class TableBookingScreen extends StatefulWidget {
   const TableBookingScreen({super.key});
@@ -24,10 +24,9 @@ class TableBookingScreen extends StatefulWidget {
 class _TableBookingScreenState extends State<TableBookingScreen> {
   int currentPosition = 0;
   final CarouselController _carouselController = CarouselController();
-
+//List data = ["adf f","sdadf","sdf asdf" ,"huayun df","kabir Sun","Humayun Sun","sdfkh aslkdf sal"];
   @override
   Widget build(BuildContext context) {
-    Get.put(TableBookController());
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -55,27 +54,32 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
       ),
       body:  GetBuilder<TableBookController>(
         builder: (controller) {
+          print(controller.data);
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
-            child: Column(
+            child:controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):Column(
               children: [
-                ///==============================image =============================================
+                ///==============================image =============================================//
                 Column(
                   children: [
                     Stack(
                       children: [
                         CarouselSlider.builder(
                           carouselController: _carouselController,
-                          itemCount: 5,
+                          itemCount: controller.tableBookModel.data?.images?.length,
                           itemBuilder: (BuildContext context, int itemIndex, int pageIndex) =>
                               Container(
                                 width: double.maxFinite,
                                 margin: const EdgeInsets.only(right: 5, left: 5),
                                 decoration: BoxDecoration(
-                                  image: const DecorationImage(
+                                  image: controller.tableBookModel.data?.images==null? const DecorationImage(
                                     fit: BoxFit.fill,
                                     image: NetworkImage(
                                         "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fHww"),
+                                  ) : DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(
+                                       "${ApiUrl.imageUrl}${controller.tableBookModel.data?.images?[itemIndex].url}"),
                                   ),
                                   color: const Color(0xFFECECEC),
                                   borderRadius: BorderRadius.circular(8),
@@ -144,7 +148,7 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                                 spacing: const EdgeInsets.all(2),
                               ),
 
-                              dotsCount: 5,
+                              dotsCount: controller.tableBookModel.data?.images?.length ?? 1,
                               position: currentPosition,
                             ),
                           ),
@@ -155,31 +159,32 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                   ],
                 ),
 
-                ///==========================================price------------------------------->
-              const SizedBox(height: 12,),
+                ///==========================================location------------------------------->
+
+
+                const SizedBox(height: 12,),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
                       width: Get.width/2,
-                      child: const Row(
+                      child:  Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.location_on,color: AppColors.blackNormal,),
+                          const Icon(Icons.location_on,color: AppColors.blackNormal,),
                           Flexible(
-                            child: CustomText(text: "3913 NE 163rd St North Miami Beach, FL 33160 ",
-                                color: AppColors.blackNormal,fontSize: 14,fontWeight: FontWeight.w300,maxLines: 3),
+                            child: CustomText(text: controller.tableBookModel.data?.location.toString() ?? "", color: AppColors.blackNormal,fontSize: 14,fontWeight: FontWeight.w300,maxLines: 3),
                           ),
                         ],
                       ),
                     ),
                     SizedBox(
                       width: Get.width/6,
-                      child:const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.star,color: Colors.yellow,),
-                          CustomText(text: "4.5",color: AppColors.blackNormal,fontWeight: FontWeight.w500,fontSize: 20,)
+                          const Icon(Icons.star,color: Colors.yellow,),
+                          CustomText(text: controller.tableBookModel.data!.avgReviews.toString() ?? "0",color: AppColors.blackNormal,fontWeight: FontWeight.w500,fontSize: 20,)
                         ],
                       ),
                     ),
@@ -187,22 +192,37 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                 ),
 
                 const SizedBox(height: 12,),
-                const Row(
-                  children: [
-                    Icon(Icons.alarm,color: AppColors.blackNormal,),
-                    CustomText(text: "10:30 AM - 11:00 PM",color: AppColors.blackNormal,fontSize: 20,fontWeight: FontWeight.w500,left: 8,),
-                  ],
-                ),
+
+                 ///====================== Show open and closing time ///////
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                   child: Row(
+                    children: List.generate(5, (index) =>  Container(
+
+                      margin: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: index%2==0?AppColors.greenNormalActive:AppColors.whiteColor,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color:  index%2==0?AppColors.whiteColor:AppColors.greenNormal,width: 0.5)),
+                        child:Column(
+                          children: [
+                            CustomText(text: "${controller.tableBookModel.data?.days?[index].day}:",color: index%2==0?AppColors.whiteColor:AppColors.greenNormalActive,fontSize: 15,fontWeight: FontWeight.w400),
+                             CustomText(text: "${controller.tableBookModel.data?.days?[index].openingTime}-${controller.tableBookModel.data?.days?[index].closingTime}",color: index%2==0?AppColors.whiteColor:AppColors.greenNormalActive,fontSize: 14,fontWeight: FontWeight.w400,),
+                          ],
+                        )),)
+                                   ),
+                 ),
                 const SizedBox(height: 16,),
                 const Align(
                     alignment: Alignment.centerLeft,
                     child: CustomText(text: "Description",fontSize: 16,fontWeight: FontWeight.w500,textAlign: TextAlign.start,)),
-                const CustomText(
+                 CustomText(
                     bottom: 24,
                     maxLines: 20,
                     fontWeight: FontWeight.w300,
                     fontSize: 16,
-                    text: "Our classic cheeseburger is made with a fresh, never-frozen beef patty that is cooked to perfection and topped with melted American cheese, lettuce, tomato, pickles, and onions. It is served on a toasted bun and is sure to satisfy your hunger."),
+                    text: controller.tableBookModel.data?.description.toString() ?? ""),
 
                 Row(
                   children: [
@@ -223,15 +243,19 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                             children: [
                               const Icon(Icons.calendar_month_rounded,color: AppColors.blackNormalhover,size: 20,),
                              controller.validationController.text.isEmpty? const CustomText(text: "Date",
-                               color: AppColors.blackNormalhover,fontSize: 10,): CustomText(text: controller.validationController.text,
-                               color: AppColors.blackNormalhover,fontSize: 10,),
-                           controller.validationController.text.isEmpty?const Icon(Icons.keyboard_arrow_down_outlined):const SizedBox()
+                               color: AppColors.blackNormalhover,fontSize: 10,): CustomText(
+                               text: "${controller.validationController.text.substring(8, 10)}-${controller.validationController.text.substring(5, 7)}-${controller.validationController.text.substring(0, 4)}",
+                               color: AppColors.blackNormalhover,
+                               fontSize: 10,
+                             ),
+
+                              controller.validationController.text.isEmpty?const Icon(Icons.keyboard_arrow_down_outlined):const SizedBox()
                           ],
                           ),
                         ),
                       )
                     ),
-                    SizedBox(width: 12,),
+                    const SizedBox(width: 12,),
                     Expanded(
                         child: GestureDetector(
                           onTap: (){
@@ -241,25 +265,29 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(border: Border.all(color: const Color(0xffCECECE),
-
-                            ),borderRadius: BorderRadius.circular(4)),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: const Color(0xffCECECE)),
+                                borderRadius: BorderRadius.circular(4)
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Icon(Icons.alarm_sharp,color: AppColors.blackNormalhover,size: 20,),
-                                controller.selectedTime.toString().isEmpty? const CustomText(text: "Time",
-                                  color: AppColors.blackNormalhover,fontSize: 10,): CustomText(text: controller.selectedTime != null
-                                    ?  '${controller.selectedTime!.hour}:${controller.selectedTime!.minute}'
-                                    : 'Time',
-                                  color: AppColors.blackNormalhover,fontSize: 10,),
-                                controller.selectedTime.toString().isEmpty?const Icon(Icons.keyboard_arrow_down_outlined):const SizedBox()
+                                const Icon(Icons.alarm_sharp, color: AppColors.blackNormalhover, size: 20),
+                                CustomText(
+                                  text: controller.selectedTime != null ? controller.selectedTime! : 'Time',
+                                  color: AppColors.blackNormalhover,
+                                  fontSize: 10,
+                                ),
+                                controller.selectedTime.toString().isEmpty
+                                    ? const Icon(Icons.keyboard_arrow_down_outlined)
+                                    : const SizedBox()
                               ],
                             ),
                           ),
+
                         )
                     ),
-                   SizedBox(width: 12,),
+                   const SizedBox(width: 12,),
                    Expanded(
                        child: SizedBox(
                          height: 40,
@@ -267,6 +295,7 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                            cursorColor: AppColors.blackNormal,
 
                                               cursorHeight: 16,
+                                              controller: controller.personNoController,
                                               decoration: const InputDecoration(
                                                 focusedBorder: OutlineInputBorder(
                                                   borderSide: BorderSide(color:  Color(0xffCECECE))
@@ -335,9 +364,10 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                   ],
                 ),
                 const SizedBox(height: 16,),
-                CustomElevatedButton(onPressed: (){
-                  Get.to(BookNow());
-                }, titleText: "Find Slots",buttonHeight: 48,buttonWidth: Get.width/1.2,)
+               controller.isLoading?const CustomElevatedLoadingButton() :CustomElevatedButton(onPressed: (){
+                  controller.bookTable(controller.tableBookModel.data?.sId.toString() ?? "");
+                 // Get.to(const BookNow());
+                }, titleText: "Book Slots",buttonHeight: 48,buttonWidth: Get.width/1.2,)
               ],
             ),
           );

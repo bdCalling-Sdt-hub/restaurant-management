@@ -23,15 +23,21 @@ class _MenuScreenState extends State<MenuScreen> {
         toolbarHeight: 80,
         leading: Row(
           children: [
-            Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                ),
+            GestureDetector(
+              onTap: (){
+                Get.back();
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 8),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.black,
+                  ),
 
-                child: const Icon(Icons.arrow_back,color: Colors.white,)),
+                  child: const Icon(Icons.arrow_back,color: Colors.white,)),
+            ),
           ],
         ),
         centerTitle: true,

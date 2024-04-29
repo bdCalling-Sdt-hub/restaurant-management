@@ -1,14 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/controller/table_book_controller.dart';
+import 'package:restaurant_management/global/share_prefes_helper.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
 
-class BookNow extends StatelessWidget {
+class BookNow extends StatefulWidget {
   const BookNow({super.key});
+  @override
+  State<BookNow> createState() => _BookNowState();
+}
 
+class _BookNowState extends State<BookNow> {
+  @override
+  void initState() {
+
+    TableBookController controller = TableBookController();
+    //controller.getBookedData(bookingId: PrefsHelper.bookingId);
+
+    print("======================================= HelloBooking Id${PrefsHelper.bookingId}");
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,92 +53,43 @@ class BookNow extends StatelessWidget {
         centerTitle: true,
         title:const FittedBox(child: CustomText(text: "Book Now",color: AppColors.blackNormal,fontSize: 24,fontWeight: FontWeight.w600,)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 20),
-        child: Column(
-          children: [
-            const Row(
+      body: GetBuilder<TableBookController>(
+        builder: (controller) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 20),
+            child: controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)) :Column(
               children: [
-                Icon(Icons.calendar_month_rounded,size: 18,),
-                CustomText(text: "Date and time from backend",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
+                Image.asset("assets/images/img.png",height: 80,width: 80,),
+                const Center(child: CustomText(text: "Table Booked Successfully",textAlign: TextAlign.center,fontWeight: FontWeight.w700,fontSize: 20,top: 12,bottom: 12,)),
+                 Row(
+                  children: [
+                    Icon(Icons.calendar_month_rounded,size: 18,),
+                    CustomText(text: controller.getBookedDataModel.data?.time.toString() ?? "",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
+                  ],
+                ),
+                const SizedBox(height: 12,),
+                 Row(
+                  children: [
+                    Icon(Icons.group,size: 18,),
+                    CustomText(text: controller.getBookedDataModel.data?.table?.seats.toString()??"",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
+                  ],
+                ),
+                const SizedBox(height: 12,),
+                 Row(
+                  children: [
+                    const Icon(Icons.table_restaurant_outlined,size: 18,),
+                    CustomText(text: controller.getBookedDataModel.data?.table?.tableName.toString()??"",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
+                  ],
+                ),
+                const SizedBox(height: 32,),
+                CustomElevatedButton(onPressed: (){
+                  Get.toNamed(AppRoute.showMenu);
+                }, titleText: "Show menu",buttonHeight: 40,buttonWidth: Get.width/1.2,)
               ],
             ),
-            const SizedBox(height: 12,),
-            const Row(
-              children: [
-                Icon(Icons.group,size: 18,),
-                CustomText(text: "2 Guests",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
-              ],
-            ),
-            const SizedBox(height: 12,),
-            const Row(
-              children: [
-                Icon(Icons.table_restaurant_outlined,size: 18,),
-                CustomText(text: "Indoor",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
-              ],
-            ),
-            const SizedBox(height: 32,),
-            CustomElevatedButton(onPressed: (){
-              alertDialog(context);
-            }, titleText: "Book Now",buttonHeight: 40,buttonWidth: Get.width/1.2,)
-          ],
-        ),
+          );
+        }
       ),
     );
-  }
-  alertDialog(context){
-    showDialog(context: context, builder: (context){
-      return  AlertDialog(
-        backgroundColor: AppColors.whiteColor,
-        /* content: Stack(
-          children: [
-            Positioned(child: Container(
-              child: IconButton(onPressed: (){}, icon: Icon(Icons.close)),
-            ),top: 0,)
-          ],
-        ),*/
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12)
-        ),
-        title:  Stack(
-          clipBehavior: Clip.none,
-          children: [
-            const Center(child: CustomText(text: "Table Booked Successfully",textAlign: TextAlign.center,fontWeight: FontWeight.w700,fontSize: 16,)),
-            // Positioned(
-            //     top: -16,
-            //     right: -16,
-            //     child: GestureDetector(
-            //         onTap: (){
-            //          Get.back();
-            //         },
-            //         child: Container(
-            //           alignment: AlignmentDirectional.center,
-            //           height: 32,
-            //           width: 32,
-            //           decoration:  BoxDecoration(
-            //               shape: BoxShape.circle,
-            //               border: Border.all(color: AppColors.blackNormal)
-            //           ),
-            //           child:IconButton(onPressed: (){
-            //             Navigator.pop(context);
-            //             },
-            //               icon:  const Icon(Icons.close,color: AppColors.blackNormal,size: 16,)
-            //           ),)
-            //     ))
-          ],
-        ),
-        actions: [
-          Row(
-            children: [
-            //  Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "No",buttonHeight: 32,borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,)),
-             // const SizedBox(width: 12,),
-              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "Show Menu",buttonHeight: 32,buttonWidth: Get.width/2,)),
-            ],
-          ),
-
-        ],
-
-      );
-    });
   }
 }

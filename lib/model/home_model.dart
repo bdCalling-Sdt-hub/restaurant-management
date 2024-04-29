@@ -42,6 +42,7 @@ class Data {
   Sunday? saturday;
   String? sId;
   String? name;
+  //String? avgReviews;
   String? location;
   String? description;
   String? owner;
@@ -62,6 +63,7 @@ class Data {
         this.saturday,
         this.sId,
         this.name,
+        //this.avgReviews,
         this.location,
         this.description,
         this.owner,
@@ -90,6 +92,7 @@ class Data {
     json['saturday'] != null ? new Sunday.fromJson(json['saturday']) : null;
     sId = json['_id'];
     name = json['name'];
+  //  avgReviews = json['avgReviews'];
     location = json['location'];
     description = json['description'];
     owner = json['owner'];
@@ -131,6 +134,7 @@ class Data {
     }
     data['_id'] = this.sId;
     data['name'] = this.name;
+   // data['avgReviews'] = this.avgReviews;
     data['location'] = this.location;
     data['description'] = this.description;
     data['owner'] = this.owner;

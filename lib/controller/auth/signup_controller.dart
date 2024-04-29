@@ -55,20 +55,16 @@ class SignupController extends GetxController{
     }
 
     if (response.statusCode == 200) {
-
       otpToken = jsonDecode(response.responseJson)['data']['token'];
-
       PrefsHelper.setString("token", jsonDecode(response.responseJson)['data']['token']);
       PrefsHelper.setString("email", jsonDecode(response.responseJson)['data']['user']['email']);
-
-
       PrefsHelper.otpToken = jsonDecode(response.responseJson)['data']['token'];
       PrefsHelper.email = jsonDecode(response.responseJson)['data']['user']['email'];
 
       print(response.responseJson);
       Get.toNamed(AppRoute.otpVerify);
     } else {
-     // Utils.toastMessage(response.message);
+      Utils.toastMessage(response.message);
       print(response.statusCode);
     }
 

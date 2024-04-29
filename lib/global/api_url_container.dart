@@ -15,5 +15,9 @@ class ApiUrl {
   static const profileInfo = "$baseUrl/users";
   static const userUpdate = "$baseUrl/users";
   static const homeEndPoint = "$baseUrl/restaurants";
+  static const changePassword = "$baseUrl/auth/change-password";
+  static const deleteAccount = "$baseUrl/users";
+  static const getTableData = "$baseUrl/restaurants";
+  static const bookingTable = "$baseUrl/booking";
 
 }

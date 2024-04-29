@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/controller/delete_account.controller.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/change_password_screen.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/privacy_policy.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/restaurant_owner_screen.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/term_conditions.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
+import 'package:restaurant_management/view/widgets/text_field.dart';
 
 import '../../../utils/app_colors.dart';
 import '../../widgets/custom_text.dart';
@@ -106,52 +108,69 @@ class _SettingScreenState extends State<SettingScreen> {
   }
   alertDialog(){
     showDialog(context: context, builder: (context){
-      return  AlertDialog(
-        backgroundColor: AppColors.whiteColor,
-       /* content: Stack(
-          children: [
-            Positioned(child: Container(
-              child: IconButton(onPressed: (){}, icon: Icon(Icons.close)),
-            ),top: 0,)
-          ],
-        ),*/
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12)
-        ),
-        title:  Stack(
-          clipBehavior: Clip.none,
-          children: [
-            const Center(child: CustomText(text: "Do you want to delete ?",textAlign: TextAlign.center,)),
-            Positioned(
-                top: -16,
-                right: -16,
-                child: GestureDetector(
-                  onTap: (){
+      Get.put(DeleteAccount());
+      return  GetBuilder<DeleteAccount>(
+        builder: (controller) {
+          return AlertDialog(
+            backgroundColor: AppColors.whiteColor,
+           /* content: Stack(
+              children: [
+                Positioned(child: Container(
+                  child: IconButton(onPressed: (){}, icon: Icon(Icons.close)),
+                ),top: 0,)
+              ],
+            ),*/
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12)
+            ),
+            title:  Column(
 
-                  },
-                  child: Container(
-                    height: 32,
-                      width: 32,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey
-                      ),
-                      child:IconButton(onPressed: (){  Get.back();}, icon:  const Icon(Icons.close,color: AppColors.whiteColor,size: 16,)
-                      ),)
-                ))
-          ],
-        ),
-        actions: [
-          Row(
-            children: [
-              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "No",buttonHeight: 32,borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,)),
-             const SizedBox(width: 12,),
-              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "Yes",buttonHeight: 32,)),
+              children: [
+                const Center(child: CustomText(text: "Do you want to delete ?",textAlign: TextAlign.center,)),
+                SizedBox(
+                  height: 48,
+                  child: CustomTextField(
+
+                    hintText: "Enter your password",
+                    textEditingController: controller.passwordController,
+                  ),
+                ),
+                /*Positioned(
+                    top: -16,
+                    right: -16,
+                    child: GestureDetector(
+                      onTap: (){
+                      Get.back();
+                      },
+                      child: Container(
+                        height: 32,
+                          width: 32,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey
+                          ),
+                          child:IconButton(onPressed: (){  Get.back();}, icon:  const Icon(Icons.close,color: AppColors.whiteColor,size: 16,)
+                          ),)
+                    ))*/
+              ],
+            ),
+            actions: [
+              Row(
+                children: [
+                  Expanded(child: CustomElevatedButton(onPressed: (){
+                    Get.back();
+                  }, titleText: "No",buttonHeight: 32,borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,)),
+                 const SizedBox(width: 12,),
+                  Expanded(child: CustomElevatedButton(onPressed: (){
+                    controller.deleteAccount();
+                  }, titleText: "Yes",buttonHeight: 32,)),
+                ],
+              ),
+
             ],
-          ),
 
-        ],
-        
+          );
+        }
       );
     });
   }

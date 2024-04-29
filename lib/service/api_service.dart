@@ -97,8 +97,7 @@ class ApiService {
 
   ///<<<======================== Patch Api ==============================>>>
 
-  static Future<ApiResponseModel> patchApi(
-      String url, {body, Map<String, String>? header,}) async {
+  static Future<ApiResponseModel> patchApi(String url, {body, Map<String, String>? header,}) async {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {
@@ -128,7 +127,7 @@ class ApiService {
 
   ///<<<======================== Delete Api ==============================>>>
 
-  static Future<ApiResponseModel> deleteApi(String url, {Map<String, String>? body, Map<String, String>? header}) async {
+  static Future<ApiResponseModel> deleteApi(String url, {body, Map<String, String>? header,}) async {
     dynamic responseJson;
 
     Map<String, String> mainHeader = {

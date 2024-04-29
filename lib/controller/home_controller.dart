@@ -8,7 +8,11 @@ import 'package:restaurant_management/service/api_service.dart';
 class HomeController extends GetxController{
   List homeDataList = [];
   HomeModel homeModel =HomeModel();
-  Future<void> geHomeData () async{
+
+  bool isLoading = false;
+  Future<void> geHomeArrivalData () async{
+    isLoading = true;
+    update();
     var response = await ApiService.getApi(ApiUrl.homeEndPoint);
 
     print(response.responseJson);
@@ -30,10 +34,15 @@ class HomeController extends GetxController{
       }
 
     }
+    isLoading = false;
+    update();
   }
+
+
+
   @override
   void onInit() {
-  geHomeData();
+    geHomeArrivalData();
     // TODO: implement onInit
     super.onInit();
   }

@@ -9,6 +9,7 @@ import 'package:restaurant_management/view/screens/notification/notification_scr
 import 'package:restaurant_management/view/screens/oder_details/order_details_screen.dart';
 import 'package:restaurant_management/view/screens/profile/profile_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
+import 'package:restaurant_management/view/screens/table_booking_screen/table_booking_screen.dart';
 import 'package:restaurant_management/view/screens/welcome_screen/welcome_screen.dart';
 import 'package:restaurant_management/view/widgets/no_internet.dart';
 import '../view/screens/abou_us_screen/about_us_screen.dart';
@@ -34,6 +35,7 @@ class AppRoute{
   static const String otpVerify = "/otpVerify_screen";
   static const String noInternet = "/noInternet_screen";
   static const String editProfile = "/editProfile_screen";
+  static const String tableBooking = "/tableBooking_screen";
 
   static List<GetPage> routes = [
     GetPage(name: aboutUsScreen, page: () => const AboutUsScreen()),
@@ -52,6 +54,7 @@ class AppRoute{
     GetPage(name: otpVerify, page: () =>  VerifyCodeScreen()),
     GetPage(name: noInternet, page: () =>  const NoInternet()),
     GetPage(name: editProfile, page: () =>   EditPersonalInfo()),
+    GetPage(name: tableBooking, page: () =>   TableBookingScreen()),
 
   ];
 

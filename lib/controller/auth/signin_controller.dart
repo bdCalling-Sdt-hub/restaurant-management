@@ -10,7 +10,7 @@ import 'package:restaurant_management/utils/app_utils.dart';
 import '../../global/share_prefes_helper.dart';
 
 class SignInController extends GetxController{
-  TextEditingController emailController =  TextEditingController(text: kDebugMode?"xakep40186@togito.com" : "");
+  TextEditingController emailController =  TextEditingController(text: kDebugMode?"vecexoc215@idsho.com" : "");
   TextEditingController passwordController =  TextEditingController(text: kDebugMode?"111222" : "");
   final formKey = GlobalKey<FormState>();
   RegExp emailRegexp = RegExp(
@@ -29,8 +29,13 @@ class SignInController extends GetxController{
       print(response.responseJson);
     }
       if(response.statusCode == 200){
-        Get.offAndToNamed(AppRoute.homeScreen);
+
+        // emailController.clear();
+        // passwordController.clear();
+        Get.offAllNamed(AppRoute.homeScreen);
         Utils.toastMessage(response.message);
+
+
 
       ///-----------------------Save data in sharePrefs ----------------------->>
         PrefsHelper.setString("accessToken", jsonDecode(response.responseJson)['data']['accessToken']);

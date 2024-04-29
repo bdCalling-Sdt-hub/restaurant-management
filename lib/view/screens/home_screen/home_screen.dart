@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/home_controller.dart';
+import 'package:restaurant_management/controller/table_book_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/screens/book_table_all/book_table_all_screen.dart';
 import 'package:restaurant_management/view/screens/table_booking_screen/table_booking_screen.dart';
 import 'package:restaurant_management/view/widgets/bottom_nav/bottom_nav.dart';
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body:GetBuilder<HomeController>(
         builder: (controller) {
           print("jhdfasjhhjdsjhd${controller.homeModel.data?.length}");
-          return Column(
+          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): Column(
             children: [
               Column(
                 children: [
@@ -194,7 +196,17 @@ class _HomeScreenState extends State<HomeScreen> {
                            ),
                            GestureDetector(
                                onTap: () {
-                                 Get.to(const BookTableAll(title: 'Book e table',));
+                                 Get.to(
+                                   BookTableAll(
+                                     title: 'Book e table',
+                                   ),
+                                   arguments: {
+                                     'dataLength': controller.homeDataList.length>5?5:controller.homeDataList.length,
+                                     'homeModel': controller.homeModel,
+
+                                     // Include other parameters here
+                                   },
+                                 );
                                },
                                child: const Row(
                                  children: [
@@ -214,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                        SizedBox(
                          height: 350,
                          child: ListView.builder(
-                             itemCount: controller.homeDataList.length=5,
+                             itemCount: controller.homeDataList.length>5?5:controller.homeDataList.length,
                              scrollDirection: Axis.horizontal,
                              itemBuilder: (context, index) {
                                return Container(
@@ -233,16 +245,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                        padding: const EdgeInsets.all(8),
                                        decoration: BoxDecoration(
                                          borderRadius: BorderRadius.circular(12),
-                                         image: controller.homeModel.data != null && controller.homeModel.data!.isNotEmpty
+                                         image: controller.homeDataList[index].images!=null && controller.homeDataList[index].images!.isNotEmpty
                                              ? DecorationImage(
                                            fit: BoxFit.cover,
                                            image: NetworkImage(
-                                             controller.homeModel.data![index].images!.isNotEmpty
-                                                 ? "${ApiUrl.imageUrl}${controller.homeModel.data![index].images![index].url}"
-                                                 : "assets/images/profile_image.png", // Replace with your placeholder image URL
+                                             "${ApiUrl.imageUrl}${controller.homeDataList[index].images?[index].url}"
+                                           , // Replace with your placeholder image URL
                                            ),
-                                         )
-                                             : null, // No image decoration if data is empty or null
+                                         ) : const DecorationImage(
+                                           fit: BoxFit.cover,
+                                           image: NetworkImage(
+                                             "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                             , // Replace with your placeholder image URL
+                                           ),
+                                         ) , // No image decoration if data is empty or null
                                        ),
                                      ),
 
@@ -257,15 +273,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                        fontSize: 14,
                                        fontWeight: FontWeight.w700,
                                      ),
-                                     const Row(
+                                      Row(
                                        children: [
-                                         Icon(Icons.location_on_outlined,color: AppColors.blackLightActive,),
-                                         CustomText(text: "Ambrosia Hotel & Restaurant",fontSize: 10,fontWeight: FontWeight.w300,color: AppColors.blackNormal,bottom: 12,top: 12,)
+                                         const Icon(Icons.location_on_outlined,color: AppColors.blackLightActive,),
+                                         CustomText(text: controller.homeDataList[index].location.toString(),fontSize: 10,fontWeight: FontWeight.w300,color: AppColors.blackNormal,bottom: 12,top: 12,)
                                        ],
                                      ),
 
                                      CustomElevatedButton(onPressed: (){
-                                       Get.to(const TableBookingScreen());
+                                       TableBookController dcontroller = Get.put(TableBookController());
+
+                                       dcontroller.getTableData("${controller.homeModel.data?[index].sId}");
+                                       // print(controller.homeModel.data?[index].sId);
 
                                      }, titleText: "Book a Table",buttonHeight: 48,)
 
@@ -297,7 +316,14 @@ class _HomeScreenState extends State<HomeScreen> {
                            ),
                            GestureDetector(
                                onTap: () {
-                                 Get.to(const BookTableAll(title: 'Explore Restaurant',));
+                                 Get.to(BookTableAll(title: 'Explore Restaurant',),
+                                   arguments: {
+                                     'dataLength': controller.homeDataList.length,
+                                     'homeModel': controller.homeModel,
+
+                                     // Include other parameters here
+                                   },
+                                 );
                                },
                                child: const Row(
                                  children: [
@@ -319,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                          height: 200,
                          width: Get.width,
                          child: ListView.builder(
-                             itemCount: 10,
+                             itemCount: controller.homeModel.data!.length,
                              scrollDirection: Axis.horizontal,
                              itemBuilder: (context, index) {
                                return GestureDetector(
@@ -341,14 +367,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                          height: 200,
                                          width: 120,
                                        //  padding: const EdgeInsets.all(8),
-                                         decoration: BoxDecoration(
+                                         decoration:  BoxDecoration(
                                              borderRadius:
                                              BorderRadius.circular(12),
-                                             image: const DecorationImage(
+                                             image: controller.homeModel.data?[index].images!=null && controller.homeModel.data![index].images!.isNotEmpty? DecorationImage(
+                                               fit: BoxFit.fill,
+                                               image: NetworkImage("${ApiUrl.imageUrl}${controller.homeModel.data?[index].images?[index].url}"),
+                                             ):const DecorationImage(
                                                fit: BoxFit.fill,
                                                image: NetworkImage("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                                              )
-                                         ),
+                                         )  ,
 
                                        ),
                                        const SizedBox(
@@ -359,34 +388,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                          crossAxisAlignment: CrossAxisAlignment.start,
                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly ,
                                          children: [
-                                           const Row(
+                                            Row(
                                              children: [
-                                               Icon(Icons.location_on_outlined,color: AppColors.blackNormal,),
-                                               CustomText(text: "Riverdale, California",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal)
+                                               const Icon(Icons.location_on_outlined,color: AppColors.blackNormal,),
+                                               CustomText(text: "${controller.homeModel.data?[index].location.toString()}",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal)
                                              ],
                                            ),
 
-                                           const Row(
+                                            const Row(
                                              children: [
                                                Icon(Icons.star_rate_outlined,color: Colors.black,),
-                                               CustomText(text: "(4.0)",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal,)
+                                               CustomText(text: "(4.4)",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal,)
                                              ],
                                            ),
-                                           const CustomText(text: "\$49",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal),
-                                           Wrap(
-                                             children: List.generate(2, (index) {
-                                               return Container(
-                                                 margin: const EdgeInsets.only(right: 4),
-                                                 padding: const EdgeInsets.all(4),
-                                                 decoration: BoxDecoration(
-                                                   borderRadius: BorderRadius.circular(4),
-                                                   border: Border.all(color: AppColors.blackNormal)
-                                                 ),
-                                                 child: const CustomText(text: "Chicken"),
-                                               );
-                                             }),
-
-                                           ),
+                                         ///  const CustomText(text: "\$49",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal),
+                                           // Wrap(
+                                           //   children: List.generate(2, (index) {
+                                           //     return Container(
+                                           //       margin: const EdgeInsets.only(right: 4),
+                                           //       padding: const EdgeInsets.all(4),
+                                           //       decoration: BoxDecoration(
+                                           //         borderRadius: BorderRadius.circular(4),
+                                           //         border: Border.all(color: AppColors.blackNormal)
+                                           //       ),
+                                           //       child: const CustomText(text: "Chicken"),
+                                           //     );
+                                           //   }),
+                                           //
+                                           // ),
                                            CustomElevatedButton(onPressed: (){
 
                                              Get.to(const TableBookingScreen());
