@@ -138,7 +138,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     fontSize: 16,
                     text:  controller.model.data?.description.toString() ??""),
                     CustomElevatedButton(onPressed: (){
-                       Get.toNamed(AppRoute.orderCartScreen);
+                       Get.toNamed(AppRoute.orderCartScreen,arguments: (controller.model.data?.price ?? 0) * controller.initialQuantity,);
                 }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
               ],
             ),

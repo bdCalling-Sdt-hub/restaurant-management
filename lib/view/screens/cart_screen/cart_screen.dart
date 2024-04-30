@@ -16,8 +16,11 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+
+  final amount =  Get.arguments;
   @override
   Widget build(BuildContext context) {
+    print(amount);
     Get.put(OrderCartController());
     return Scaffold(
       appBar: AppBar(
