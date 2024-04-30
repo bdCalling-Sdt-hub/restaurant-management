@@ -2,8 +2,8 @@ class ApiUrl {
   ///<<<=================Local  Base Url=========================>>>
  // static const socketUrl = "https://server.united-cadz.fr";
  // static const serverUrl = "https://server.united-cadz.fr";
-  static const baseUrl = "http://103.145.138.78:5000/api/v1";
-  static const imageUrl = "http://103.145.138.78:5000";
+  static const baseUrl = "http://192.168.10.3:5000/api/v1";
+  static const imageUrl = "http://192.168.10.3:5000";
 
 
   static const signUp = "$baseUrl/users/create-user";
@@ -19,5 +19,9 @@ class ApiUrl {
   static const deleteAccount = "$baseUrl/users";
   static const getTableData = "$baseUrl/restaurants";
   static const bookingTable = "$baseUrl/booking";
+  static const menuCategory = "$baseUrl/menu-categories";
+  static const menuEndPoint = "$baseUrl/menu";
+  static const bookingStatus = "$baseUrl/booking";
+  static const menuDetails = "$baseUrl/menu";
 
 }

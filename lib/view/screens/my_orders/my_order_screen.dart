@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/controller/booking_status_controller.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
+import '../../../model/booking_status_model.dart';
 import '../../../utils/app_colors.dart';
 
 class MyOrderScreen extends StatefulWidget {
@@ -50,7 +52,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
               dividerColor: AppColors.greenLightActive,
               labelColor: AppColors.greenNormal, // Change this color as needed
               unselectedLabelColor: Colors.black26,
-              tabs:  [
+              tabs:  const [
            Tab(text: "Order",),
            Tab(text: "Booking",)
           ]),
@@ -185,56 +187,60 @@ class OrderCard extends StatelessWidget {
   final Color textColor;
   @override
   Widget build(BuildContext context) {
-    return   ListView.builder(
-      padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
-        itemCount: 10,
-        itemBuilder: (context,index){
-      return Container(
-        margin: const EdgeInsetsDirectional.symmetric(vertical: 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-            color: AppColors.whiteColor,
-          boxShadow: [
-            const BoxShadow(
-              color: Color(0x1E000000),
-              blurRadius: 24,
-              offset: Offset(0, 1),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CustomText(text: "Nevada Coffee Bar",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
-            const Row(
-              children: [
-                CustomText(text: "Tracking number:",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
-                CustomText(text: "IW3475453455",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+    return   GetBuilder<BookingStatusController>(
+      builder: (controller) {
+        return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): ListView.builder(
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+            itemCount: controller.model.data?.length ,
+            itemBuilder: (context,index){
+          return Container(
+            margin: const EdgeInsetsDirectional.symmetric(vertical: 12),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: AppColors.whiteColor,
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x1E000000),
+                  blurRadius: 24,
+                  offset: Offset(0, 1),
+                  spreadRadius: 0,
+                )
               ],
             ),
-            const Row(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(text: "Total Amount:",color: Color(0xff696969),fontWeight: FontWeight.w400,),
-                CustomText(text: "112\$",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                CustomText(text: controller.model.data?[index].restaurant?.name.toString() ?? "",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                 Row(
+                  children: [
+                    CustomText(text: "Tracking number:",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                    CustomText(text: controller.model.data?[index].id.toString() ?? "",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                  ],
+                ),
+                // const Row(
+                //   children: [
+                //     CustomText(text: "Total Amount:",color: Color(0xff696969),fontWeight: FontWeight.w400,),
+                //     CustomText(text: "112\$",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                //   ],
+                // ),
+                const SizedBox(height: 8,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomElevatedButton(onPressed: (){
+                    }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
+                    ,
+                    CustomText(text: status,color: textColor,fontWeight: FontWeight.w500,)
+
+                  ],
+                )
+
               ],
             ),
-        const SizedBox(height: 8,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomElevatedButton(onPressed: (){
-                }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
-                ,
-                CustomText(text: status,color: textColor,fontWeight: FontWeight.w500,)
-
-              ],
-            )
-
-          ],
-        ),
-      );
-    });
+          );
+        });
+      }
+    );
   }
 }
 

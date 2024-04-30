@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restaurant_management/controller/auth/signin_controller.dart';
 import 'package:restaurant_management/view/screens/auth/forget_pass_screen/forgot_pass_screen.dart';
+import 'package:restaurant_management/view/widgets/custom_loading.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/app_routes.dart';
@@ -65,7 +66,7 @@ class SigninScreen extends StatelessWidget {
                     Get.to(const ForgotPassScreen());
                   }, child: const CustomText(text: "Forgot Password?",fontWeight: FontWeight.w700,color: AppColors.greenNormal,))),
                   const SizedBox(height: 6,),
-                  CustomElevatedButton(onPressed: (){
+                controller.isLoading?CustomElevatedLoadingButton():  CustomElevatedButton(onPressed: (){
                     if(controller.formKey.currentState!.validate()){
                       controller.signInRepo();
                     }

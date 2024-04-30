@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/auth/signin_controller.dart';
 import 'package:restaurant_management/controller/change_password_controller.dart';
@@ -5,6 +6,8 @@ import 'package:restaurant_management/controller/delete_account.controller.dart'
 import 'package:restaurant_management/controller/home_controller.dart';
 import 'package:restaurant_management/controller/profile_controller/personal_info_controller.dart';
 import '../../controller/auth/signup_controller.dart';
+import '../../controller/booking_status_controller.dart';
+import '../../controller/menu_controller.dart';
 import '../../controller/table_book_controller.dart';
 
 class DependencyInjection extends Bindings {
@@ -19,6 +22,8 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => ChangePasswordController(),fenix: true);
     Get.lazyPut(() => DeleteAccount(),fenix: true);
     Get.lazyPut(() => TableBookController(),fenix: true);
+    Get.lazyPut(() => MenuControllerGet(),fenix: true);
+    Get.lazyPut(() => BookingStatusController(),fenix: true);
 
 
 

@@ -11,6 +11,7 @@ import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/model/after_booked_table_model.dart';
 import 'package:restaurant_management/model/get_booked_data_model.dart';
 import 'package:restaurant_management/model/table_book_model.dart';
+import 'package:restaurant_management/utils/app_utils.dart';
 import '../global/api_url_container.dart';
 import '../service/api_service.dart';
 import '../utils/app_routes.dart';
@@ -63,11 +64,13 @@ class TableBookController extends GetxController{
      PrefsHelper.bookingId = jsonDecode(response.responseJson)['data']['_id'];
     print("===============bookingId>${PrefsHelper.bookingId}");
 
+    Utils.toastMessage(response.message);
+
     getBookedData(bookingId: PrefsHelper.bookingId);
      Get.to(const BookNow());
    }
    else{
-
+     Utils.toastMessage(response.message);
    }
     if (kDebugMode) {
       print(response.responseJson);

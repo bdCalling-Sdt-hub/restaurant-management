@@ -12,12 +12,14 @@ import '../../global/share_prefes_helper.dart';
 class SignInController extends GetxController{
   TextEditingController emailController =  TextEditingController(text: kDebugMode?"vecexoc215@idsho.com" : "");
   TextEditingController passwordController =  TextEditingController(text: kDebugMode?"111222" : "");
+
   final formKey = GlobalKey<FormState>();
   RegExp emailRegexp = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   bool isLoading = false;
   Future<void> signInRepo()async {
-
+ isLoading = true;
+ update();
     Map<String,String> body = {
       "email":emailController.text,
       "password":passwordController.text
@@ -54,6 +56,8 @@ class SignInController extends GetxController{
       else{
         Utils.toastMessage(response.message);
       }
+ isLoading = false;
+ update();
     }
 
 }

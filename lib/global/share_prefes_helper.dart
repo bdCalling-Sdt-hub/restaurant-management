@@ -12,6 +12,7 @@ class PrefsHelper extends GetxController {
   static bool isLogin = false;
   static String refreshToken = "";
   static String bookingId = "";
+  static String afterbookingId = "";
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -24,6 +25,7 @@ class PrefsHelper extends GetxController {
     refreshToken = preferences.getString("refreshToken") ?? "";
     forgotMail =  preferences.getString("forgotEmail") ?? "";
     bookingId =  preferences.getString("bookingId") ?? "";
+    bookingId =  preferences.getString("afterbookingId") ?? "";
 
     print("==================> Save Access token $accessToken");
 

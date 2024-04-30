@@ -364,7 +364,7 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                   ],
                 ),
                 const SizedBox(height: 16,),
-               controller.isLoading?const CustomElevatedLoadingButton() :CustomElevatedButton(onPressed: (){
+               CustomElevatedButton(onPressed: (){
                   controller.bookTable(controller.tableBookModel.data?.sId.toString() ?? "");
                  // Get.to(const BookNow());
                 }, titleText: "Book Slots",buttonHeight: 48,buttonWidth: Get.width/1.2,)

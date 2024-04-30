@@ -27,6 +27,7 @@ class _CartScreenState extends State<CartScreen> {
             GestureDetector(
               onTap: () => Get.back(),
               child: Container(
+                margin: EdgeInsets.only(left: 4),
                   height: 40,
                   width: 40,
                   decoration: const BoxDecoration(
@@ -67,29 +68,36 @@ class _CartScreenState extends State<CartScreen> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    image: const DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: NetworkImage("https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8fHww"),
-                                    ),
-                                  ),
-                                ),
-                                const Column(
+                                Row(
                                   children: [
-                                    CustomText(text: "Burger", fontSize: 16),
-                                    CustomText(text: "\$123", fontWeight: FontWeight.w500),
+                                    Container(
+                                      height: 60,
+                                      width: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        image: const DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage("https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8fHww"),
+                                        ),
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 12,),
+                                    const Column(
+                                      children: [
+                                        CustomText(text: "Burger", fontSize: 16),
+                                        CustomText(text: "\$123", fontWeight: FontWeight.w500),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
                                     Container(
-                                      margin: const EdgeInsets.only(top: 12),
-                                      width: Get.width / 5,
+                                      margin: const EdgeInsets.only(top: 12,right: 24),
+                                      width: Get.width / 3,
                                       decoration: BoxDecoration(
                                         color: AppColors.whiteColor,
                                         borderRadius: BorderRadius.circular(8),
@@ -181,8 +189,8 @@ class _CartScreenState extends State<CartScreen> {
                    SizedBox(height: 12,),
                    CustomElevatedButton(onPressed: (){
 
-                    // Get.toNamed(AppRoute.orderCartScreen);
-                   }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
+
+                   }, titleText: "Order Now",buttonHeight: 48,buttonWidth: Get.width/1.5,)
                  ],
                )
               ],
