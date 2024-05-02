@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/model/menu_details_model.dart';
 import '../global/api_url_container.dart';
 import '../service/api_service.dart';
@@ -26,6 +28,26 @@ bool isLoading =  false;
   }
 
 
+sentOrderMenu({required String menuId,required int initialQuality,required int amount,})async{
+  Map<String , dynamic > body ={
+    "menu":menuId,
+    "quantity": initialQuality,
+    "amount":amount
+  };
+  print("===================BODY$body");
+  var encodeBody  = jsonEncode(body);
+   String url  = "${ApiUrl.addCart}/${PrefsHelper.afterbookingId}";
+  var response  = await ApiService.postApi( url,encodeBody);
+  print("response ==============>${response.responseJson}");
+
+  if(response.statusCode==200){
+    print(response.statusCode);
+    print(response.message);
+    print(response.responseJson);
+  }
+
+}
+
   int initialQuantity = 1 ;
 
   incrementQuantity(){
@@ -38,15 +60,6 @@ bool isLoading =  false;
       initialQuantity--;
       update();
     }
-
-  }
-
-  Future<void> sendAmount()async{
-
-
-    Map<String,String> body ={
-
-    };
 
   }
 

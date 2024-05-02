@@ -60,13 +60,13 @@ class TableBookController extends GetxController{
 
     var response = await ApiService.postApi(ApiUrl.bookingTable, encodedBody);
    if(response.statusCode ==200 ){
-     PrefsHelper.setString("bookingId", jsonDecode(response.responseJson)['data']['_id']);
-     PrefsHelper.bookingId = jsonDecode(response.responseJson)['data']['_id'];
-    print("===============bookingId>${PrefsHelper.bookingId}");
+     PrefsHelper.setString("afterbookingId", jsonDecode(response.responseJson)['data']['_id']);
+     PrefsHelper.afterbookingId = jsonDecode(response.responseJson)['data']['_id'];
+    print("===============bookingId>${PrefsHelper.afterbookingId}");
 
     Utils.toastMessage(response.message);
 
-    getBookedData(bookingId: PrefsHelper.bookingId);
+    getBookedData(bookingId: PrefsHelper.afterbookingId);
      Get.to(const BookNow());
    }
    else{

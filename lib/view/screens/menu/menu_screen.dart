@@ -21,12 +21,6 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   @override
-  void initState() {
-
-
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -72,9 +66,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     onTap: () async{
                       controller.getId(index);
                       controller.getMenu(categoryId: controller.menuCategoryList[index].id.toString());
-                      if (kDebugMode) {
-                        print(controller.menuCategoryList[index].id.toString());
-                      }
                     },
                     child:  Container(
                       margin: const EdgeInsets.only(right: 12),
@@ -94,8 +85,8 @@ class _MenuScreenState extends State<MenuScreen> {
                 )),
              ),
                const SizedBox(height: 24,),
-
-              Expanded(
+         ///===================================== All Menu data =================================>>>
+             controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,),): Expanded(
                 child: GridView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 10 ),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -105,7 +96,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   itemCount: controller.menuList.length,
                   itemBuilder: (BuildContext context, int index) {
                     print("Length =======>>${controller.menuList.length}");
-                    return Container(
+                    return  Container(
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.only(left: 8,bottom: 8),
                       color: AppColors.greenLight,
@@ -124,8 +115,6 @@ class _MenuScreenState extends State<MenuScreen> {
 
                           CustomElevatedButton(onPressed: (){
                             Get.toNamed(AppRoute.orderDetailsScreen,arguments: controller.menuList[index].id);
-
-
                           }, titleText: "Order",buttonHeight: 40,)
                         ],
                       )

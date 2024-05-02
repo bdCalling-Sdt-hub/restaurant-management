@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/order_cart_controller.dart';
+import 'package:restaurant_management/global/share_prefes_helper.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_routes.dart';
 import '../../widgets/custom_text.dart';
@@ -16,12 +17,17 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+@override
+  void initState() {
+final menuId  =  Get.arguments;
+ OrderCartController controller =  Get.put(OrderCartController());
 
-  final amount =  Get.arguments;
+ controller.getAllCartData(PrefsHelper.afterbookingId);
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    print(amount);
-    Get.put(OrderCartController());
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -96,7 +102,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   ],
                                 ),
-                                Row(
+                               /* Row(
                                   children: [
                                     Container(
                                       margin: const EdgeInsets.only(top: 12,right: 24),
@@ -131,7 +137,7 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     )
                                   ],
-                                )
+                                )*/
                               ],
                             ),
                           ),

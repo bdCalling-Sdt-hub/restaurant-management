@@ -19,13 +19,13 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-
+  final menuId = Get.arguments;
   @override
   void initState() {
-
     final controller = Get.put(ProductDetailsController());
-    final id = Get.arguments;
-    controller.menuDetails(id);
+
+    controller.menuDetails(menuId);
+    print(menuId);
     // TODO: implement initState
     super.initState();
   }
@@ -39,7 +39,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             GestureDetector(
               onTap: ()=>Get.back(),
               child: Container(
-                margin: EdgeInsets.only(left: 8),
+                margin: const EdgeInsets.only(left: 8),
                   height: 40,
                   width: 40,
                   decoration: const BoxDecoration(
@@ -138,7 +138,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     fontSize: 16,
                     text:  controller.model.data?.description.toString() ??""),
                     CustomElevatedButton(onPressed: (){
-                       Get.toNamed(AppRoute.orderCartScreen,arguments: (controller.model.data?.price ?? 0) * controller.initialQuantity,);
+                       Get.toNamed(AppRoute.orderCartScreen,arguments: menuId);
+                       print("=============MenuId$menuId");
+                        controller.sentOrderMenu(menuId: menuId , initialQuality: controller.initialQuantity, amount: (controller.model.data?.price ?? 0) * controller.initialQuantity);
+
                 }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
               ],
             ),

@@ -282,9 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                      CustomElevatedButton(onPressed: (){
                                        TableBookController dcontroller = Get.put(TableBookController());
-
                                        dcontroller.getTableData("${controller.homeModel.data?[index].sId}");
-                                       // print(controller.homeModel.data?[index].sId);
+                                         print(controller.homeModel.data?[index].sId);
 
                                      }, titleText: "Book a Table",buttonHeight: 48,)
 

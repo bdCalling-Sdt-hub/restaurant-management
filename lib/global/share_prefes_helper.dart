@@ -25,7 +25,7 @@ class PrefsHelper extends GetxController {
     refreshToken = preferences.getString("refreshToken") ?? "";
     forgotMail =  preferences.getString("forgotEmail") ?? "";
     bookingId =  preferences.getString("bookingId") ?? "";
-    bookingId =  preferences.getString("afterbookingId") ?? "";
+    afterbookingId =  preferences.getString("afterbookingId") ?? "";
 
     print("==================> Save Access token $accessToken");
 

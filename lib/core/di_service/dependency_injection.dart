@@ -8,6 +8,7 @@ import 'package:restaurant_management/controller/profile_controller/personal_inf
 import '../../controller/auth/signup_controller.dart';
 import '../../controller/booking_status_controller.dart';
 import '../../controller/menu_controller.dart';
+import '../../controller/order_cart_controller.dart';
 import '../../controller/table_book_controller.dart';
 
 class DependencyInjection extends Bindings {
@@ -24,6 +25,7 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => TableBookController(),fenix: true);
     Get.lazyPut(() => MenuControllerGet(),fenix: true);
     Get.lazyPut(() => BookingStatusController(),fenix: true);
+    Get.lazyPut(() => OrderCartController(),fenix: true);
 
 
 

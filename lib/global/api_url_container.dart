@@ -23,5 +23,7 @@ class ApiUrl {
   static const menuEndPoint = "$baseUrl/menu";
   static const bookingStatus = "$baseUrl/booking";
   static const menuDetails = "$baseUrl/menu";
+  static const addCart = "$baseUrl/cart";
+  static const allCart = "$baseUrl/cart";
 
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -49,6 +50,8 @@ class MenuControllerGet extends GetxController {
  List<Data> menuList  = [];
 
   Future<void> getMenu({required dynamic categoryId}) async {
+    isLoading = true;
+    update();
     menuList.clear();
     String url = "${ApiUrl.menuEndPoint}?category=$categoryId";
     print(url);
@@ -64,6 +67,8 @@ class MenuControllerGet extends GetxController {
       print(response.responseJson);
       print("dfgkl sd\f;gkl sd\fk dsf\;gkl sd\'gk \g;kl  ${response.message}");
     }
+    isLoading = false;
+    update();
   }
 
   ///==============SelectCategory ==================//
