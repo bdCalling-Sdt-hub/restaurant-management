@@ -95,7 +95,7 @@ class Data {
 }
 
 class Items {
-  String? menu;
+  Menu? menu;
   int? quantity;
   int? amount;
   String? sId;
@@ -103,7 +103,7 @@ class Items {
   Items({this.menu, this.quantity, this.amount, this.sId});
 
   Items.fromJson(Map<String, dynamic> json) {
-    menu = json['menu'];
+    menu = json['menu'] != null ? new Menu.fromJson(json['menu']) : null;
     quantity = json['quantity'];
     amount = json['amount'];
     sId = json['_id'];
@@ -111,10 +111,77 @@ class Items {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['menu'] = this.menu;
+    if (this.menu != null) {
+      data['menu'] = this.menu!.toJson();
+    }
     data['quantity'] = this.quantity;
     data['amount'] = this.amount;
     data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class Menu {
+  String? sId;
+  String? category;
+  String? image;
+  String? restaurant;
+  String? description;
+  String? name;
+  int? price;
+  String? owner;
+  bool? available;
+  bool? isDeleted;
+  String? createdAt;
+  String? updatedAt;
+  int? iV;
+
+  Menu(
+      {this.sId,
+        this.category,
+        this.image,
+        this.restaurant,
+        this.description,
+        this.name,
+        this.price,
+        this.owner,
+        this.available,
+        this.isDeleted,
+        this.createdAt,
+        this.updatedAt,
+        this.iV});
+
+  Menu.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    category = json['category'];
+    image = json['image'];
+    restaurant = json['restaurant'];
+    description = json['description'];
+    name = json['name'];
+    price = json['price'];
+    owner = json['owner'];
+    available = json['available'];
+    isDeleted = json['isDeleted'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['category'] = this.category;
+    data['image'] = this.image;
+    data['restaurant'] = this.restaurant;
+    data['description'] = this.description;
+    data['name'] = this.name;
+    data['price'] = this.price;
+    data['owner'] = this.owner;
+    data['available'] = this.available;
+    data['isDeleted'] = this.isDeleted;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
     return data;
   }
 }

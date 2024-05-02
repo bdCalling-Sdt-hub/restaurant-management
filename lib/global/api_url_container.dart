@@ -25,5 +25,6 @@ class ApiUrl {
   static const menuDetails = "$baseUrl/menu";
   static const addCart = "$baseUrl/cart";
   static const allCart = "$baseUrl/cart";
+  static const removeData = "$baseUrl/cart";
 
 }

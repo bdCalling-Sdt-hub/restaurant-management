@@ -23,7 +23,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   void initState() {
     final controller = Get.put(ProductDetailsController());
-
     controller.menuDetails(menuId);
     print(menuId);
     // TODO: implement initState

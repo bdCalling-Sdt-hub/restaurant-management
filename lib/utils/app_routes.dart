@@ -38,6 +38,7 @@ class AppRoute{
   static const String tableBooking = "/tableBooking_screen";
 
   static List<GetPage> routes = [
+
     GetPage(name: aboutUsScreen, page: () => const AboutUsScreen()),
     GetPage(name: splashScreen, page: () => const SplashScreen()),
     GetPage(name: homeScreen, page: () => const HomeScreen()),

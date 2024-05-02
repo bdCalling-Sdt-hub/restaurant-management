@@ -26,8 +26,5 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => MenuControllerGet(),fenix: true);
     Get.lazyPut(() => BookingStatusController(),fenix: true);
     Get.lazyPut(() => OrderCartController(),fenix: true);
-
-
-
   }
 }

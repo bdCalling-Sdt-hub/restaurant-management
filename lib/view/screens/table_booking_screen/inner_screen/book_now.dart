@@ -85,6 +85,7 @@ class _BookNowState extends State<BookNow> {
                 const SizedBox(height: 32,),
                 CustomElevatedButton(onPressed: (){
                   Get.toNamed(AppRoute.showMenu);
+
                 }, titleText: "Show menu",buttonHeight: 40,buttonWidth: Get.width/1.2,)
               ],
             ),

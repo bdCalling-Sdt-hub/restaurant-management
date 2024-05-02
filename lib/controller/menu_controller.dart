@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
@@ -25,14 +23,13 @@ class MenuControllerGet extends GetxController {
     }
     if (response.statusCode == 200) {
       menuCategotyModel = MenuCategotyModel.fromJson(jsonDecode(response.responseJson));
-
+      getMenu(categoryId: menuCategotyModel.data?[0].id);
       if (kDebugMode) {
         print(response.responseJson);
       }
       if (kDebugMode) {
         print(response.message);
       }
-
       if(menuCategotyModel.data != null){
         menuCategoryList.addAll(menuCategotyModel.data!);
         update();
@@ -65,11 +62,12 @@ class MenuControllerGet extends GetxController {
         update();
       }
       print(response.responseJson);
-      print("dfgkl sd\f;gkl sd\fk dsf\;gkl sd\'gk \g;kl  ${response.message}");
+      print("yyyyyy uuuuuuu kkkkkkkkk iiiiiiiii   ${response.message}");
     }
     isLoading = false;
     update();
   }
+
 
   ///==============SelectCategory ==================//
 
@@ -82,7 +80,6 @@ class MenuControllerGet extends GetxController {
   @override
   void onInit() {
     getMenuCategory();
-    // getMenu(categoryId: PrefsHelper.afterbookingId);
     // TODO: implement onInit
     super.onInit();
   }

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/order_cart_controller.dart';
+import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/global/share_prefes_helper.dart';
 import '../../../utils/app_colors.dart';
-import '../../../utils/app_routes.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/elevated_button.dart';
 
@@ -19,15 +19,18 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
 @override
   void initState() {
-final menuId  =  Get.arguments;
+
  OrderCartController controller =  Get.put(OrderCartController());
 
  controller.getAllCartData(PrefsHelper.afterbookingId);
     // TODO: implement initState
     super.initState();
   }
+
+final menuId  =  Get.arguments;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -61,12 +64,13 @@ final menuId  =  Get.arguments;
       body: GetBuilder<OrderCartController>(
         builder: (controller) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical:24,horizontal: 20),            child: Column(
+            padding: const EdgeInsets.symmetric(vertical:24,horizontal: 20),  child: Column(
               children: [
-                Expanded(
+           controller.isLoading?Center(child: CircularProgressIndicator(color: AppColors.greenNormal,),):     Expanded(
                   child: ListView.builder(
-                    itemCount: 12,
+                    itemCount: controller.carList.length,
                     itemBuilder: (context, index) {
+                      print(controller.carList.length,);
                       return Stack(
                         children: [
                           Container(
@@ -86,18 +90,18 @@ final menuId  =  Get.arguments;
                                       width: 60,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        image: const DecorationImage(
+                                        image:  DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: NetworkImage("https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnVyZ2VyfGVufDB8fDB8fHww"),
+                                          image: NetworkImage("${ApiUrl.imageUrl}${controller.model.data?.items?[index].menu?.image}"),
                                         ),
                                       ),
                                     ),
 
                                     const SizedBox(width: 12,),
-                                    const Column(
+                                     Column(
                                       children: [
-                                        CustomText(text: "Burger", fontSize: 16),
-                                        CustomText(text: "\$123", fontWeight: FontWeight.w500),
+                                        CustomText(text: (controller.model.data?.items?[index].menu?.name.toString()??""), fontSize: 16),
+                                        CustomText(text: "\$ ${(controller.model.data?.items?[index].amount.toString()??"")}", fontWeight: FontWeight.w500),
                                       ],
                                     ),
                                   ],
@@ -147,9 +151,11 @@ final menuId  =  Get.arguments;
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  // Remove the item at the current index from the 'items' list
-                                 // items.removeAt(index);
-                                });
+                                controller.removeFromCart(controller.model.data?.items?[index].sId.toString() ??  "",controller.model.data?.items?[index].amount.toString() ?? "");
+
+                                print("=====ID ${controller.model.data?.items?[index].sId.toString() ?? ""}");
+                                }
+                                );
                               },
                               child: Container(
                                 height: 30,
@@ -172,33 +178,31 @@ final menuId  =  Get.arguments;
                ///=====================Amount=================================///
                Column(
                  children: [
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       CustomText(text: "Sub Total",fontWeight: FontWeight.w500,fontSize: 16,),
-                       CustomText(text: "\$1234.00",fontWeight: FontWeight.w500,fontSize: 16,)
-                     ],
-                   ),
+                   // Row(
+                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   //   children: [
+                   //     CustomText(text: "Sub Total",fontWeight: FontWeight.w500,fontSize: 16,),
+                   //     CustomText(text: "\$1234.00",fontWeight: FontWeight.w500,fontSize: 16,)
+                   //   ],
+                   // ),
+                   // SizedBox(height: 8,),
+                   // Row(
+                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   //   children: [
+                   //     CustomText(text: "Discount",fontWeight: FontWeight.w500,fontSize: 16,),
+                   //     CustomText(text: "\$12.00",fontWeight: FontWeight.w500,fontSize: 16,)
+                   //   ],
+                   // ),
                    SizedBox(height: 8,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       CustomText(text: "Discount",fontWeight: FontWeight.w500,fontSize: 16,),
-                       CustomText(text: "\$12.00",fontWeight: FontWeight.w500,fontSize: 16,)
-                     ],
-                   ),
-                   SizedBox(height: 8,),
-                   Row(
+                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                        CustomText(text: "Total",fontWeight: FontWeight.w500,fontSize: 20,color: AppColors.greenNormal,),
-                       CustomText(text: "\$124.00",fontWeight: FontWeight.w500,fontSize: 16,color: AppColors.greenNormal,)
+                       CustomText(text: "\$ ${(controller.model.data?.totalAmount ?? "")}",fontWeight: FontWeight.w500,fontSize: 16,color: AppColors.greenNormal,)
                      ],
                    ),
                    SizedBox(height: 12,),
                    CustomElevatedButton(onPressed: (){
-
-
                    }, titleText: "Order Now",buttonHeight: 48,buttonWidth: Get.width/1.5,)
                  ],
                )
