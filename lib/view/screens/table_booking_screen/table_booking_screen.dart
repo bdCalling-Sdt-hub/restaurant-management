@@ -184,7 +184,7 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                       child: Row(
                         children: [
                           const Icon(Icons.star,color: Colors.yellow,),
-                          CustomText(text: controller.tableBookModel.data!.avgReviews.toString() ?? "0",color: AppColors.blackNormal,fontWeight: FontWeight.w500,fontSize: 20,)
+                          CustomText(text: controller.tableBookModel.data?.avgReviews.toString() ?? "0",color: AppColors.blackNormal,fontWeight: FontWeight.w500,fontSize: 20,)
                         ],
                       ),
                     ),

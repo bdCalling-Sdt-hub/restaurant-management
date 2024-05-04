@@ -31,23 +31,25 @@ class SignInController extends GetxController{
       print(response.responseJson);
     }
       if(response.statusCode == 200){
-
-        // emailController.clear();
-        // passwordController.clear();
         Get.offAllNamed(AppRoute.homeScreen);
         Utils.toastMessage(response.message);
-
-
 
       ///-----------------------Save data in sharePrefs ----------------------->>
         PrefsHelper.setString("accessToken", jsonDecode(response.responseJson)['data']['accessToken']);
         PrefsHelper.setString("refreshToken", jsonDecode(response.responseJson)['data']['refreshToken']);
+        PrefsHelper.setString("userId", jsonDecode(response.responseJson)['data']["user"]['_id']);
 
         PrefsHelper.accessToken = jsonDecode(response.responseJson)['data']['accessToken'];
         PrefsHelper.refreshToken = jsonDecode(response.responseJson)['data']['refreshToken'];
+        PrefsHelper.userId = jsonDecode(response.responseJson)['data']["user"]['_id'];
+
+        print("USer Id  ================ ID${PrefsHelper.userId}");
+
+
 
         if (kDebugMode) {
           print("=============Token    >>>>>>>>>>> ${jsonDecode(response.responseJson)['data']['accessToken']}");
+          print("USer Id  ================ ID${PrefsHelper.userId}");
         }
 
 

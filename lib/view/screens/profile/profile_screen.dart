@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/profile_controller/personal_info_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
+import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/screens/my_orders/my_order_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/bottom_nav/bottom_nav.dart';
 import '../../widgets/elevated_button.dart';
 import 'inner_screen/personal_info_screen.dart';
@@ -120,10 +123,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                Get.to(const PersonalInfoScreen());
                                }
                                if(index==1){
-                                 Get.to(const MyOrderScreen(text: 'My Orders', index: 0,));
+                                 Get.to(const MyOrderScreen(text: 'My Orders', index: 0, status1: 'Unpaid', status2: 'Half Paid', status3: 'Paid',));
                                }
                                if(index==2){
-                                 Get.to(const MyOrderScreen(text: 'My Booking', index: 1,));
+                                 Get.to(const MyOrderScreen(text: 'My Booking', index: 1, status1: 'Booked', status2: 'Cancelled', status3: 'Closed',));
                                }
                                if(index==3){
                                  Get.to(const SettingScreen());
@@ -185,9 +188,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           Row(
             children: [
-              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "No",buttonHeight: 32,borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,)),
+              Expanded(child: CustomElevatedButton(onPressed: (){Get.back();}, titleText: "No",buttonHeight: 32,borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,)),
               const SizedBox(width: 12,),
-              Expanded(child: CustomElevatedButton(onPressed: (){}, titleText: "Yes",buttonHeight: 32,)),
+              Expanded(child: CustomElevatedButton(onPressed: ()async{
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.clear();
+                pref.setString("accessToken", "");
+                pref.setString("email", "");
+                PrefsHelper.accessToken = "";
+                PrefsHelper.email = "";
+                Get.offAndToNamed(AppRoute.signin);
+
+
+              }, titleText: "Yes",buttonHeight: 32,)),
             ],
           ),
 

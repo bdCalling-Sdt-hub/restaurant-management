@@ -19,7 +19,7 @@ class OrderCartController extends GetxController {
     var url = "${ApiUrl.allCart}/$bookingId";
     var response  = await ApiService.getApi(url);
     if (kDebugMode) {
-      print("asdfhu aslkdjfh ;asdkfjh dfk ==================>${response.responseJson}");
+      print(" ==================>${response.responseJson}");
     }
 
     if(response.statusCode==200){
@@ -28,7 +28,6 @@ class OrderCartController extends GetxController {
 
       if(model.data?.items != null){
         carList.addAll(model.data!.items!);
-
         update();
       }
       print(response.statusCode);

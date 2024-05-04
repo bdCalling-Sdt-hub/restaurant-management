@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/booking_status_controller.dart';
+import 'package:restaurant_management/controller/table_book_controller.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
+import '../../../controller/order_cart_controller.dart';
+import '../../../global/share_prefes_helper.dart';
 import '../../../model/booking_status_model.dart';
 import '../../../utils/app_colors.dart';
 
 class MyOrderScreen extends StatefulWidget {
-  const MyOrderScreen({super.key, required this.text, required this.index});
+  const MyOrderScreen({super.key, required this.text, required this.index, required this.status1, required this.status2, required this.status3});
  final String text;
  final int index;
-
-
+final String status1;
+final String status2;
+final String status3;
   @override
   State<MyOrderScreen> createState() => _MyOrderScreenState();
 }
@@ -96,30 +101,30 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                     color: AppColors.greenNormal,
                     borderRadius: BorderRadius.circular(32.0), // Change this color as needed
                   ),
-                  tabs: const [
+                  tabs:  const [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text: 'Completed'),
+                      child: Tab(text: "Unpaid"),
                     ),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text: 'Processing'),
+                      child: Tab(text:"Half Paid"),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text: 'Cancelled'),
+                      child: Tab(text:"Paid"),
                     ),
                   ],
                 ),
                 Expanded(
                   child: TabBarView(
                     controller: tabController, // Specify the controller here
-                    children:   const [
+                    children:    [
                       // Content of Tab 1
-                      Center(child: OrderCard(status: 'Booked', textColor: AppColors.greenNormal,)),
+                      Center(child: OrderCard(status: widget.status1, textColor: AppColors.greenNormal,)),
                       // Content of Tab 2
-                      Center(child: OrderCard(status: "Processing", textColor: Color(0xffC57600),)),
-                      Center(child: OrderCard(status: "Cancelled", textColor: Color(0xffE20505),)),
+                      Center(child: OrderCard(status: widget.status2, textColor: Color(0xffC57600),)),
+                      Center(child: OrderCard(status: widget.status3, textColor:  AppColors.greenNormal,)),
                     ],
                   ),
                 ),
@@ -143,30 +148,30 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                     color: AppColors.greenNormal,
                     borderRadius: BorderRadius.circular(32.0), // Change this color as needed
                   ),
-                  tabs: const [
+                  tabs:  const [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text: 'Completed'),
+                      child: Tab(text: "Booked"),
                     ),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text: 'Processing'),
+                      child: Tab(text: "Cancelled"),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text: 'Cancelled'),
+                      child: Tab(text: "Closed"),
                     ),
                   ],
                 ),
                 Expanded(
                   child: TabBarView(
                     controller: tabController, // Specify the controller here
-                    children:   const [
+                    children:    const [
                       // Content of Tab 1
-                      Center(child: OrderCard(status: 'Booked', textColor: AppColors.greenNormal,)),
+                      Center(child: OrderCard(status: "Booked", textColor: AppColors.greenNormal,)),
                       // Content of Tab 2
-                      Center(child: OrderCard(status: "Processing", textColor: Color(0xffC57600),)),
-                      Center(child: OrderCard(status: "Cancelled", textColor: Color(0xffE20505),)),
+                      Center(child: OrderCard(status: "Cancelled", textColor: Color(0xffC57600),)),
+                      Center(child: OrderCard(status: "Closed", textColor: Color(0xffE20505),)),
                     ],
                   ),
                 ),
@@ -180,7 +185,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
   }
 }
 
-///============================Ordder card design ====================///
+///============================Order card design ====================///
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.status, required this.textColor});
   final String status;
@@ -210,11 +215,13 @@ class OrderCard extends StatelessWidget {
             ),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(text: controller.model.data?[index].restaurant?.name.toString() ?? "",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                CustomText(text: controller.model.data?[0].items?[0].menu?.name.toString() ?? "" ,color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
                  Row(
                   children: [
-                    CustomText(text: "Tracking number:",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
-                    CustomText(text: controller.model.data?[index].id.toString() ?? "",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+
+                    const CustomText(text: "Tracking number:",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                   CustomText(text: controller.model.data?[index].booking?.bookingId.toString() ?? "",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+
                   ],
                 ),
                 // const Row(
@@ -228,6 +235,12 @@ class OrderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomElevatedButton(onPressed: (){
+                      Get.toNamed(AppRoute.orderCartScreen);
+                      // OrderCartController controller =  Get.put(OrderCartController());
+                      // TableBookController tabel = Get.put(TableBookController());
+                      //  controller.getAllCartData(tabel.afterBookTableModel.data?.id.toString()?? "");
+                      // print("PrefsHelper =====>  ${tabel.afterBookTableModel.data?.id}");
+
                     }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
                     ,
                     CustomText(text: status,color: textColor,fontWeight: FontWeight.w500,)

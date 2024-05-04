@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:restaurant_management/controller/home_controller.dart';
 import 'package:restaurant_management/controller/table_book_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
+import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/screens/book_table_all/book_table_all_screen.dart';
@@ -30,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _startAutoScroll();
+
+    print("===============+USER ID${PrefsHelper.userId}");
 
   }
 

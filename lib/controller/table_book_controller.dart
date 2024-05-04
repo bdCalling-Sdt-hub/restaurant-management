@@ -62,7 +62,7 @@ class TableBookController extends GetxController{
    if(response.statusCode ==200 ){
      PrefsHelper.setString("afterbookingId", jsonDecode(response.responseJson)['data']['_id']);
      PrefsHelper.afterbookingId = jsonDecode(response.responseJson)['data']['_id'];
-    print("===============bookingId>${PrefsHelper.afterbookingId}");
+    print("===============bookingId>    ${PrefsHelper.afterbookingId}");
 
     Utils.toastMessage(response.message);
 

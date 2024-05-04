@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/model/booking_status_model.dart';
 
@@ -7,16 +8,17 @@ import '../global/api_url_container.dart';
 import '../service/api_service.dart';
 
 class BookingStatusController extends GetxController{
-
+ List  dataList = [];
   BookingStatusModel model =BookingStatusModel();
   bool isLoading = false;
   Future<void> bookingData ()async{
     isLoading = true;
     update();
-    var response = await ApiService.getApi(ApiUrl.bookingStatus);
+    var response = await ApiService.getApi(ApiUrl.myOrder);
     print("===================Menu Response${response.responseJson}");
     if(response.statusCode==200){
       model  = BookingStatusModel.fromJson(jsonDecode(response.responseJson));
+
       update();
       print(response.responseJson);
       print(response.message);

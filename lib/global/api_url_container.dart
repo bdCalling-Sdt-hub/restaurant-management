@@ -4,6 +4,7 @@ class ApiUrl {
  // static const serverUrl = "https://server.united-cadz.fr";
   static const baseUrl = "http://192.168.10.3:5000/api/v1";
   static const imageUrl = "http://192.168.10.3:5000";
+  static const socketUrl = "http://192.168.10.3:9000";
 
 
   static const signUp = "$baseUrl/users/create-user";
@@ -26,5 +27,6 @@ class ApiUrl {
   static const addCart = "$baseUrl/cart";
   static const allCart = "$baseUrl/cart";
   static const removeData = "$baseUrl/cart";
+  static const myOrder = "$baseUrl/cart/my-orders";
 
 }
