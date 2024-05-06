@@ -15,9 +15,9 @@ class ShowOrderScreen extends StatefulWidget {
 
 class _BookNowState extends State<ShowOrderScreen> {
   final id =  Get.arguments;
-
   @override
   void initState() {
+
     ShowOrderController controller = Get.put(ShowOrderController());
     controller.showOrderData(id);
     // TODO: implement initState
@@ -114,16 +114,19 @@ class _BookNowState extends State<ShowOrderScreen> {
                               ],
                             ),
                           ),
-                          Positioned(
+
+                         ///====================Closed button  =================  ///
+                         controller.model.data?.items?[index].isPaid == false? Positioned(
                             top: 10,
                             right: 0,
                             child: GestureDetector(
                               onTap: () {
-                                // setState(() {
-                                //   controller.removeFromCart(controller.model.data?.items?[index].id.toString() ??  "",controller.model.data?.items?[index].amount.toString() ?? "");
-                                //   print("=====ID ${controller.model.data?.items?[index].id.toString() ?? ""}");
-                                // }
-                                //  );
+                                setState(() {
+                                  controller.removeFromCart(bookingId: controller.model.data?.booking.toString() ?? "", itemId: controller.model.data?.items?[index].sId ?? "",
+                                      amount: controller.model.data?.items?[index].amount.toString() ??"");
+                                  print("=====ID ${id}");
+                                }
+                                 );
                               },
                               child: Container(
                                 height: 30,
@@ -135,7 +138,7 @@ class _BookNowState extends State<ShowOrderScreen> {
                                 child: const Icon(Icons.close, size: 18),
                               ),
                             ),
-                          )
+                          ): SizedBox()
                         ],
                       );
                     },

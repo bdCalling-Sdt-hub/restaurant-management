@@ -97,9 +97,9 @@ class _BookNowState extends State<BookingDetailsScreen> {
                   ),
                   const SizedBox(height: 32,),
                   CustomElevatedButton(onPressed: (){
-                    Get.toNamed(AppRoute.showOrderScreen,arguments: controller.model.data?[index].sId);
+                    Get.toNamed(AppRoute.showOrderScreen,arguments: id);
 
-                    print("==================+ID ${controller.model.data?[index].sId}");
+                    print("==================+ID ${id}");
 
                   }, titleText: "Show Order",buttonHeight: 40,buttonWidth: Get.width/1.2,)
                 ],

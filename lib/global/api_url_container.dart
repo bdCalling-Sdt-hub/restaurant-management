@@ -30,6 +30,7 @@ class ApiUrl {
   static const myOrder = "$baseUrl/cart/my-orders";
   static const getSingleBooking = "$baseUrl/booking/details";
   static const orderDetails= "$baseUrl/cart/details/";
-  static const showOrder= "$baseUrl/booking/details";
+  static const showOrder= "$baseUrl/cart";
+  static const removeList = "$baseUrl/cart";
 
 }
