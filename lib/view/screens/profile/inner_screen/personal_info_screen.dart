@@ -90,7 +90,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       const SizedBox(
                         height: 40,
                       ),
-                  controller.model.data?.image==null || controller.image.isEmpty ? Container(
+                  controller.image==null || controller.image.isEmpty ? Container(
                     height: 100,
                     width: 100,
                     decoration: const BoxDecoration(
@@ -123,15 +123,10 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       ),
                       GestureDetector(
                         onTap: (){
-
                           EditPersonalInfoController editPersonalInfoController = Get.put(EditPersonalInfoController());
-
                           editPersonalInfoController.nameController.text = controller.model.data?.fullName.toString() ?? "";
                           editPersonalInfoController.numberController.text = controller.model.data?.phoneNumber.toString() ?? "";
-
                           editPersonalInfoController.profileImage = controller.image;
-
-
                           Get.toNamed(AppRoute.editProfile);
                         },
                         child: Container(

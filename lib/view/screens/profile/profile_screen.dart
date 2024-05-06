@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/profile_controller/personal_info_controller.dart';
-import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
@@ -65,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return  Column(
             children: [
               Flexible(
-                flex: 3,
+                flex: 4,
                 child:   controller.isLoading ? const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): Container(
                   width: Get.width,
                   decoration: const BoxDecoration(
@@ -77,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 50,),
                       const CustomText(text: "Profile",color: AppColors.whiteColor,fontSize: 24,fontWeight: FontWeight.w600,),
                       const SizedBox(height: 40,),
-                      controller.model.data?.image==null || controller.image.isEmpty ? Container(
+                      controller.image==null || controller.image.isEmpty ? Container(
                         height: 100,
                         width: 100,
                         decoration: const BoxDecoration(
@@ -169,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  ///=================Alert Dialoge==================//
+  ///=================Alert Dialog==================//
   alertDialog(){
     showDialog(context: context, builder: (context){
       return  AlertDialog(

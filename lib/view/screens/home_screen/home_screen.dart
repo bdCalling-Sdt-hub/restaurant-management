@@ -32,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _startAutoScroll();
 
-    print("===============+USER ID${PrefsHelper.userId}");
 
   }
 
@@ -200,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                            GestureDetector(
                                onTap: () {
                                  Get.to(
-                                   BookTableAll(
+                                   const BookTableAll(
                                      title: 'Book e table',
                                    ),
                                    arguments: {
@@ -318,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                            ),
                            GestureDetector(
                                onTap: () {
-                                 Get.to(BookTableAll(title: 'Explore Restaurant',),
+                                 Get.to(const BookTableAll(title: 'Explore Restaurant',),
                                    arguments: {
                                      'dataLength': controller.homeDataList.length,
                                      'homeModel': controller.homeModel,
@@ -419,7 +418,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                            //
                                            // ),
                                            CustomElevatedButton(onPressed: (){
-
+                                             TableBookController dcontroller = Get.put(TableBookController());
+                                             dcontroller.getTableData("${controller.homeModel.data?[index].sId}");
+                                             print(controller.homeModel.data?[index].sId);
                                              Get.to(const TableBookingScreen());
                                            }, titleText: "Book a Table >",buttonHeight: 48,)
                                          ],

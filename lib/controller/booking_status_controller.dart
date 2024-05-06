@@ -7,7 +7,7 @@ import 'package:restaurant_management/model/booking_status_model.dart';
 import '../global/api_url_container.dart';
 import '../service/api_service.dart';
 
-class BookingStatusController extends GetxController{
+class OrderStatusController extends GetxController{
  List  dataList = [];
   BookingStatusModel model =BookingStatusModel();
   bool isLoading = false;

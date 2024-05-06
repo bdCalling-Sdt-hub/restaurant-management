@@ -88,7 +88,6 @@ class TableBookController extends GetxController{
     isLoading = true;
     update();
       var response = await  ApiService.getApi("${ApiUrl.bookingTable}/$bookingId");
-
       if(response.statusCode==200){
         getBookedDataModel = GetBookedDataModel.fromJson(jsonDecode(response.responseJson));
         print(getBookedDataModel.data?.table?.tableName);

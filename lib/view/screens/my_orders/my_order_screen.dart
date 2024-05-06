@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/booking_status_controller.dart';
+import 'package:restaurant_management/controller/get_all_booking_data_controller.dart';
 import 'package:restaurant_management/controller/table_book_controller.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
+import 'package:restaurant_management/view/screens/booking_details_screen/booking_details_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 
 import '../../../controller/order_cart_controller.dart';
+import '../../../controller/single_booking_controller.dart';
 import '../../../global/share_prefes_helper.dart';
 import '../../../model/booking_status_model.dart';
 import '../../../utils/app_colors.dart';
+import '../table_booking_screen/inner_screen/book_now.dart';
 
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({super.key, required this.text, required this.index, required this.status1, required this.status2, required this.status3});
@@ -119,11 +123,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                 Expanded(
                   child: TabBarView(
                     controller: tabController, // Specify the controller here
-                    children:    [
-                      // Content of Tab 1
+                    children: [
                       Center(child: OrderCard(status: widget.status1, textColor: AppColors.greenNormal,)),
-                      // Content of Tab 2
-                      Center(child: OrderCard(status: widget.status2, textColor: Color(0xffC57600),)),
+                      Center(child: OrderCard(status: widget.status2, textColor: const Color(0xffC57600),)),
                       Center(child: OrderCard(status: widget.status3, textColor:  AppColors.greenNormal,)),
                     ],
                   ),
@@ -168,10 +170,10 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                     controller: tabController, // Specify the controller here
                     children:    const [
                       // Content of Tab 1
-                      Center(child: OrderCard(status: "Booked", textColor: AppColors.greenNormal,)),
+                      Center(child: BookingCard(status: "Booked", textColor: AppColors.greenNormal,)),
                       // Content of Tab 2
-                      Center(child: OrderCard(status: "Cancelled", textColor: Color(0xffC57600),)),
-                      Center(child: OrderCard(status: "Closed", textColor: Color(0xffE20505),)),
+                      Center(child: BookingCard(status: "Cancelled", textColor: Color(0xffC57600),)),
+                      Center(child: BookingCard(status: "Closed", textColor: Color(0xffE20505),)),
                     ],
                   ),
                 ),
@@ -192,7 +194,7 @@ class OrderCard extends StatelessWidget {
   final Color textColor;
   @override
   Widget build(BuildContext context) {
-    return   GetBuilder<BookingStatusController>(
+    return   GetBuilder<OrderStatusController>(
       builder: (controller) {
         return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): ListView.builder(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
@@ -235,11 +237,8 @@ class OrderCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomElevatedButton(onPressed: (){
-                      Get.toNamed(AppRoute.orderCartScreen);
-                      // OrderCartController controller =  Get.put(OrderCartController());
-                      // TableBookController tabel = Get.put(TableBookController());
-                      //  controller.getAllCartData(tabel.afterBookTableModel.data?.id.toString()?? "");
-                      // print("PrefsHelper =====>  ${tabel.afterBookTableModel.data?.id}");
+                      Get.toNamed(AppRoute.orderDetailsEcreen,arguments: controller.model.data?[index].id);
+                      print("PrefsHelper =====>  ${controller.model.data?[index].id}");
 
                     }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
                     ,
@@ -253,6 +252,73 @@ class OrderCard extends StatelessWidget {
           );
         });
       }
+    );
+  }
+}
+
+///============================Booking card design ====================///
+class BookingCard extends StatelessWidget {
+  const BookingCard({super.key, required this.status, required this.textColor});
+  final String status;
+  final Color textColor;
+  @override
+  Widget build(BuildContext context) {
+    return   GetBuilder<GetAllBookingDataController>(
+        builder: (controller) {
+          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): ListView.builder(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+              itemCount: controller.model.data?.length ,
+              itemBuilder: (context,index){
+                return Container(
+                  margin: const EdgeInsetsDirectional.symmetric(vertical: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: AppColors.whiteColor,
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x1E000000),
+                        blurRadius: 24,
+                        offset: Offset(0, 1),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(text: controller.model.data?[index].restaurant?.name.toString() ??"" ,color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                      Row(
+                        children: [
+                          const CustomText(text: "Tracking number:",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                          CustomText(text: controller.model.data?[index].id.toString() ?? "",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                        ],
+                      ),
+                      // const Row(
+                      //   children: [
+                      //     CustomText(text: "Total Amount:",color: Color(0xff696969),fontWeight: FontWeight.w400,),
+                      //     CustomText(text: "112\$",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
+                      //   ],
+                      // ),
+                      const SizedBox(height: 8,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomElevatedButton(onPressed: (){
+
+                            Get.toNamed(AppRoute.bookingDetails,arguments:[controller.model.data?[index].sId ,index] );
+
+                          }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
+                          ,
+                          CustomText(text: status,color: textColor,fontWeight: FontWeight.w500,)
+
+                        ],
+                      )
+
+                    ],
+                  ),
+                );
+              });
+        }
     );
   }
 }

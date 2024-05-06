@@ -6,8 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
-import 'package:restaurant_management/view/screens/table_booking_screen/inner_screen/book_now.dart';
-import 'package:restaurant_management/view/widgets/custom_loading.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 import '../../../controller/table_book_controller.dart';
 import '../../../utils/app_colors.dart';
@@ -24,7 +22,7 @@ class TableBookingScreen extends StatefulWidget {
 class _TableBookingScreenState extends State<TableBookingScreen> {
   int currentPosition = 0;
   final CarouselController _carouselController = CarouselController();
-//List data = ["adf f","sdadf","sdf asdf" ,"huayun df","kabir Sun","Humayun Sun","sdfkh aslkdf sal"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +70,7 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                                 width: double.maxFinite,
                                 margin: const EdgeInsets.only(right: 5, left: 5),
                                 decoration: BoxDecoration(
-                                  image: controller.tableBookModel.data?.images==null? const DecorationImage(
+                                  image: controller.tableBookModel.data?.images==null || controller.tableBookModel.data!.images!.isEmpty? const DecorationImage(
                                     fit: BoxFit.fill,
                                     image: NetworkImage(
                                         "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fHww"),

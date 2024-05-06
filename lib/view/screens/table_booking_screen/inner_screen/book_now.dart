@@ -17,16 +17,16 @@ class BookNow extends StatefulWidget {
 }
 
 class _BookNowState extends State<BookNow> {
-  @override
-  void initState() {
-
-    TableBookController controller = TableBookController();
-    //controller.getBookedData(bookingId: PrefsHelper.bookingId);
-
-    print("======================================= HelloBooking Id${PrefsHelper.bookingId}");
-    // TODO: implement initState
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //
+  //   TableBookController controller = TableBookController();
+  //   controller.getBookedData(bookingId: PrefsHelper.afterbookingId);
+  //
+  //   print("======================================= HelloBooking Id${PrefsHelper.bookingId}");
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,14 +64,14 @@ class _BookNowState extends State<BookNow> {
                 const Center(child: CustomText(text: "Table Booked Successfully",textAlign: TextAlign.center,fontWeight: FontWeight.w700,fontSize: 20,top: 12,bottom: 12,)),
                  Row(
                   children: [
-                    Icon(Icons.calendar_month_rounded,size: 18,),
+                    const Icon(Icons.calendar_month_rounded,size: 18,),
                     CustomText(text: controller.getBookedDataModel.data?.time.toString() ?? "",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
                   ],
                 ),
                 const SizedBox(height: 12,),
                  Row(
                   children: [
-                    Icon(Icons.group,size: 18,),
+                    const Icon(Icons.group,size: 18,),
                     CustomText(text: controller.getBookedDataModel.data?.table?.seats.toString()??"",fontSize: 16,fontWeight: FontWeight.w300,left: 12,)
                   ],
                 ),

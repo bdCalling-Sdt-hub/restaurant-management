@@ -10,9 +10,8 @@ import '../../widgets/text_field.dart';
 import '../table_booking_screen/table_booking_screen.dart';
 
 class BookTableAll extends StatelessWidget {
-   BookTableAll({super.key, required this.title});
+   const BookTableAll({super.key, required this.title});
  final String title;
-
   @override
   Widget build(BuildContext context) {
     var arguments = Get.arguments;
@@ -110,7 +109,7 @@ class BookTableAll extends StatelessWidget {
                         CustomElevatedButton(onPressed: (){
                           Get.to(const TableBookingScreen());
             
-                        }, titleText: "Book a Table",buttonHeight: 48,titleSize: 24,buttonWidth: Get.width/2,titleWeight: FontWeight.w500,)
+                        }, titleText: "Book a Table",buttonHeight: 48,titleSize: 16,buttonWidth: Get.width/2,titleWeight: FontWeight.w500,)
             
                       ],
                     ),

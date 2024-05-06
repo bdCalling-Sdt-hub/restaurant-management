@@ -22,11 +22,14 @@ class ApiUrl {
   static const bookingTable = "$baseUrl/booking";
   static const menuCategory = "$baseUrl/menu-categories";
   static const menuEndPoint = "$baseUrl/menu";
-  static const bookingStatus = "$baseUrl/booking";
+  static const bookingAllData = "$baseUrl/booking";
   static const menuDetails = "$baseUrl/menu";
   static const addCart = "$baseUrl/cart";
   static const allCart = "$baseUrl/cart";
   static const removeData = "$baseUrl/cart";
   static const myOrder = "$baseUrl/cart/my-orders";
+  static const getSingleBooking = "$baseUrl/booking/details";
+  static const orderDetails= "$baseUrl/cart/details/";
+  static const showOrder= "$baseUrl/booking/details";
 
 }
