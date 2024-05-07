@@ -36,5 +36,6 @@ class ApiUrl {
   static const removeorderData = "$baseUrl/cart";
   static const addFavourite = "$baseUrl/favoriteLists/menu";
   static const allFavourite = "$baseUrl/favoriteLists/?fields=menu";
+  static const notifications = "$baseUrl/notifications";
 
 }

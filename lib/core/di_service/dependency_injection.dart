@@ -10,6 +10,7 @@ import '../../controller/booking_status_controller.dart';
 import '../../controller/fovourite_controller.dart';
 import '../../controller/get_all_booking_data_controller.dart';
 import '../../controller/menu_controller.dart';
+import '../../controller/notification-controller.dart';
 import '../../controller/order_cart_controller.dart';
 import '../../controller/single_booking_controller.dart';
 import '../../controller/table_book_controller.dart';
@@ -32,5 +33,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => GetAllBookingDataController(),fenix: true);
     Get.lazyPut(() => GetSingleBookingController(),fenix: true);
     Get.lazyPut(() => FavouriteController(),fenix: true);
+    Get.lazyPut(() => NotificationController(),fenix: true);
   }
 }

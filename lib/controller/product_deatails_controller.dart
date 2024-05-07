@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/share_prefes_helper.dart';
+import 'package:restaurant_management/model/add_favourite_model.dart';
 import 'package:restaurant_management/model/menu_details_model.dart';
 import '../global/api_url_container.dart';
 import '../service/api_service.dart';
@@ -30,7 +31,9 @@ bool isLoading =  false;
   }
 
   ///========================add to favourite ==========================>>>
+AddFavoriteModel addFavoriteModel =  AddFavoriteModel();
 
+  RxBool isFavourite = false.obs;
 Future<void> addFavourite(String menuId)async{
     Map<String,String> body ={
       "id": menuId
@@ -41,7 +44,9 @@ Future<void> addFavourite(String menuId)async{
       print(response.responseJson);
     }
     if(response.statusCode==200){
-      menuDetails(menuId);
+      addFavoriteModel = AddFavoriteModel.fromJson(jsonDecode(response.responseJson));
+      isFavourite.value = addFavoriteModel.data?.isFavorite ?? true;
+     // menuDetails(menuId);
     }
 }
 

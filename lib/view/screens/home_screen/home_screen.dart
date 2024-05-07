@@ -108,18 +108,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                     Flexible(
+                                     const Flexible(
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const CustomText(
+                                          CustomText(
                                             text: "Too Hôtel",
                                             color: AppColors.whiteColor,
                                             fontWeight: FontWeight.w700,
                                             fontSize: 20,
                                             textAlign: TextAlign.start,
                                           ),
-                                          const CustomText(
+                                          CustomText(
                                             text: "We are here with the best\ndeserts intown.",
                                             maxLines: 2,
                                             color: AppColors.whiteColor,
@@ -127,23 +127,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                             top: 12,
                                             bottom: 12,
                                           ),
-                                          GestureDetector(
-                                            onTap: (){
-                                              Get.to(const TableBookingScreen());
-
-                                            },
-                                            child: const Row(
-                                              children: [
-                                                CustomText(
-                                                  text: "Book now",
-                                                  color: AppColors.whiteColor,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 20,
-                                                ),
-                                                Icon(Icons.arrow_forward_ios_outlined, color: AppColors.whiteColor)
-                                              ],
-                                            ),
-                                          )
+                                          // GestureDetector(
+                                          //   onTap: (){
+                                          //     Get.to(const TableBookingScreen());
+                                          //
+                                          //   },
+                                          //   child: const Row(
+                                          //     children: [
+                                          //       CustomText(
+                                          //         text: "Book now",
+                                          //         color: AppColors.whiteColor,
+                                          //         fontWeight: FontWeight.w700,
+                                          //         fontSize: 20,
+                                          //       ),
+                                          //       Icon(Icons.arrow_forward_ios_outlined, color: AppColors.whiteColor)
+                                          //     ],
+                                          //   ),
+                                          // )
                                         ],
                                       ),
                                     ),

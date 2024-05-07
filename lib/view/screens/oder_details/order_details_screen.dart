@@ -52,11 +52,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               ],
             ),
             actions: [
-              IconButton(onPressed: (){
-                controller.addFavourite(menuId);
-
-                }, icon: controller.model.data?.isFavourite == true? 
-              Icon(Icons.favorite_outlined,color: controller.model.data?.isFavourite == true?AppColors.greenNormal:AppColors.blackNormal,):Icon(Icons.favorite_outline_outlined))
+             Obx((){
+               return  IconButton(onPressed: (){
+                 controller.addFavourite(menuId);
+                 print(controller.addFavoriteModel.data?.isFavorite);
+               }, icon: controller.isFavourite.value == true?
+               Icon(Icons.favorite_outlined,color: controller.isFavourite.value == true?AppColors.greenNormal:AppColors.blackNormal,):
+               const Icon(Icons.favorite_outline_outlined));
+             })
             ],
             centerTitle: true,
             title:const CustomText(text: "Details",color: AppColors.blackNormal,fontSize: 24,fontWeight: FontWeight.w600,),

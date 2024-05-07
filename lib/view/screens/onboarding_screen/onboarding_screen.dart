@@ -17,9 +17,9 @@ class _OnboardingState extends State<Onboarding> {
   Map <String,dynamic> data = {
 
     "image" : ["assets/images/onbording_1.png","assets/images/onbording_2.png"],
-    "shortDescription" : ["Food variety ","Many Restaurant Listed",],
-    "description": ["Lorem ipsum is a placeholder text commonly used to demonstrate the visual." ,
-      "Lorem ipsum is a placeholder text commonly used to demonstrate the visual. from the client text " ,
+    "shortDescription" : ["Food variety ","Explore Culinary with Ease",],
+    "description": ["Discover diverse cuisines with our restaurant management app's extensive food variety" ,
+      "Discover an array of culinary delights effortlessly with Food Finder." ,
      ],
   };
 
