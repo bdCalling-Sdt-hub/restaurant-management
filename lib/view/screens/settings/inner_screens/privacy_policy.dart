@@ -1,13 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_management/controller/setting_content_controller.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
 
 import '../../../widgets/custom_text.dart';
 
-class PrivacyPolicy extends StatelessWidget {
+class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({super.key});
 
+  @override
+  State<PrivacyPolicy> createState() => _PrivacyPolicyState();
+}
+
+class _PrivacyPolicyState extends State<PrivacyPolicy> {
+  @override
+  void initState() {
+    SettingContentController controller = Get.put(SettingContentController());
+    controller.settingContent("privacyPolicy");
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,21 +54,13 @@ class PrivacyPolicy extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      body: const SingleChildScrollView(
-        padding: EdgeInsetsDirectional.symmetric(vertical: 24,horizontal: 20),
-        child: Column(
-          children: [
-            CustomText(text: """
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.""",
-              maxLines: 100,
-              textAlign: TextAlign.start,
-            )
-          ],
-        ),
+      body:  GetBuilder<SettingContentController>(
+        builder: (controller) {
+          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): SingleChildScrollView(
+            padding: const EdgeInsetsDirectional.symmetric(vertical: 24,horizontal: 20),
+            child: Html(data: controller.model.data?.privacyPolicy),
+          );
+        }
       ),
     );
   }

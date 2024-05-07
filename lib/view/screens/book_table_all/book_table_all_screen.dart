@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
+import '../../../controller/table_book_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/elevated_button.dart';
@@ -43,7 +44,7 @@ class BookTableAll extends StatelessWidget {
       ),
       body: Column(
         children: [
-           const Padding(
+           /*const Padding(
             padding: EdgeInsets.all(20.0),
             child: CustomTextField(
               fieldBorderColor: Colors.transparent,
@@ -53,7 +54,7 @@ class BookTableAll extends StatelessWidget {
               isPrefixIcon: true,
               icon: Icon(Icons.search,color: AppColors.blackLightActive,),
             ),
-          ),
+          ),*/
           Expanded(
             child: ListView.builder(
                 itemCount: dataLength,
@@ -101,12 +102,15 @@ class BookTableAll extends StatelessWidget {
 
                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.location_on_outlined,color: AppColors.blackLightActive,),
+                            const Icon(Icons.location_on_outlined,color: AppColors.blackLightActive,),
                             CustomText(text: homeModel.data[index].location.toString(),fontSize: 20,fontWeight: FontWeight.w300,color: AppColors.blackNormal,bottom: 12,top: 12,)
                           ],
                         ),
             
                         CustomElevatedButton(onPressed: (){
+                          TableBookController dcontroller = Get.put(TableBookController());
+                          dcontroller.getTableData("${homeModel.data?[index].sId}");
+                          print(homeModel.data?[index].sId);
                           Get.to(const TableBookingScreen());
             
                         }, titleText: "Book a Table",buttonHeight: 48,titleSize: 16,buttonWidth: Get.width/2,titleWeight: FontWeight.w500,)

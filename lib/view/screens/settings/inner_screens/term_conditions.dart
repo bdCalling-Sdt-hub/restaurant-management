@@ -1,13 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
 
+import '../../../../controller/setting_content_controller.dart';
 import '../../../widgets/custom_text.dart';
 
-class TermConditionScreen extends StatelessWidget {
+class TermConditionScreen extends StatefulWidget {
   const TermConditionScreen({super.key});
 
+  @override
+  State<TermConditionScreen> createState() => _TermConditionScreenState();
+}
+
+class _TermConditionScreenState extends State<TermConditionScreen> {
+  @override
+  void initState() {
+    SettingContentController controller = Get.put(SettingContentController());
+    controller.settingContent("termsAndConditions");
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,21 +54,13 @@ class TermConditionScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      body: const SingleChildScrollView(
-        padding: EdgeInsetsDirectional.symmetric(vertical: 24,horizontal: 20),
-        child: Column(
-          children: [
-            CustomText(text: """
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.
-      Lorem ipsum dolor sit amet consectetur. Imperdiet iaculis convallis bibendum massa id elementum consectetur neque mauris.""",
-              maxLines: 100,
-              textAlign: TextAlign.start,
-            )
-          ],
-        ),
+      body:  GetBuilder<SettingContentController>(
+          builder: (controller) {
+            return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): SingleChildScrollView(
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 24,horizontal: 20),
+              child: Html(data: controller.model.data?.termsAndConditions),
+            );
+          }
       ),
     );
   }

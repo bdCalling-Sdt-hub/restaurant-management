@@ -106,14 +106,16 @@ class Items {
   Menu? menu;
   int? quantity;
   int? amount;
+  bool? isPaid;
   String? sId;
 
-  Items({this.menu, this.quantity, this.amount, this.sId});
+  Items({this.menu, this.quantity, this.amount, this.isPaid, this.sId});
 
   Items.fromJson(Map<String, dynamic> json) {
     menu = json['menu'] != null ? new Menu.fromJson(json['menu']) : null;
     quantity = json['quantity'];
     amount = json['amount'];
+    isPaid = json['isPaid'];
     sId = json['_id'];
   }
 
@@ -124,6 +126,7 @@ class Items {
     }
     data['quantity'] = this.quantity;
     data['amount'] = this.amount;
+    data['isPaid'] = this.isPaid;
     data['_id'] = this.sId;
     return data;
   }

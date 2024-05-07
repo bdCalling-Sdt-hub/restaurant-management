@@ -1,13 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/setting_content_controller.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
 
-class RestaurantOwnerScreen extends StatelessWidget {
-  const RestaurantOwnerScreen({super.key});
+class AboutUsScreen extends StatefulWidget {
+  const AboutUsScreen({super.key});
 
+  @override
+  State<AboutUsScreen> createState() => _AboutUsScreenState();
+}
+
+class _AboutUsScreenState extends State<AboutUsScreen> {
+  @override
+  void initState() {
+    SettingContentController controller = Get.put(SettingContentController());
+    controller.settingContent("aboutUs");
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +54,16 @@ class RestaurantOwnerScreen extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      body: Padding(
+      body: GetBuilder<SettingContentController>(
+          builder: (controller) {
+            return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): SingleChildScrollView(
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 24,horizontal: 20),
+              child: Html(data: controller.model.data?.aboutUs),
+            );
+          }
+      ),
+
+    /*  Padding(
         padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +100,7 @@ class RestaurantOwnerScreen extends StatelessWidget {
               text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",fontSize: 14,fontWeight: FontWeight.w300,),
           ],
         ),
-      ),
+      ),*/
     );
   }
 }

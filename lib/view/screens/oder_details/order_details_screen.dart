@@ -30,35 +30,38 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        leading: Row(
-          children: [
-            GestureDetector(
-              onTap: ()=>Get.back(),
-              child: Container(
-                margin: const EdgeInsets.only(left: 8),
-                  height: 40,
-                  width: 40,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black,
-                  ),
-                  child: const Icon(Icons.arrow_back,color: Colors.white,)),
+    return GetBuilder<ProductDetailsController>(
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 80,
+            leading: Row(
+              children: [
+                GestureDetector(
+                  onTap: ()=>Get.back(),
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 8),
+                      height: 40,
+                      width: 40,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black,
+                      ),
+                      child: const Icon(Icons.arrow_back,color: Colors.white,)),
+                ),
+              ],
             ),
-          ],
-        ),
-        actions: [
-          IconButton(onPressed: (){
-          }, icon: const Icon(Icons.favorite_outline_outlined))
-        ],
-        centerTitle: true,
-        title:const CustomText(text: "Details",color: AppColors.blackNormal,fontSize: 24,fontWeight: FontWeight.w600,),
-      ),
-      body:  GetBuilder<ProductDetailsController>(
-        builder: (controller) {
-          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,),): SingleChildScrollView(
+            actions: [
+              IconButton(onPressed: (){
+                controller.addFavourite(menuId);
+
+                }, icon: controller.model.data?.isFavourite == true? 
+              Icon(Icons.favorite_outlined,color: controller.model.data?.isFavourite == true?AppColors.greenNormal:AppColors.blackNormal,):Icon(Icons.favorite_outline_outlined))
+            ],
+            centerTitle: true,
+            title:const CustomText(text: "Details",color: AppColors.blackNormal,fontSize: 24,fontWeight: FontWeight.w600,),
+          ),
+          body: controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,),): SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 24,horizontal: 20),
             child: Column(
               children: [
@@ -67,25 +70,25 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   height: 310,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    image:  DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage("${ApiUrl.imageUrl}${controller.model.data?.image}"))
+                      borderRadius: BorderRadius.circular(12),
+                      image:  DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage("${ApiUrl.imageUrl}${controller.model.data?.image}"))
                   ),
                 ),
-                   ///============================increment /decrement =========================///
+                ///============================increment /decrement =========================///
                 Container(
                   margin: const EdgeInsets.only(top: 12),
                   padding: const EdgeInsets.all(8),
                   width: Get.width/3,
                   decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xffE3DCD5)),
-                    borderRadius: BorderRadius.circular(32)
+                      border: Border.all(color: const Color(0xffE3DCD5)),
+                      borderRadius: BorderRadius.circular(32)
                   ),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(onPressed: controller.initialQuantity==1?null: (){
-                       controller.decrementQuantity();
+                        controller.decrementQuantity();
                       },
                           icon:  Icon(Icons.remove,color: controller.initialQuantity==1?const Color(0xffBDB4AC):AppColors.blackNormal,)),
                       CustomText(text: controller.initialQuantity.toString(),color: AppColors.greenNormal,),
@@ -95,8 +98,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ],
                   ),
                 ),
-            ///==========================================price------------------------------->
-                 Row(
+                ///==========================================price------------------------------->
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText(text: controller.model.data?.name.toString() ??"",color: AppColors.blackNormal,fontSize: 20,fontWeight: FontWeight.w500,),
@@ -111,7 +114,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     CustomText( text: "\$ ${(controller.model.data?.price ?? 0) * controller.initialQuantity}",color: AppColors.blackNormal,fontSize: 20,fontWeight: FontWeight.w500,),
+                    CustomText( text: "\$ ${(controller.model.data?.price ?? 0) * controller.initialQuantity}",color: AppColors.blackNormal,fontSize: 20,fontWeight: FontWeight.w500,),
                     // Container(
                     //   padding: EdgeInsets.all(4),
                     //   decoration: BoxDecoration(
@@ -130,23 +133,23 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 const Align(
                     alignment: Alignment.centerLeft,
                     child: CustomText(text: "Description",fontSize: 16,fontWeight: FontWeight.w500,textAlign: TextAlign.start,)),
-                 CustomText(
-                  bottom: 24,
+                CustomText(
+                    bottom: 24,
                     maxLines: 20,
                     fontWeight: FontWeight.w300,
                     fontSize: 16,
                     text:  controller.model.data?.description.toString() ??""),
-                    CustomElevatedButton(onPressed: (){
-                       Get.toNamed(AppRoute.orderCartScreen);
+                CustomElevatedButton(onPressed: (){
+                  Get.toNamed(AppRoute.orderCartScreen);
 
-                        controller.sentOrderMenu(menuId: menuId , initialQuality: controller.initialQuantity, amount: (controller.model.data?.price ?? 0) * controller.initialQuantity);
+                  controller.sentOrderMenu(menuId: menuId , initialQuality: controller.initialQuantity, amount: (controller.model.data?.price ?? 0) * controller.initialQuantity);
 
                 }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
               ],
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }
     );
   }
 }

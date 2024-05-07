@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:restaurant_management/controller/delete_account.controller.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/change_password_screen.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/privacy_policy.dart';
-import 'package:restaurant_management/view/screens/settings/inner_screens/restaurant_owner_screen.dart';
+import 'package:restaurant_management/view/screens/settings/inner_screens/about_us_screen.dart';
 import 'package:restaurant_management/view/screens/settings/inner_screens/term_conditions.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 import 'package:restaurant_management/view/widgets/text_field.dart';
@@ -21,7 +21,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  List settingName = ["Change password","Term & condition","Privacy policy","Restaurant owner", "Delete account"];
+  List settingName = ["Change password","Term & condition","Privacy policy","About us", "Delete account"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +71,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Get.to(const PrivacyPolicy());
                   }
                   if(index==3){
-                  Get.to(const RestaurantOwnerScreen());
+                  Get.to(const AboutUsScreen());
                   }
                   if(index==4){
                     alertDialog();
@@ -95,7 +95,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           Get.to(const PrivacyPolicy());
                         }
                         if(index==3){
-                          Get.to(const RestaurantOwnerScreen());
+                          Get.to(const AboutUsScreen());
                         }
                       }, icon: index==4?const SizedBox():  const Icon(Icons.arrow_forward_ios))
                     ],

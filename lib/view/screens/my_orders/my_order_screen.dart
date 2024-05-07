@@ -198,7 +198,7 @@ class OrderCard extends StatelessWidget {
       builder: (controller) {
         return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): ListView.builder(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
-            itemCount: controller.model.data?.length ,
+            itemCount: controller.model.data?.length ?? 0,
             itemBuilder: (context,index){
           return Container(
             margin: const EdgeInsetsDirectional.symmetric(vertical: 12),

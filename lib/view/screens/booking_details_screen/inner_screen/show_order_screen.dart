@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/show_order_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import '../../../../controller/order_details_controller.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
@@ -49,11 +50,17 @@ class _BookNowState extends State<ShowOrderScreen> {
         ),
         centerTitle: true,
         title: const CustomText(
-          text: "Cart",
+          text: "Order",
           color: AppColors.blackNormal,
           fontSize: 24,
           fontWeight: FontWeight.w600,
         ),
+        actions: [
+          IconButton(onPressed: (){
+            Get.toNamed(AppRoute.showMenu);
+          }, icon: const Icon(Icons.add,size: 32,))
+        ],
+        
       ),
       body: GetBuilder<ShowOrderController>(
           builder: (controller) {
@@ -138,7 +145,7 @@ class _BookNowState extends State<ShowOrderScreen> {
                                 child: const Icon(Icons.close, size: 18),
                               ),
                             ),
-                          ): SizedBox()
+                          ): const SizedBox()
                         ],
                       );
                     },

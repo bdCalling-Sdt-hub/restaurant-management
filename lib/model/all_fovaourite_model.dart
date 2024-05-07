@@ -1,14 +1,21 @@
-class MenuDetailsModel {
+class AllFavouriteModel {
   bool? success;
   String? message;
-  Data? data;
+  List<Data>? data;
+  Meta? meta;
 
-  MenuDetailsModel({this.success, this.message, this.data});
+  AllFavouriteModel({this.success, this.message, this.data, this.meta});
 
-  MenuDetailsModel.fromJson(Map<String, dynamic> json) {
+  AllFavouriteModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
+    }
+    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -16,13 +23,42 @@ class MenuDetailsModel {
     data['success'] = this.success;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    }
+    if (this.meta != null) {
+      data['meta'] = this.meta!.toJson();
     }
     return data;
   }
 }
 
 class Data {
+  String? sId;
+  List<Menu>? menu;
+
+  Data({this.sId, this.menu});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    if (json['menu'] != null) {
+      menu = <Menu>[];
+      json['menu'].forEach((v) {
+        menu!.add(new Menu.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    if (this.menu != null) {
+      data['menu'] = this.menu!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Menu {
   String? sId;
   String? category;
   String? image;
@@ -36,9 +72,8 @@ class Data {
   String? createdAt;
   String? updatedAt;
   int? iV;
-  bool? isFavourite;
 
-  Data(
+  Menu(
       {this.sId,
         this.category,
         this.image,
@@ -51,10 +86,9 @@ class Data {
         this.isDeleted,
         this.createdAt,
         this.updatedAt,
-        this.iV,
-        this.isFavourite});
+        this.iV});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Menu.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     category = json['category'];
     image = json['image'];
@@ -68,7 +102,6 @@ class Data {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
-    isFavourite = json['isFavourite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,7 +119,31 @@ class Data {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
-    data['isFavourite'] = this.isFavourite;
+    return data;
+  }
+}
+
+class Meta {
+  int? page;
+  int? limit;
+  int? total;
+  int? totalPage;
+
+  Meta({this.page, this.limit, this.total, this.totalPage});
+
+  Meta.fromJson(Map<String, dynamic> json) {
+    page = json['page'];
+    limit = json['limit'];
+    total = json['total'];
+    totalPage = json['totalPage'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['page'] = this.page;
+    data['limit'] = this.limit;
+    data['total'] = this.total;
+    data['totalPage'] = this.totalPage;
     return data;
   }
 }

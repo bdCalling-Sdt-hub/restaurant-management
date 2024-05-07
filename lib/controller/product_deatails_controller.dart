@@ -12,9 +12,11 @@ MenuDetailsModel model =  MenuDetailsModel();
 
 bool isLoading =  false;
   Future<void> menuDetails (String id) async{
+    if(model.data?.name == null){
+      isLoading = true;
+      update();
+    }
 
-    isLoading = true;
-    update();
     var response  =  await ApiService.getApi("${ApiUrl.menuEndPoint}/$id");
     if (kDebugMode) {
       print(response.responseJson);
@@ -27,6 +29,23 @@ bool isLoading =  false;
     update();
   }
 
+  ///========================add to favourite ==========================>>>
+
+Future<void> addFavourite(String menuId)async{
+    Map<String,String> body ={
+      "id": menuId
+    };
+    var  encodeBody = jsonEncode(body);
+  var response =  await ApiService.postApi(ApiUrl.addFavourite, encodeBody);
+    if (kDebugMode) {
+      print(response.responseJson);
+    }
+    if(response.statusCode==200){
+      menuDetails(menuId);
+    }
+}
+
+///=========================Sent order / quantity and amount ============================>>>
 
 sentOrderMenu({required String menuId,required int initialQuality,required int amount,})async{
   Map<String , dynamic > body ={

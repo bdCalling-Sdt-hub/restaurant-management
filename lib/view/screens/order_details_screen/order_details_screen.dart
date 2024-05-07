@@ -19,7 +19,6 @@ class _BookNowState extends State<OrderDetailsEcreen> {
   void initState() {
     OrderDetailsController controller = Get.put(OrderDetailsController());
     controller.orderDetailsData(id);
-
     // TODO: implement initState
     super.initState();
   }
@@ -114,16 +113,18 @@ class _BookNowState extends State<OrderDetailsEcreen> {
                               ],
                             ),
                           ),
-                          Positioned(
+                         controller.model.data?.items?[index].isPaid == false? Positioned(
                             top: 10,
                             right: 0,
                             child: GestureDetector(
                               onTap: () {
+                                controller.removeFromCart(bookingId: controller.model.data?.booking.toString() ?? "", itemId: controller.model.data?.items?[index].sId ?? "",
+                                    amount: controller.model.data?.items?[index].amount.toString() ??"");
                                 // setState(() {
-                                //   controller.removeFromCart(controller.model.data?.items?[index].id.toString() ??  "",controller.model.data?.items?[index].amount.toString() ?? "");
-                                //   print("=====ID ${controller.model.data?.items?[index].id.toString() ?? ""}");
-                                // }
-                              //  );
+                                //   controller.orderDetailsData(controller.model.data?.booking.toString() ?? "");
+                                // });
+
+
                               },
                               child: Container(
                                 height: 30,
@@ -135,7 +136,7 @@ class _BookNowState extends State<OrderDetailsEcreen> {
                                 child: const Icon(Icons.close, size: 18),
                               ),
                             ),
-                          )
+                          ) : const SizedBox()
                         ],
                       );
                     },
