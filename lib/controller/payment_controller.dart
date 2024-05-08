@@ -1,7 +1,10 @@
 
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
+
+import 'order_cart_controller.dart';
 class PaymentUrlClass {
 
   // Generate unique ID for id_order
@@ -12,6 +15,7 @@ class PaymentUrlClass {
     return uuid.v4(); // Generate a version 4 (random) UUID
   }
   static String  finalPaymentUrl ="";
+  OrderCartController controller = Get.put(OrderCartController());
   Future<void> fetchPaymentUrl() async {
 
     Map<String, dynamic> requestBody = {
@@ -24,7 +28,7 @@ class PaymentUrlClass {
       "order": {
         "id_order": generateOrderId(),
         "currency": "MUR",
-        "amount": 500
+        "amount": controller.model.data?.totalDue
       },
       "iframe_behavior": {
         "height": 400,
@@ -55,7 +59,6 @@ class PaymentUrlClass {
     if (response.statusCode == 200) {
       // Parse the JSON response and extract the payment URL
       finalPaymentUrl = jsonDecode(response.body)['answer']['payment_zone_data'];
-
       print("=======Url $finalPaymentUrl");
       // Once you have the payment URL, you can load it into the WebView
       // Refresh the UI to show the WebView

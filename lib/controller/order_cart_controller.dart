@@ -47,7 +47,8 @@ class OrderCartController extends GetxController {
 
     Map<String , String> body = {
       "itemId":id,
-      "amount": amount
+      "amount": amount,
+
     };
     var enCodedBody = jsonEncode(body);
 

@@ -37,5 +37,6 @@ class ApiUrl {
   static const addFavourite = "$baseUrl/favoriteLists/menu";
   static const allFavourite = "$baseUrl/favoriteLists/?fields=menu";
   static const notifications = "$baseUrl/notifications";
+  static const review = "$baseUrl/menu/review";
 
 }

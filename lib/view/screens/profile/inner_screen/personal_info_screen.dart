@@ -4,16 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/profile_controller/personal_info_controller.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
-import 'package:restaurant_management/view/screens/edit_personal_info/edit_personal_info.dart';
-
 import '../../../../controller/profile_controller/edit_personal_info_controller.dart';
-import '../../../../global/api_url_container.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../widgets/custom_text.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
-
   @override
   State<PersonalInfoScreen> createState() => _PersonalInfoScreenState();
 }

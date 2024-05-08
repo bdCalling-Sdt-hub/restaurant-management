@@ -5,11 +5,10 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:restaurant_management/controller/product_deatails_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
+import 'package:restaurant_management/utils/app_colors.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
+import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
-
-import '../../../utils/app_colors.dart';
-import '../../../utils/app_routes.dart';
-import '../../widgets/custom_text.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   const OrderDetailScreen({super.key});
@@ -144,8 +143,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     text:  controller.model.data?.description.toString() ??""),
                 CustomElevatedButton(onPressed: (){
                   Get.toNamed(AppRoute.orderCartScreen);
-
-                  controller.sentOrderMenu(menuId: menuId , initialQuality: controller.initialQuantity, amount: (controller.model.data?.price ?? 0) * controller.initialQuantity);
+                   print(controller.model.data?.owner ?? "");
+                  controller.sentOrderMenu(menuId: menuId , initialQuality: controller.initialQuantity,
+                      amount: (controller.model.data?.price ?? 0) * controller.initialQuantity, ownerId:controller.model.data?.owner ?? "");
 
                 }, titleText: "Order",buttonHeight: 48,buttonWidth: Get.width/1.5,)
               ],

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/view/screens/auth/signin_screen/signin_screen.dart';
 import 'package:restaurant_management/view/screens/auth/signup_screen/signup_screen.dart';
 import 'package:restaurant_management/view/screens/auth/verify_code_screen/verify_code.dart';
@@ -9,7 +8,6 @@ import 'package:restaurant_management/view/screens/cart_screen/cart_screen.dart'
 import 'package:restaurant_management/view/screens/home_screen/home_screen.dart';
 import 'package:restaurant_management/view/screens/menu/menu_screen.dart';
 import 'package:restaurant_management/view/screens/notification/notification_screen.dart';
-import 'package:restaurant_management/view/screens/oder_details/order_details_screen.dart';
 import 'package:restaurant_management/view/screens/profile/profile_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
 import 'package:restaurant_management/view/screens/table_booking_screen/table_booking_screen.dart';
@@ -18,7 +16,9 @@ import 'package:restaurant_management/view/widgets/no_internet.dart';
 import '../view/screens/abou_us_screen/about_us_screen.dart';
 import '../view/screens/edit_personal_info/edit_personal_info.dart';
 import '../view/screens/favourite/favourite_screen.dart';
+import '../view/screens/menu_oder_details/menu_order_details_screen.dart';
 import '../view/screens/order_details_screen/order_details_screen.dart';
+import '../view/screens/payment_screen/payment_screen.dart';
 import '../view/screens/splash_screen/splash_screen.dart';
 
 class AppRoute{
@@ -43,6 +43,7 @@ class AppRoute{
   static const String bookingDetails = "/bookingDetails_screen";
   static const String orderDetailsEcreen = "/OrderDetailsEcreen_screen";
   static const String showOrderScreen = "/showOrderScreen_screen";
+  static const String paymentScreen = "/paymentScreenscreen";
 
   static List<GetPage> routes = [
 
@@ -64,8 +65,9 @@ class AppRoute{
     GetPage(name: editProfile, page: () =>   EditPersonalInfo()),
     GetPage(name: tableBooking, page: () =>   const TableBookingScreen()),
     GetPage(name: bookingDetails, page: () =>   const BookingDetailsScreen()),
-    GetPage(name: orderDetailsEcreen, page: () =>   const OrderDetailsEcreen()),
+    GetPage(name: orderDetailsEcreen, page: () =>    OrderDetailsEcreen()),
     GetPage(name: showOrderScreen, page: () =>   const ShowOrderScreen()),
+    GetPage(name: paymentScreen, page: () =>   const PaymentScreen()),
 
   ];
 

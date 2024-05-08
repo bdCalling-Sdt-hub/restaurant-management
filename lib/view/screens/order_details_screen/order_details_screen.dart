@@ -118,7 +118,8 @@ class _BookNowState extends State<OrderDetailsEcreen> {
                             right: 0,
                             child: GestureDetector(
                               onTap: () {
-                                controller.removeFromCart(bookingId: controller.model.data?.booking.toString() ?? "", itemId: controller.model.data?.items?[index].sId ?? "",
+                                controller.removeFromCart(bookingId: controller.model.data?.booking.toString() ?? "",
+                                    itemId: controller.model.data?.items?[index].sId ?? "",
                                     amount: controller.model.data?.items?[index].amount.toString() ??"");
                                 // setState(() {
                                 //   controller.orderDetailsData(controller.model.data?.booking.toString() ?? "");

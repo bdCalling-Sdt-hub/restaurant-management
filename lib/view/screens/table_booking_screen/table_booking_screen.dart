@@ -251,6 +251,28 @@ final formKey = GlobalKey<FormState>();
                         ],
                       ),
 
+  ///========================= See all review ======================>>>
+
+                      GestureDetector(
+                        onTap: (){
+
+                        },
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            width: 100,
+                            alignment: Alignment.center,
+                            padding: const EdgeInsetsDirectional.symmetric(vertical: 4,horizontal: 8),
+                            decoration:  BoxDecoration(color: AppColors.greenNormal,borderRadius: BorderRadius.circular(4)),
+                            child: const Row(
+                              children: [
+                                Icon(Icons.edit_note_outlined,color: AppColors.whiteColor,),
+                                CustomText(text: "Review",color: AppColors.whiteColor,),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 12,
                       ),
@@ -411,12 +433,16 @@ final formKey = GlobalKey<FormState>();
                                   child: TextFormField(
                                 cursorColor: Colors.transparent,
                                 cursorHeight: 16,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
                                 controller: controller.personNoController,
                                 decoration: const InputDecoration(
+
                                     focusedBorder: OutlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Color(0xffCECECE))),
                                     hintText: "Person",
+
                                     prefixIcon: Icon(Icons.group),
                                     contentPadding: EdgeInsets.all(0),
                                     border: OutlineInputBorder()),

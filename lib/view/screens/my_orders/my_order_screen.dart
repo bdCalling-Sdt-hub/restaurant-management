@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/booking_status_controller.dart';
 import 'package:restaurant_management/controller/get_all_booking_data_controller.dart';
-import 'package:restaurant_management/controller/table_book_controller.dart';
+import 'package:restaurant_management/utils/app_colors.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
-import 'package:restaurant_management/view/screens/booking_details_screen/booking_details_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
-
-import '../../../controller/order_cart_controller.dart';
-import '../../../controller/single_booking_controller.dart';
-import '../../../global/share_prefes_helper.dart';
-import '../../../model/booking_status_model.dart';
-import '../../../utils/app_colors.dart';
-import '../table_booking_screen/inner_screen/book_now.dart';
+import '../review_screen/review_screen.dart';
 
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({super.key, required this.text, required this.index, required this.status1, required this.status2, required this.status3});
@@ -110,10 +103,10 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Tab(text: "Unpaid"),
                     ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Tab(text:"Half Paid"),
-                    ),
+                    // Padding(
+                    //     padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    //   child: Tab(text:"Half Paid"),
+                    // ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Tab(text:"Paid"),
@@ -304,8 +297,13 @@ class BookingCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomElevatedButton(onPressed: (){
+                            if(status=="Booked"){
+                              Get.to(const ReviewScreen());
+                            }
+                            else{
+                              Get.toNamed(AppRoute.bookingDetails,arguments:[controller.model.data?[index].sId ,index] );
+                            }
 
-                            Get.toNamed(AppRoute.bookingDetails,arguments:[controller.model.data?[index].sId ,index] );
 
                           }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
                           ,
