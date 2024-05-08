@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:restaurant_management/controller/order_cart_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/global/share_prefes_helper.dart';
+import 'package:restaurant_management/view/screens/payment_screen/payment_screen.dart';
 import '../../../utils/app_colors.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/elevated_button.dart';
@@ -183,6 +184,7 @@ class _CartScreenState extends State<CartScreen> {
                    ),
                    const SizedBox(height: 12,),
                    CustomElevatedButton(onPressed: (){
+                     Get.to(const PaymentScreen());
                    }, titleText: "Order Now",buttonHeight: 48,buttonWidth: Get.width/1.5,)
                  ],
                )
