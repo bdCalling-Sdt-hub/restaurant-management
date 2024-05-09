@@ -6,7 +6,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
+import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/utils/app_utils.dart';
+import 'package:restaurant_management/view/screens/restaurant_wise_review_screen/restaurant_wise_review_screen.dart';
 import 'package:restaurant_management/view/widgets/elevated_button.dart';
 import '../../../controller/table_book_controller.dart';
 import '../../../utils/app_colors.dart';
@@ -255,7 +257,7 @@ final formKey = GlobalKey<FormState>();
 
                       GestureDetector(
                         onTap: (){
-
+                          Get.toNamed(AppRoute.restauratnWiseReviewScreen,arguments: controller.tableBookModel.data?.sId);
                         },
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -276,8 +278,8 @@ final formKey = GlobalKey<FormState>();
                       const SizedBox(
                         height: 12,
                       ),
-
-                      ///====================== Show open and closing time ///////
+                         
+                      ///====================== Show open and closing time========================== ///////
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(

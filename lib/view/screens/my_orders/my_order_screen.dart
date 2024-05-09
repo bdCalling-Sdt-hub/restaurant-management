@@ -297,12 +297,8 @@ class BookingCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomElevatedButton(onPressed: (){
-                            if(status=="Booked"){
-                              Get.to(const ReviewScreen());
-                            }
-                            else{
+
                               Get.toNamed(AppRoute.bookingDetails,arguments:[controller.model.data?[index].sId ,index] );
-                            }
 
 
                           }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)

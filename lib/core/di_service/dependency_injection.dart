@@ -13,6 +13,7 @@ import '../../controller/menu_controller.dart';
 import '../../controller/notification-controller.dart';
 import '../../controller/order_cart_controller.dart';
 import '../../controller/rating_controller.dart';
+import '../../controller/restaurant_wise_review_controller.dart';
 import '../../controller/single_booking_controller.dart';
 import '../../controller/table_book_controller.dart';
 
@@ -20,7 +21,6 @@ class DependencyInjection extends Bindings {
 
   @override
   void dependencies() {
-
     Get.lazyPut(() => SignInController(), fenix: true);
     Get.lazyPut(() => SignupController(),fenix: true);
     Get.lazyPut(() => PersonalInfoController(),fenix: true);
@@ -36,5 +36,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => FavouriteController(),fenix: true);
     Get.lazyPut(() => NotificationController(),fenix: true);
     Get.lazyPut(() => ReviewController(),fenix: true);
+    Get.lazyPut(() => RestaurantWiseReviewController(),fenix: true);
   }
 }

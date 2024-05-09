@@ -19,6 +19,8 @@ import '../view/screens/favourite/favourite_screen.dart';
 import '../view/screens/menu_oder_details/menu_order_details_screen.dart';
 import '../view/screens/order_details_screen/order_details_screen.dart';
 import '../view/screens/payment_screen/payment_screen.dart';
+import '../view/screens/restaurant_wise_review_screen/restaurant_wise_review_screen.dart';
+import '../view/screens/review_screen/review_screen.dart';
 import '../view/screens/splash_screen/splash_screen.dart';
 
 class AppRoute{
@@ -44,6 +46,8 @@ class AppRoute{
   static const String orderDetailsEcreen = "/OrderDetailsEcreen_screen";
   static const String showOrderScreen = "/showOrderScreen_screen";
   static const String paymentScreen = "/paymentScreenscreen";
+  static const String reviewScreen = "/review_screen";
+  static const String restauratnWiseReviewScreen = "/RestauratnWiseReviewScreen";
 
   static List<GetPage> routes = [
 
@@ -68,6 +72,8 @@ class AppRoute{
     GetPage(name: orderDetailsEcreen, page: () =>    OrderDetailsEcreen()),
     GetPage(name: showOrderScreen, page: () =>   const ShowOrderScreen()),
     GetPage(name: paymentScreen, page: () =>   const PaymentScreen()),
+    GetPage(name: reviewScreen, page: () =>   const ReviewScreen()),
+    GetPage(name: restauratnWiseReviewScreen, page: () =>   const RestauratnWiseReviewScreen()),
 
   ];
 
