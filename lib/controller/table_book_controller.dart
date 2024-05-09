@@ -153,4 +153,25 @@ class TableBookController extends GetxController{
     }
   }
 
+
+ ///=================Opening and closing time format  AM/PM =====================>>>>
+  String formatTime(String timeString) {
+    try {
+
+      DateTime time = DateFormat('HH:mm').parseStrict(timeString); // Parse using strict parsing and format HH:mm
+      // Check if the time is after noon (12:00 PM)
+      if (time.hour >= 12) {
+        // Format DateTime object to PM format
+        return DateFormat('h:mm a').format(time);
+      } else {
+        // Format DateTime object to AM format
+        return DateFormat('h:mm a').format(time);
+      }
+    } catch (e) {
+      // Error handling if parsing fails
+      print("Error parsing time: $e");
+      return "Invalid time"; // Return a placeholder string
+    }
+  }
+
 }

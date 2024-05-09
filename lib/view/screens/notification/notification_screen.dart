@@ -27,7 +27,8 @@ class NotificationScreen extends StatelessWidget {
       ),
       body: GetBuilder<NotificationController>(
         builder: (controller) {
-          return controller.isLoading?Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): Column(
+          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):
+          controller.model.data == null || controller.model.data!.isEmpty? const Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):  Column(
             children: [
               Expanded(child: ListView.builder(
                   padding: EdgeInsetsDirectional.symmetric(vertical: 12),
@@ -36,7 +37,7 @@ class NotificationScreen extends StatelessWidget {
                 final String? timestampString = controller.model.data?[index].createdAt;
                 DateTime? dateTime;
                 if (timestampString != null) {
-                  // Parse the timestamp string to DateTime object
+                  // Parse the timestamp string to DateTime objects
                   dateTime = DateTime.parse(timestampString);
                 }
                 final formattedTime = dateTime != null ? DateFormat.Hm().format(dateTime!) : '';

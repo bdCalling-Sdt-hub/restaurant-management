@@ -184,7 +184,7 @@ class _CartScreenState extends State<CartScreen> {
                      ],
                    ),
                    const SizedBox(height: 12,),
-                   CustomElevatedButton(onPressed: (){
+                 controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)) : CustomElevatedButton(onPressed: (){
                      Get.toNamed(AppRoute.paymentScreen,arguments: controller.model.data?.totalDue);
                    }, titleText: "Order Now",buttonHeight: 48,buttonWidth: Get.width/1.5,)
                  ],

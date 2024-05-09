@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/booking_status_controller.dart';
@@ -22,12 +23,22 @@ final String status3;
 class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProviderStateMixin{
   late TabController tabController;
    String text1 = "";
+
+
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
      text1 = widget.text;
+
   }
+@override
+  // void setState(VoidCallback fn) {
+  // controller = Get.put(OrderStatusController());
+  // bookingDataController = Get.put(GetAllBookingDataController());
+  //   // TODO: implement setState
+  //   super.setState(fn);
+  // }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -81,12 +92,16 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
       
         body: TabBarView(
           children: [
-          Padding(
+            // controller?.model.data==null|| controller!.model.data!.isEmpty?const
+            // Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):
+            // controller!.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):
+
+            Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               children: [
                 TabBar(
-                 // indicatorColor: Colors.transparent,
+
                   overlayColor: MaterialStateProperty.all(Colors.transparent),
                   indicatorPadding: const EdgeInsets.symmetric(horizontal: 0,vertical: 4),
                   dividerHeight : 0,
@@ -103,10 +118,10 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Tab(text: "Unpaid"),
                     ),
-                    // Padding(
-                    //     padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    //   child: Tab(text:"Half Paid"),
-                    // ),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Tab(text:""),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
                       child: Tab(text:"Paid"),
@@ -117,8 +132,8 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
                   child: TabBarView(
                     controller: tabController, // Specify the controller here
                     children: [
-                      Center(child: OrderCard(status: widget.status1, textColor: AppColors.greenNormal,)),
-                      Center(child: OrderCard(status: widget.status2, textColor: const Color(0xffC57600),)),
+                      Center(child: OrderCard(status: widget.status1,  textColor: Color(0xffC57600))),
+                       Center(child: OrderCard(status: widget.status2, textColor: const Color(0xffC57600),)),
                       Center(child: OrderCard(status: widget.status3, textColor:  AppColors.greenNormal,)),
                     ],
                   ),
@@ -126,7 +141,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> with SingleTickerProvider
               ],
             ),
           ),
-          Padding(
+            // bookingDataController?.model.data==null || bookingDataController!.model.data!.isEmpty?
+            // Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):
+            Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               children: [
@@ -189,7 +206,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return   GetBuilder<OrderStatusController>(
       builder: (controller) {
-        return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): ListView.builder(
+        return  controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): controller.model.data==null? Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)) :ListView.builder(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
             itemCount: controller.model.data?.length ?? 0,
             itemBuilder: (context,index){
@@ -219,24 +236,17 @@ class OrderCard extends StatelessWidget {
 
                   ],
                 ),
-                // const Row(
-                //   children: [
-                //     CustomText(text: "Total Amount:",color: Color(0xff696969),fontWeight: FontWeight.w400,),
-                //     CustomText(text: "112\$",color: AppColors.blackNormal,fontWeight: FontWeight.w400,),
-                //   ],
-                // ),
                 const SizedBox(height: 8,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomElevatedButton(onPressed: (){
                       Get.toNamed(AppRoute.orderDetailsEcreen,arguments: controller.model.data?[index].id);
-                      print("PrefsHelper =====>  ${controller.model.data?[index].id}");
-
-                    }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,)
-                    ,
+                      if (kDebugMode) {
+                        print("PrefsHelper =====>  ${controller.model.data?[index].id}");
+                      }
+                    }, titleText: "Details",borderColor: AppColors.greenNormal,buttonColor: AppColors.whiteColor,titleColor: AppColors.greenNormal,buttonRadius: 50,buttonHeight: 40,),
                     CustomText(text: status,color: textColor,fontWeight: FontWeight.w500,)
-
                   ],
                 )
 
@@ -249,7 +259,7 @@ class OrderCard extends StatelessWidget {
   }
 }
 
-///============================Booking card design ====================///
+///============================ Booking card design ====================///
 class BookingCard extends StatelessWidget {
   const BookingCard({super.key, required this.status, required this.textColor});
   final String status;
@@ -258,7 +268,8 @@ class BookingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return   GetBuilder<GetAllBookingDataController>(
         builder: (controller) {
-          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): ListView.builder(
+          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):
+          controller.model.data==null?const Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)): ListView.builder(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
               itemCount: controller.model.data?.length ,
               itemBuilder: (context,index){

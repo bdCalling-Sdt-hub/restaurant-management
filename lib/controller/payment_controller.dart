@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 
 import 'order_cart_controller.dart';
 class PaymentUrlClass {
-
+bool isLoading = false;
   // Generate unique ID for id_order
   String generateOrderId() {
     // Use UUID package to generate a unique ID
@@ -17,7 +17,7 @@ class PaymentUrlClass {
   static String  finalPaymentUrl ="";
   OrderCartController controller = Get.put(OrderCartController());
   Future<void> fetchPaymentUrl() async {
-
+  isLoading = true;
     Map<String, dynamic> requestBody = {
       "authentify": {
         "id_merchant": "5s0aOiRIH43yqkffzpEbpddlqGzMCoyY",
@@ -65,6 +65,7 @@ class PaymentUrlClass {
     } else {
       // Handle error
     }
+    isLoading = false;
   }
 
 }

@@ -82,7 +82,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 Container(
                   margin: const EdgeInsets.only(top: 12),
                   padding: const EdgeInsets.all(8),
-                  width: Get.width/3,
+                  width: Get.width/2,
                   decoration: BoxDecoration(
                       border: Border.all(color: const Color(0xffE3DCD5)),
                       borderRadius: BorderRadius.circular(32)

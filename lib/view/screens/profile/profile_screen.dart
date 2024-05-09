@@ -10,6 +10,7 @@ import 'package:restaurant_management/view/screens/my_orders/my_order_screen.dar
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
 import 'package:restaurant_management/view/widgets/custom_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../global/api_url_container.dart';
 import '../../widgets/bottom_nav/bottom_nav.dart';
 import '../../widgets/elevated_button.dart';
 import 'inner_screen/personal_info_screen.dart';
@@ -76,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 50,),
                       const CustomText(text: "Profile",color: AppColors.whiteColor,fontSize: 24,fontWeight: FontWeight.w600,),
                       const SizedBox(height: 40,),
-                      controller.image==null || controller.image.isEmpty ? Container(
+                  "${controller.model.data?.image}" == ""|| controller.image.isEmpty ? Container(
                         height: 100,
                         width: 100,
                         decoration: const BoxDecoration(

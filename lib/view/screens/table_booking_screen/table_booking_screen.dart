@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/utils/app_utils.dart';
@@ -25,6 +26,8 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
   int currentPosition = 0;
   final CarouselController _carouselController = CarouselController();
 final formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +69,6 @@ final formKey = GlobalKey<FormState>();
           )),
         ),
         body: GetBuilder<TableBookController>(builder: (controller) {
-          print(controller.data);
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
             child: controller.isLoading
@@ -92,19 +94,8 @@ final formKey = GlobalKey<FormState>();
                                   margin:
                                       const EdgeInsets.only(right: 5, left: 5),
                                   decoration: BoxDecoration(
-                                    image: controller.tableBookModel.data
-                                                    ?.images ==
-                                                null ||
-                                            controller.tableBookModel.data!
-                                                .images!.isEmpty
-                                        ? const DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fHww"),
-                                          )
-                                        : DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
+                                    image: controller.tableBookModel.data?.images == null || controller.tableBookModel.data!.images!.isEmpty
+                                        ? const DecorationImage(fit: BoxFit.fill, image: NetworkImage("assets/images/food_image.jpg"),): DecorationImage(fit: BoxFit.fill, image: NetworkImage(
                                                 "${ApiUrl.imageUrl}${controller.tableBookModel.data?.images?[itemIndex].url}"),
                                           ),
                                     color: const Color(0xFFECECEC),
@@ -253,7 +244,7 @@ final formKey = GlobalKey<FormState>();
                         ],
                       ),
 
-  ///========================= See all review ======================>>>
+  ///========================= See all review  Button======================>>>
 
                       GestureDetector(
                         onTap: (){
@@ -285,40 +276,40 @@ final formKey = GlobalKey<FormState>();
                         child: Row(
                             children: List.generate(
                           5,
-                          (index) => Container(
-                              margin: const EdgeInsets.all(4),
-                              padding: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                  color: index % 2 == 0
-                                      ? AppColors.greenNormalActive
-                                      : AppColors.whiteColor,
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(
-                                      color: index % 2 == 0
-                                          ? AppColors.whiteColor
-                                          : AppColors.greenNormal,
-                                      width: 0.5)),
-                              child: Column(
-                                children: [
-                                  CustomText(
-                                      text:
-                                          "${controller.tableBookModel.data?.days?[index].day}:",
-                                      color: index % 2 == 0
-                                          ? AppColors.whiteColor
-                                          : AppColors.greenNormalActive,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400),
-                                  CustomText(
-                                    text:
-                                        "${controller.tableBookModel.data?.days?[index].openingTime}-${controller.tableBookModel.data?.days?[index].closingTime}",
+                          (index){
+                            print("time${controller.tableBookModel.data?.days?[index].openingTime}");
+                            return Container(
+                                margin: const EdgeInsets.all(4),
+                                padding: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
                                     color: index % 2 == 0
-                                        ? AppColors.whiteColor
-                                        : AppColors.greenNormalActive,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ],
-                              )),
+                                        ? AppColors.greenNormalActive
+                                        : AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                        color: index % 2 == 0
+                                            ? AppColors.whiteColor
+                                            : AppColors.greenNormal,
+                                        width: 0.5)),
+                                child: Column(
+                                  children: [
+                                    CustomText(
+                                        text:
+                                        "${controller.tableBookModel.data?.days?[index].day}:",
+                                        color: index % 2 == 0
+                                            ? AppColors.whiteColor
+                                            : AppColors.greenNormalActive,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400),
+                                    CustomText(
+                                      text: "${controller.formatTime(controller.tableBookModel.data?.days?[index].openingTime?? "")}-${controller.formatTime(controller.tableBookModel.data?.days?[index].closingTime?? "")}",
+                                      color: index % 2 == 0 ? AppColors.whiteColor : AppColors.greenNormalActive,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ],
+                                ));
+                          },
                         )),
                       ),
                       const SizedBox(

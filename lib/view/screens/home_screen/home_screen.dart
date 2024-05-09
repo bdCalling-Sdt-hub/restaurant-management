@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/controller/home_controller.dart';
 import 'package:restaurant_management/controller/table_book_controller.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
-import 'package:restaurant_management/global/share_prefes_helper.dart';
 import 'package:restaurant_management/utils/app_colors.dart';
-import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:restaurant_management/view/screens/book_table_all/book_table_all_screen.dart';
 import 'package:restaurant_management/view/screens/table_booking_screen/table_booking_screen.dart';
 import 'package:restaurant_management/view/widgets/bottom_nav/bottom_nav.dart';
@@ -31,16 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _startAutoScroll();
-
-
   }
-
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
-
   void _startAutoScroll() {
     Timer.periodic(const Duration(seconds: 3), (timer) {
       if (_currentPage < 10 - 1) {
@@ -70,17 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 children: [
-                 /* const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CustomTextField(
-                      fieldBorderColor: Colors.transparent,
-                      focusBorderColor: Colors.transparent,
-                      fillColor: Color(0xffE6E7E9),
-                      hintText: "Search",
-                      isPrefixIcon: true,
-                      icon: Icon(Icons.search,color: AppColors.blackLightActive,),
-                    ),
-                  ),*/
                   /// =================== top banner ======================
                   SizedBox(
                     height: 200,
@@ -127,23 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             top: 12,
                                             bottom: 12,
                                           ),
-                                          // GestureDetector(
-                                          //   onTap: (){
-                                          //     Get.to(const TableBookingScreen());
-                                          //
-                                          //   },
-                                          //   child: const Row(
-                                          //     children: [
-                                          //       CustomText(
-                                          //         text: "Book now",
-                                          //         color: AppColors.whiteColor,
-                                          //         fontWeight: FontWeight.w700,
-                                          //         fontSize: 20,
-                                          //       ),
-                                          //       Icon(Icons.arrow_forward_ios_outlined, color: AppColors.whiteColor)
-                                          //     ],
-                                          //   ),
-                                          // )
+
                                         ],
                                       ),
                                     ),
@@ -155,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         borderRadius: BorderRadius.circular(8),
                                         image: const DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: NetworkImage("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                                          image: AssetImage("assets/images/food_image.jpg"),
                                         ),
                                       ),
                                     ),
@@ -196,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                ),
                              ],
                            ),
-                           GestureDetector(
+                           controller.homeDataList.isEmpty? const CustomText(text: "",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,): GestureDetector(
                                onTap: () {
                                  Get.to(
                                    const BookTableAll(
@@ -225,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                          ],
                        ),
                        const SizedBox(height: 16,),
-                       SizedBox(
+                      controller.homeDataList.isEmpty? const CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,): SizedBox(
                          height: 350,
                          child: ListView.builder(
                              itemCount: controller.homeDataList.length>5?5:controller.homeDataList.length,
@@ -256,19 +221,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                            ),
                                          ) : const DecorationImage(
                                            fit: BoxFit.cover,
-                                           image: NetworkImage(
-                                             "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                             , // Replace with your placeholder image URL
-                                           ),
+                                           image:  AssetImage("assets/images/food_image.jpg"),
                                          ) , // No image decoration if data is empty or null
                                        ),
                                      ),
-
-
                                      const SizedBox(
                                        height: 12,
                                      ),
-
                                       CustomText(
                                        text:"${controller.homeModel.data?[index].name.toString()}",
                                        color: AppColors.blackNormal,
@@ -315,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                ),
                              ],
                            ),
-                           GestureDetector(
+                           controller.homeDataList.isEmpty? const CustomText(text: "",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,):  GestureDetector(
                                onTap: () {
                                  Get.to(const BookTableAll(title: 'Explore Restaurant',),
                                    arguments: {
@@ -340,9 +299,8 @@ class _HomeScreenState extends State<HomeScreen> {
                            ),
                          ],
                        ),
-
                        const SizedBox(height: 16,),
-                       SizedBox(
+                       controller.homeDataList.isEmpty? const CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,):   SizedBox(
                          height: 200,
                          width: Get.width,
                          child: ListView.builder(
@@ -376,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                image: NetworkImage("${ApiUrl.imageUrl}${controller.homeModel.data?[index].images?[index].url}"),
                                              ):const DecorationImage(
                                                fit: BoxFit.fill,
-                                               image: NetworkImage("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                                               image: AssetImage("assets/images/food_image.jpg"),
                                              )
                                          )  ,
 
@@ -396,10 +354,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                              ],
                                            ),
 
-                                            const Row(
+                                             Row(
                                              children: [
-                                               Icon(Icons.star_rate_outlined,color: Colors.black,),
-                                               CustomText(text: "(4.4)",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal,)
+                                               Icon(Icons.star_rate_outlined,color: Colors.amber,),
+                                              CustomText(text:"(${ controller.homeModel.data?[index].avgReviews.toString() ?? ""})",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal,)
                                              ],
                                            ),
                                          ///  const CustomText(text: "\$49",fontSize: 14,fontWeight: FontWeight.w700,color: AppColors.blackNormal),

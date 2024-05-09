@@ -42,7 +42,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
         builder: (controller) {
           return controller.isLoading? const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): Padding(
             padding: const EdgeInsets.symmetric(vertical: 24.0,horizontal: 20),
-            child: Column(children: [
+            child: controller.model.data == null || controller.model.data!.isEmpty?
+            const Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):  Column(children: [
              const Divider(),
              Expanded(
                child: ListView.builder(

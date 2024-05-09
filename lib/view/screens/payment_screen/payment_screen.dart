@@ -42,24 +42,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     });
   }
 
-  // ..setJavaScriptMode(JavaScriptMode.unrestricted)
-  // ..setNavigationDelegate(
-  // NavigationDelegate(
-  // onProgress: (int progress) {
-  // // Update loading bar.
-  // },
-//   onPageStarted: (String finalPaymentUrl) {},
-//   onPageFinished: (String finalPaymentUrl) {},
-//   onWebResourceError: (WebResourceError error) {},
-//   onNavigationRequest: (NavigationRequest request) {
-//
-//   return NavigationDecision.navigate;
-//   },
-//   ),
-//   )
-// //..loadRequest(Uri.parse(PaymentUrlClass.finalPaymentUrl))
-// ;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +66,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ),
             ],
           )),
-      body: WebViewWidget(controller: controller),);
+      body:paymentUrlClass.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): WebViewWidget(controller: controller),);
   }
 }

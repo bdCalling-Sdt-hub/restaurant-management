@@ -58,9 +58,19 @@ EditPersonalInfoController controller =  Get.put(EditPersonalInfoController());
                     onTap: () {
                       controller.openGallery();
                     },
-                    child: controller.imageFile == null
+                    child: controller.imageFile == null && controller.profileModel?.data?.image==""
                         ? Container(
+                      height: 100,
+                      width: 100,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/images/profile_image.png"))
+                      ),
+                    ):controller.imageFile == null? Container(
                       decoration:  const BoxDecoration(
+                        color: AppColors.greenNormal,
                         shape: BoxShape.circle,
                       ),
                       child:Container(
@@ -73,8 +83,7 @@ EditPersonalInfoController controller =  Get.put(EditPersonalInfoController());
                                 image: NetworkImage(controller.profileImage))
                         ),
                       ),
-                    )
-                        : Container(
+                    ):Container(
                       decoration:  const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
@@ -106,14 +115,13 @@ EditPersonalInfoController controller =  Get.put(EditPersonalInfoController());
                 ),
                  const SizedBox(height: 16,),
                 ///=========================Phone number ======================///
-
-
-
                  const CustomText(text: "Phone number",color: Color(0xff333333),),
                  const SizedBox(height: 12,),
                  CustomTextField(
                   hintText: "Phone number",
                   textEditingController: controller.numberController,
+                   keyboardType: TextInputType.number,
+                   maxLength: 11,
                 ),
                 //  SizedBox(height: 16,),
                 // ///=========================Location ======================///

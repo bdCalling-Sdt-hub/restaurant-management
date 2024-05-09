@@ -86,7 +86,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       const SizedBox(
                         height: 40,
                       ),
-                  controller.image==null || controller.image.isEmpty ? Container(
+                  controller.model.data?.image =="" || controller.image.isEmpty ? Container(
                     height: 100,
                     width: 100,
                     decoration: const BoxDecoration(

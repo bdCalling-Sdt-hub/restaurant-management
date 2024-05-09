@@ -90,6 +90,7 @@ class SignupScreen extends StatelessWidget {
                     hintText: "Phone number",
                     keyboardType: TextInputType.number,
                     textEditingController: controller.phoneNumberController,
+                    maxLength: 11,
                     validator: (value){
                       if(value.isEmpty){
                         return "Please enter your phone number";

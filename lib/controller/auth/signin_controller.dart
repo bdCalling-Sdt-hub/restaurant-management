@@ -10,7 +10,7 @@ import 'package:restaurant_management/utils/app_utils.dart';
 import '../../global/share_prefes_helper.dart';
 
 class SignInController extends GetxController{
-  TextEditingController emailController =  TextEditingController(text: kDebugMode?"vecexoc215@idsho.com" : "");
+  TextEditingController emailController =  TextEditingController(text: kDebugMode?"mikera2652@ahieh.com" : "");
   TextEditingController passwordController =  TextEditingController(text: kDebugMode?"111222" : "");
 
   final formKey = GlobalKey<FormState>();

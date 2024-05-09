@@ -33,6 +33,7 @@ class HomeModel {
 }
 
 class Data {
+  Close? close;
   Sunday? sunday;
   Sunday? monday;
   Sunday? tuesday;
@@ -42,19 +43,20 @@ class Data {
   Sunday? saturday;
   String? sId;
   String? name;
-  //String? avgReviews;
   String? location;
   String? description;
   String? owner;
   String? status;
   List<Images>? images;
   bool? reviewStatus;
+  int? avgReviews;
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
 
   Data(
-      {this.sunday,
+      {this.close,
+        this.sunday,
         this.monday,
         this.tuesday,
         this.wednesday,
@@ -63,18 +65,19 @@ class Data {
         this.saturday,
         this.sId,
         this.name,
-        //this.avgReviews,
         this.location,
         this.description,
         this.owner,
         this.status,
         this.images,
         this.reviewStatus,
+        this.avgReviews,
         this.isDeleted,
         this.createdAt,
         this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
+    close = json['close'] != null ? new Close.fromJson(json['close']) : null;
     sunday =
     json['sunday'] != null ? new Sunday.fromJson(json['sunday']) : null;
     monday =
@@ -92,7 +95,6 @@ class Data {
     json['saturday'] != null ? new Sunday.fromJson(json['saturday']) : null;
     sId = json['_id'];
     name = json['name'];
-  //  avgReviews = json['avgReviews'];
     location = json['location'];
     description = json['description'];
     owner = json['owner'];
@@ -104,6 +106,7 @@ class Data {
       });
     }
     reviewStatus = json['reviewStatus'];
+    avgReviews = json['avgReviews'];
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -111,6 +114,9 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.close != null) {
+      data['close'] = this.close!.toJson();
+    }
     if (this.sunday != null) {
       data['sunday'] = this.sunday!.toJson();
     }
@@ -134,7 +140,6 @@ class Data {
     }
     data['_id'] = this.sId;
     data['name'] = this.name;
-   // data['avgReviews'] = this.avgReviews;
     data['location'] = this.location;
     data['description'] = this.description;
     data['owner'] = this.owner;
@@ -143,9 +148,29 @@ class Data {
       data['images'] = this.images!.map((v) => v.toJson()).toList();
     }
     data['reviewStatus'] = this.reviewStatus;
+    data['avgReviews'] = this.avgReviews;
     data['isDeleted'] = this.isDeleted;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    return data;
+  }
+}
+
+class Close {
+  String? from;
+  String? to;
+
+  Close({this.from, this.to});
+
+  Close.fromJson(Map<String, dynamic> json) {
+    from = json['from'];
+    to = json['to'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['from'] = this.from;
+    data['to'] = this.to;
     return data;
   }
 }

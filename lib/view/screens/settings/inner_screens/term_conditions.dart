@@ -56,7 +56,10 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
       ),
       body:  GetBuilder<SettingContentController>(
           builder: (controller) {
-            return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): SingleChildScrollView(
+            return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):
+
+            controller.model.data?.termsAndConditions ==null?
+            const Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):SingleChildScrollView(
               padding: const EdgeInsetsDirectional.symmetric(vertical: 24,horizontal: 20),
               child: Html(data: controller.model.data?.termsAndConditions),
             );
