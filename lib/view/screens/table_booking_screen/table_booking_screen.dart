@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -426,8 +427,13 @@ final formKey = GlobalKey<FormState>();
                                   child: TextFormField(
                                 cursorColor: Colors.transparent,
                                 cursorHeight: 16,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
+
+                                    keyboardType: TextInputType.numberWithOptions(signed: true),
                                 textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.number,
+                                 //keyboardType: TextInputType.number,
                                 controller: controller.personNoController,
                                 decoration: const InputDecoration(
 

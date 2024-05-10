@@ -48,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset("assets/images/logo.png",height: 32,width: 32,),
@@ -57,8 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body:GetBuilder<HomeController>(
         builder: (controller) {
-          print("jhdfasjhhjdsjhd${controller.homeModel.data?.length}");
-          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)): Column(
+          return controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):
+          Column(
             children: [
               Column(
                 children: [

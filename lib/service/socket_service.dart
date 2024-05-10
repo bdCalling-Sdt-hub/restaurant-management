@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:restaurant_management/controller/auth/signin_controller.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-
 import '../global/api_url_container.dart';
-import '../global/share_prefes_helper.dart';
 import 'notification_service.dart';
-
 
 class SocketServices {
   static late io.Socket socket;
@@ -29,11 +28,11 @@ class SocketServices {
     });
 
     socket.connect();
-
-    socket.on(PrefsHelper.userId, (data) {
+    SignInController controller = Get.put(SignInController());
+    String userId = controller.signInModel.data?.user?.sId ?? "663dbe993702a9e8193d8152";
+    socket.on(userId, (data) {
       print("================> get Data on socket: $data");
-      print("User ID${PrefsHelper.userId}");
-
+      print("User ID========>>>>>    ${controller.signInModel.data?.user?.sId ?? ""}");
       notificationService.showNotification(data);
     });
     // socket.on('notification_role_base::${PrefsHelper.role}', (data) {

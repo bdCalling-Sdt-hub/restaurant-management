@@ -10,6 +10,7 @@ class PrefsHelper extends GetxController {
   static String forgotMail = "";
   static String email = "";
   static String userId = "";
+  static String userIdForNotification = "";
   static bool isLogin = false;
   static String refreshToken = "";
   static String bookingId = "";
@@ -28,6 +29,7 @@ class PrefsHelper extends GetxController {
     bookingId =  preferences.getString("bookingId") ?? "";
     afterbookingId =  preferences.getString("afterbookingId") ?? "";
     afterbookingId =  preferences.getString("userId") ?? "";
+    afterbookingId =  preferences.getString("userIdForNotification") ?? "";
 
     print("==================> Save Access token $accessToken");
 
