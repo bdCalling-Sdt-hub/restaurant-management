@@ -1,10 +1,14 @@
 class ApiUrl {
   ///<<<=================Local  Base Url=========================>>>
- // static const socketUrl = "https://server.united-cadz.fr";
- // static const serverUrl = "https://server.united-cadz.fr";
-  static const baseUrl = "http://192.168.10.3:5000/api/v1";
-  static const imageUrl = "http://192.168.10.3:5000";
-  static const socketUrl = "http://192.168.10.3:9000";
+
+ //  static const baseUrl = "http://192.168.10.3:5000/api/v1";
+ //  static const imageUrl = "http://192.168.10.3:5000";
+ //  static const socketUrl = "http://192.168.10.3:9000";
+  ///<<<=================Live  Base Url=========================>>>
+
+  static const baseUrl = "http://103.145.138.74:5000/api/v1";
+  static const imageUrl = "http://103.145.138.74:5000";
+  static const socketUrl = "http://103.145.138.74:9000";
 
 
   static const signUp = "$baseUrl/users/create-user";
