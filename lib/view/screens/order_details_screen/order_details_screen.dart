@@ -53,6 +53,7 @@ class _BookNowState extends State<OrderDetailsEcreen> {
           fontSize: 24,
           fontWeight: FontWeight.w600,
         ),
+
       ),
       body: GetBuilder<OrderDetailsController>(
           builder: (controller) {

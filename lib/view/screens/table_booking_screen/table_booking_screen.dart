@@ -26,8 +26,7 @@ class TableBookingScreen extends StatefulWidget {
 class _TableBookingScreenState extends State<TableBookingScreen> {
   int currentPosition = 0;
   final CarouselController _carouselController = CarouselController();
-final formKey = GlobalKey<FormState>();
-
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +94,19 @@ final formKey = GlobalKey<FormState>();
                                   margin:
                                       const EdgeInsets.only(right: 5, left: 5),
                                   decoration: BoxDecoration(
-                                    image: controller.tableBookModel.data?.images == null || controller.tableBookModel.data!.images!.isEmpty
-                                        ? const DecorationImage(fit: BoxFit.fill, image: NetworkImage("assets/images/food_image.jpg"),): DecorationImage(fit: BoxFit.fill, image: NetworkImage(
+                                    image: controller.tableBookModel.data
+                                                    ?.images ==
+                                                null ||
+                                            controller.tableBookModel.data!
+                                                .images!.isEmpty
+                                        ? const DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: NetworkImage(
+                                                "assets/images/food_image.jpg"),
+                                          )
+                                        : DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: NetworkImage(
                                                 "${ApiUrl.imageUrl}${controller.tableBookModel.data?.images?[itemIndex].url}"),
                                           ),
                                     color: const Color(0xFFECECEC),
@@ -245,23 +255,33 @@ final formKey = GlobalKey<FormState>();
                         ],
                       ),
 
-  ///========================= See all review  Button======================>>>
+                      ///========================= See all review  Button======================>>>
 
                       GestureDetector(
-                        onTap: (){
-                          Get.toNamed(AppRoute.restauratnWiseReviewScreen,arguments: controller.tableBookModel.data?.sId);
+                        onTap: () {
+                          Get.toNamed(AppRoute.restauratnWiseReviewScreen,
+                              arguments: controller.tableBookModel.data?.sId);
                         },
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Container(
                             width: 100,
                             alignment: Alignment.center,
-                            padding: const EdgeInsetsDirectional.symmetric(vertical: 4,horizontal: 8),
-                            decoration:  BoxDecoration(color: AppColors.greenNormal,borderRadius: BorderRadius.circular(4)),
+                            padding: const EdgeInsetsDirectional.symmetric(
+                                vertical: 4, horizontal: 8),
+                            decoration: BoxDecoration(
+                                color: AppColors.greenNormal,
+                                borderRadius: BorderRadius.circular(4)),
                             child: const Row(
                               children: [
-                                Icon(Icons.edit_note_outlined,color: AppColors.whiteColor,),
-                                CustomText(text: "Review",color: AppColors.whiteColor,),
+                                Icon(
+                                  Icons.edit_note_outlined,
+                                  color: AppColors.whiteColor,
+                                ),
+                                CustomText(
+                                  text: "Review",
+                                  color: AppColors.whiteColor,
+                                ),
                               ],
                             ),
                           ),
@@ -270,15 +290,16 @@ final formKey = GlobalKey<FormState>();
                       const SizedBox(
                         height: 12,
                       ),
-                         
+
                       ///====================== Show open and closing time========================== ///////
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
                             children: List.generate(
                           5,
-                          (index){
-                            print("time${controller.tableBookModel.data?.days?[index].openingTime}");
+                          (index) {
+                            print(
+                                "time${controller.tableBookModel.data?.days?[index].openingTime}");
                             return Container(
                                 margin: const EdgeInsets.all(4),
                                 padding: const EdgeInsets.all(6),
@@ -296,15 +317,18 @@ final formKey = GlobalKey<FormState>();
                                   children: [
                                     CustomText(
                                         text:
-                                        "${controller.tableBookModel.data?.days?[index].day}:",
+                                            "${controller.tableBookModel.data?.days?[index].day}:",
                                         color: index % 2 == 0
                                             ? AppColors.whiteColor
                                             : AppColors.greenNormalActive,
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400),
                                     CustomText(
-                                      text: "${controller.formatTime(controller.tableBookModel.data?.days?[index].openingTime?? "")}-${controller.formatTime(controller.tableBookModel.data?.days?[index].closingTime?? "")}",
-                                      color: index % 2 == 0 ? AppColors.whiteColor : AppColors.greenNormalActive,
+                                      text:
+                                          "${controller.formatTime(controller.tableBookModel.data?.days?[index].openingTime ?? "")}-${controller.formatTime(controller.tableBookModel.data?.days?[index].closingTime ?? "")}",
+                                      color: index % 2 == 0
+                                          ? AppColors.whiteColor
+                                          : AppColors.greenNormalActive,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -421,39 +445,37 @@ final formKey = GlobalKey<FormState>();
                           ),
                           Expanded(
                               child: Form(
-                                key: formKey,
-                                child: SizedBox(
-                                  height: 40,
-                                  child: TextFormField(
+                            key: formKey,
+                            child: SizedBox(
+                              height: 40,
+                              child: TextFormField(
                                 cursorColor: Colors.transparent,
+
                                 cursorHeight: 16,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                    ],
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
 
-                                    keyboardType: TextInputType.numberWithOptions(signed: true),
                                 textInputAction: TextInputAction.next,
-                                 //keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.none,
                                 controller: controller.personNoController,
-                                decoration: const InputDecoration(
-
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Color(0xffCECECE))),
+                                decoration: InputDecoration(
+                                    focusedBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Color(0xffCECECE))),
                                     hintText: "Person",
-
-                                    prefixIcon: Icon(Icons.group),
-                                    contentPadding: EdgeInsets.all(0),
-                                    border: OutlineInputBorder()),
+                                    prefixIcon: const Icon(Icons.group),
+                                    suffixIcon: buildPopupMenuButton(),
+                                    contentPadding: const EdgeInsets.all(0),
+                                    border: const OutlineInputBorder()),
                                 // validator: (v){
                                 //   if(v.toString().isEmpty){
                                 //     return "is not empty";
                                 //   }
                                 // },
-                                                            ),
-                                                          ),
-                              ))
-
+                              ),
+                            ),
+                          ))
                         ],
                       ),
                       const SizedBox(
@@ -461,7 +483,9 @@ final formKey = GlobalKey<FormState>();
                       ),
                       CustomElevatedButton(
                         onPressed: () {
-                          if(controller.personNoController.text.isEmpty || controller.selectedTime== null||controller.validationController.text.isEmpty){
+                          if (controller.personNoController.text.isEmpty ||
+                              controller.selectedTime == null ||
+                              controller.validationController.text.isEmpty) {
                             Utils.toastMessage("Field can't be empty");
                           }
                           controller.bookTable(
@@ -477,5 +501,72 @@ final formKey = GlobalKey<FormState>();
                   ),
           );
         }));
+  }
+
+  PopupMenuButton<String> buildPopupMenuButton() {
+    TableBookController tableBookController = Get.put(TableBookController());
+    return PopupMenuButton<String>(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(color: AppColors.blackLightActive)),
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        PopupMenuItem<String>(
+          value: '1',
+          child: SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                  tableBookController.persons.length,
+                  (index) => InkWell(
+                    onTap: () {
+                      tableBookController.onSelectItem(index);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.blackNormal),
+                              color:
+                                  tableBookController.personNoController.text ==
+                                          tableBookController.persons[index]
+                                              .toString()
+                                      ? AppColors.greenDark
+                                      : Colors.transparent,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          CustomText(
+                            text: tableBookController.persons[index].toString(),
+                            color: AppColors.blackNormal,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            left: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+      icon: tableBookController.isPopUpOpen
+          ? const Icon(
+              Icons.keyboard_arrow_up_outlined,
+              color: Colors.black,
+              size: 32,
+            )
+          : const Icon(
+              Icons.keyboard_arrow_down_outlined,
+              color: Colors.black,
+              size: 32,
+            ),
+    );
   }
 }

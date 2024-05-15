@@ -12,27 +12,35 @@ import '../../global/share_prefes_helper.dart';
 import '../../service/api_service.dart';
 import '../../utils/app_utils.dart';
 
-class EditPersonalInfoController extends GetxController{
-
+class EditPersonalInfoController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   String profileImage = "";
+
   // TextEditingController nameController = TextEditingController();
-  ProfileModel ? profileModel ;
+  ProfileModel? profileModel;
 
   File? imageFile;
   final imagePicker = ImagePicker();
+
   //String? imageUrl;
   bool isLoading = false;
- PersonalInfoController controller = Get.put(PersonalInfoController());
-/// ================ open gallery =========================///
+  PersonalInfoController controller = Get.put(PersonalInfoController());
+
+  /// ================ open gallery =========================///
   void openGallery() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      imageFile = File(pickedFile.path);
-      print("==============Image file${imageFile}");
-      update();
+      int maxSize = 2 * 1024 * 1024; // 2 MB in bytes
+      int fileSize = await pickedFile.length();
+      if (fileSize <= maxSize) {
+        imageFile = File(pickedFile.path);
+        print("==============Image file${imageFile}");
+        update();
+      } else {
+        Utils.toastMessage("Selected image exceeds the maximum size of 2 MB");
+      }
     }
   }
 
@@ -43,15 +51,12 @@ class EditPersonalInfoController extends GetxController{
       'data': jsonEncode({
         "fullName": nameController.text,
         "phoneNumber": numberController.text,
-
       })
     };
 
-
     Map<String, String> mainHeader = {
-      'Authorization':"Bearer ${ PrefsHelper.accessToken}",
+      'Authorization': "Bearer ${PrefsHelper.accessToken}",
       'Content-Type': 'application/json',
-
     };
 
     print(mainHeader);
@@ -63,13 +68,15 @@ class EditPersonalInfoController extends GetxController{
         header: mainHeader,
         method: "PATCH");
 
-    print("=====================================>response ${response.responseJson}");
-    print("=====================================>response ${response.statusCode}");
+    print(
+        "=====================================>response ${response.responseJson}");
+    print(
+        "=====================================>response ${response.statusCode}");
 
     if (response.statusCode == 200) {
-       Get.back();
+      Get.back();
 
-       profileModel = null;
+      profileModel = null;
       controller.getPersonalInfoData();
 
       Utils.toastMessage(response.message);

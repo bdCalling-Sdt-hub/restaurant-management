@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -16,90 +17,105 @@ import '../service/api_service.dart';
 import '../utils/app_routes.dart';
 import '../view/screens/table_booking_screen/inner_screen/book_now.dart';
 
-class TableBookController extends GetxController{
-  TableBookModel tableBookModel = TableBookModel();
-  String ? data;
+class TableBookController extends GetxController {
+  List persons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  bool isLoading = false;
-  Future<void> getTableData(String id) async{
-  isLoading = true;
-  update();
-    var response = await ApiService.getApi("${ApiUrl.getTableData}/$id");
-    if(response.statusCode==200){
-      tableBookModel = TableBookModel.fromJson(jsonDecode(response.responseJson));
-      print(response.statusCode);
-      print("response.responseJson ========>> ${response.responseJson}");
-      data = tableBookModel.data?.location.toString() ?? "";
-      id= tableBookModel.data?.sId.toString() ?? "";
-      Get.toNamed(AppRoute.tableBooking);
-      print("=========== ID >>> ${id}");
-    }else{
-      print(response.statusCode);
-    }
-  isLoading = false;
-  update();
-
-  }
-///=========================BookedTable =====================//
+  bool isPopUpOpen = false;
 
   TextEditingController personNoController = TextEditingController();
   AfterBookTableModel afterBookTableModel = AfterBookTableModel();
 
-    Future<void> bookTable(String rid) async{
-      isLoading = true;
-      update();
+  onSelectItem(int index) {
+    personNoController.text = persons[index].toString();
+    update();
+    isPopUpOpen = false;
+    update();
+    Get.back();
+  }
 
-    Map<String ,String> body = {
-      "restaurant":rid.toString(),
-      "date":validationController.text,
+  TableBookModel tableBookModel = TableBookModel();
+  String? data;
+
+  bool isLoading = false;
+
+  Future<void> getTableData(String id) async {
+    isLoading = true;
+    update();
+    var response = await ApiService.getApi("${ApiUrl.getTableData}/$id");
+    if (response.statusCode == 200) {
+      tableBookModel =
+          TableBookModel.fromJson(jsonDecode(response.responseJson));
+      print(response.statusCode);
+      print("response.responseJson ========>> ${response.responseJson}");
+      data = tableBookModel.data?.location.toString() ?? "";
+      id = tableBookModel.data?.sId.toString() ?? "";
+      Get.toNamed(AppRoute.tableBooking);
+      print("=========== ID >>> ${id}");
+    } else {
+      print(response.statusCode);
+    }
+    isLoading = false;
+    update();
+  }
+
+  ///=========================BookedTable =====================//
+
+  Future<void> bookTable(String rid) async {
+    isLoading = true;
+    update();
+
+    Map<String, String> body = {
+      "restaurant": rid.toString(),
+      "date": validationController.text,
       "time": selectedTime.toString(),
-      "seats":personNoController.text
+      "seats": personNoController.text
     };
     var encodedBody = jsonEncode(body);
 
     var response = await ApiService.postApi(ApiUrl.bookingTable, encodedBody);
-   if(response.statusCode ==200 ){
-     PrefsHelper.setString("afterbookingId", jsonDecode(response.responseJson)['data']['_id']);
-     PrefsHelper.afterbookingId = jsonDecode(response.responseJson)['data']['_id'];
-    print("===============bookingId>    ${PrefsHelper.afterbookingId}");
+    if (response.statusCode == 200) {
+      PrefsHelper.setString(
+          "afterbookingId", jsonDecode(response.responseJson)['data']['_id']);
+      PrefsHelper.afterbookingId =
+          jsonDecode(response.responseJson)['data']['_id'];
+      print("===============bookingId>    ${PrefsHelper.afterbookingId}");
 
-    Utils.toastMessage(response.message);
+      Utils.toastMessage(response.message);
 
-    getBookedData(bookingId: PrefsHelper.afterbookingId);
-     Get.to(const BookNow());
-   }
-   else{
-     Utils.toastMessage(response.message);
-   }
+      getBookedData(bookingId: PrefsHelper.afterbookingId);
+      Get.to(const BookNow());
+    } else {
+      Utils.toastMessage(response.message);
+    }
     if (kDebugMode) {
       print(response.responseJson);
     }
 
-      isLoading = false;
-      update();
+    isLoading = false;
+    update();
   }
 
   ///=========================Get after booked data  =====================//
 
   GetBookedDataModel getBookedDataModel = GetBookedDataModel();
 
-  Future<void> getBookedData ({required String bookingId}) async{
+  Future<void> getBookedData({required String bookingId}) async {
     isLoading = true;
     update();
-      var response = await  ApiService.getApi("${ApiUrl.bookingTable}/$bookingId");
-      if(response.statusCode==200){
-        getBookedDataModel = GetBookedDataModel.fromJson(jsonDecode(response.responseJson));
-        print(getBookedDataModel.data?.table?.tableName);
-      }
+    var response = await ApiService.getApi("${ApiUrl.bookingTable}/$bookingId");
+    if (response.statusCode == 200) {
+      getBookedDataModel =
+          GetBookedDataModel.fromJson(jsonDecode(response.responseJson));
+      print(getBookedDataModel.data?.table?.tableName);
+    }
     isLoading = false;
     update();
   }
 
   /// ====================== Date picker ====================///
 
-
-
   TextEditingController validationController = TextEditingController();
+
   Future<void> validationTimePicker(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -119,16 +135,17 @@ class TableBookController extends GetxController{
     );
 
     if (picked != null) {
-      final formattedDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(picked.toUtc());
+      final formattedDate =
+          DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(picked.toUtc());
       validationController.text = formattedDate;
       update();
     }
   }
 
-
   ///=======================TimePicker ===================///
 
-  String ? selectedTime;
+  String? selectedTime;
+
   Future<void> selectTime(BuildContext context) async {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
@@ -152,12 +169,11 @@ class TableBookController extends GetxController{
     }
   }
 
-
- ///=================Opening and closing time format  AM/PM =====================>>>>
+  ///=================Opening and closing time format  AM/PM =====================>>>>
   String formatTime(String timeString) {
     try {
-
-      DateTime time = DateFormat('HH:mm').parseStrict(timeString); // Parse using strict parsing and format HH:mm
+      DateTime time = DateFormat('HH:mm').parseStrict(
+          timeString); // Parse using strict parsing and format HH:mm
       // Check if the time is after noon (12:00 PM)
       if (time.hour >= 12) {
         // Format DateTime object to PM format
@@ -172,5 +188,4 @@ class TableBookController extends GetxController{
       return "Invalid time"; // Return a placeholder string
     }
   }
-
 }
