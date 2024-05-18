@@ -8,22 +8,24 @@ import 'package:restaurant_management/model/add_favourite_model.dart';
 import 'package:restaurant_management/model/menu_details_model.dart';
 import '../global/api_url_container.dart';
 import '../service/api_service.dart';
+import '../utils/app_routes.dart';
 
-class ProductDetailsController extends GetxController{
-MenuDetailsModel model =  MenuDetailsModel();
+class ProductDetailsController extends GetxController {
+  MenuDetailsModel model = MenuDetailsModel();
 
-bool isLoading =  false;
-  Future<void> menuDetails (String id) async{
-    if(model.data?.name == null){
+  bool isLoading = false;
+
+  Future<void> menuDetails(String id) async {
+    if (model.data?.name == null) {
       isLoading = true;
       update();
     }
 
-    var response  =  await ApiService.getApi("${ApiUrl.menuEndPoint}/$id");
+    var response = await ApiService.getApi("${ApiUrl.menuEndPoint}/$id");
     if (kDebugMode) {
       print(response.responseJson);
     }
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       model = MenuDetailsModel.fromJson(jsonDecode(response.responseJson));
       print(model.data?.name);
     }
@@ -32,61 +34,65 @@ bool isLoading =  false;
   }
 
   ///========================add to favourite ==========================>>>
-AddFavoriteModel addFavoriteModel =  AddFavoriteModel();
+  AddFavoriteModel addFavoriteModel = AddFavoriteModel();
 
   RxBool isFavourite = false.obs;
-Future<void> addFavourite(String menuId)async{
-    Map<String,String> body ={
-      "id": menuId
-    };
-    var  encodeBody = jsonEncode(body);
-  var response =  await ApiService.postApi(ApiUrl.addFavourite, encodeBody);
+
+  Future<void> addFavourite(String menuId) async {
+    Map<String, String> body = {"id": menuId};
+    var encodeBody = jsonEncode(body);
+    var response = await ApiService.postApi(ApiUrl.addFavourite, encodeBody);
     if (kDebugMode) {
       print(response.responseJson);
     }
-    if(response.statusCode==200){
-      addFavoriteModel = AddFavoriteModel.fromJson(jsonDecode(response.responseJson));
+    if (response.statusCode == 200) {
+      addFavoriteModel =
+          AddFavoriteModel.fromJson(jsonDecode(response.responseJson));
       isFavourite.value = addFavoriteModel.data?.isFavorite ?? true;
-     // menuDetails(menuId);
+      // menuDetails(menuId);
     }
-}
-
-///=========================Sent order / quantity and amount ============================>>>
-
-sentOrderMenu({required String menuId,required int initialQuality,required int amount,required  String ownerId})async{
-  Map<String , dynamic > body ={
-    "menu":menuId,
-    "quantity": initialQuality,
-    "amount":amount,
-    "owner": ownerId
-  };
-  print("===================dfjhdjkfhskfhk $body");
-  var encodeBody  = jsonEncode(body);
-   String url  = "${ApiUrl.addCart}/${PrefsHelper.afterbookingId}";
-  var response  = await ApiService.postApi( url,encodeBody);
-  print("response dfkhdsfkhfhk ==============>${response.responseJson}");
-
-  if(response.statusCode==200){
-    print(response.statusCode);
-    print(response.message);
-    print(response.responseJson);
   }
 
-}
+  ///=========================Sent order / quantity and amount ============================>>>
 
-  int initialQuantity = 1 ;
+  sentOrderMenu(
+      {required String menuId,
+      required int initialQuality,
+      required int amount,
+      required String ownerId}) async {
+    Map<String, dynamic> body = {
+      "menu": menuId,
+      "quantity": initialQuality,
+      "amount": amount,
+      "owner": ownerId
+    };
+    print("===================dfjhdjkfhskfhk $body");
+    var encodeBody = jsonEncode(body);
+    String url = PrefsHelper.reOder.isEmpty
+        ? "${ApiUrl.addCart}/${PrefsHelper.afterbookingId}"
+        : "${ApiUrl.addCart}/${PrefsHelper.reOder}";
+    var response = await ApiService.postApi(url, encodeBody);
+    print("response dfkhdsfkhfhk ==============>${response.responseJson}");
+    PrefsHelper.reOder = "";
 
-  incrementQuantity(){
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      print(response.message);
+      print(response.responseJson);
+    }
+  }
+
+  int initialQuantity = 1;
+
+  incrementQuantity() {
     initialQuantity++;
     update();
   }
-  decrementQuantity(){
-    if(initialQuantity>1)
-    {
+
+  decrementQuantity() {
+    if (initialQuantity > 1) {
       initialQuantity--;
       update();
     }
-
   }
-
 }

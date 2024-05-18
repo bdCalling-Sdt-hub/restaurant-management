@@ -16,6 +16,8 @@ class OrderCartController extends GetxController {
   Future<void> getAllCartData(String bookingId) async {
     isLoading = true;
     update();
+    print(
+        "askljdf dsvm,xcnb v,mcxv bcxfnn d,.gjn cxz fm,dsj vxcdnbvnm;vjdjkfngdfguoik");
     carList.clear();
     var url = "${ApiUrl.allCart}/$bookingId";
     var response = await ApiService.getApi(url);

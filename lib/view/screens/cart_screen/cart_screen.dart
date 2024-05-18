@@ -20,16 +20,17 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  OrderCartController controller = Get.put(OrderCartController());
+
   @override
   void initState() {
-    OrderCartController controller = Get.put(OrderCartController());
+    Future.delayed(
+      Duration.zero,
+      () {
+        controller.getAllCartData(PrefsHelper.afterbookingId);
+      },
+    );
 
-    controller.getAllCartData(PrefsHelper.afterbookingId);
-
-    if (kDebugMode) {
-      print(
-          "PrefsHelper.afterbookingId ≥≥>>>≥≥≥≥ ${PrefsHelper.afterbookingId}");
-    }
     // TODO: implement initState
     super.initState();
   }
@@ -72,15 +73,17 @@ class _CartScreenState extends State<CartScreen> {
               Get.toNamed(AppRoute.showMenu);
             },
             child: const CircleAvatar(
-              backgroundColor: AppColors.greenNormal,
+                backgroundColor: AppColors.greenNormal,
                 child: ClipOval(
                     child: Icon(
-              Icons.add,
-              color: AppColors.whiteColor,
-              size: 40,
-            ))),
+                  Icons.add,
+                  color: AppColors.whiteColor,
+                  size: 40,
+                ))),
           ),
-          const SizedBox(width: 25,)
+          const SizedBox(
+            width: 25,
+          )
         ],
       ),
       body: GetBuilder<OrderCartController>(builder: (controller) {

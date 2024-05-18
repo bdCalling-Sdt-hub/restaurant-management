@@ -3,7 +3,6 @@ import 'package:restaurant_management/utils/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefsHelper extends GetxController {
-
   static String accessToken = "";
   static String otpToken = "";
   static String forgotToken = "";
@@ -11,10 +10,11 @@ class PrefsHelper extends GetxController {
   static String email = "";
   static String userId = "";
   static String userIdForNotification = "";
-  static bool isLogin = false;
+  static bool isLogIn = false;
   static String refreshToken = "";
   static String bookingId = "";
   static String afterbookingId = "";
+  static String reOder = "";
 
   ///<<<======================== Get All Data Form Shared Preference ==============>
 
@@ -25,14 +25,14 @@ class PrefsHelper extends GetxController {
     forgotToken = preferences.getString("forgotToken") ?? "";
     email = preferences.getString("email") ?? "";
     refreshToken = preferences.getString("refreshToken") ?? "";
-    forgotMail =  preferences.getString("forgotEmail") ?? "";
-    bookingId =  preferences.getString("bookingId") ?? "";
-    afterbookingId =  preferences.getString("afterbookingId") ?? "";
-    afterbookingId =  preferences.getString("userId") ?? "";
-    afterbookingId =  preferences.getString("userIdForNotification") ?? "";
+    forgotMail = preferences.getString("forgotEmail") ?? "";
+    bookingId = preferences.getString("bookingId") ?? "";
+    afterbookingId = preferences.getString("afterbookingId") ?? "";
+    afterbookingId = preferences.getString("userId") ?? "";
+    afterbookingId = preferences.getString("userIdForNotification") ?? "";
+    isLogIn = preferences.getBool("isLogIn") ?? false;
 
     print("==================> Save Access token $accessToken");
-
   }
 
   ///<<<======================== Get Data Form Shared Preference ==============>
@@ -79,7 +79,7 @@ class PrefsHelper extends GetxController {
       pref.setString("token", "");
 
       accessToken = "";
-      isLogin = false;
+      isLogIn = false;
       refreshToken = "";
       Get.offAllNamed(AppRoute.signin);
     } catch (e) {

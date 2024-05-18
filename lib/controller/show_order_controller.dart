@@ -14,7 +14,6 @@ class ShowOrderController extends GetxController{
     var response = await ApiService.getApi("${ApiUrl.showOrder}/$id");
     print("================Response ${response.responseJson}");
     if(response.statusCode==200){
-      showOrderData(controller.model.data?[0].sId.toString() ?? "");
       update();
       model = ShowOrderModel.fromJson(jsonDecode(response.responseJson));
     }

@@ -14,10 +14,11 @@ class OrderDetailsEcreen extends StatefulWidget {
 
 class _BookNowState extends State<OrderDetailsEcreen> {
   final  id =  Get.arguments;
+  OrderDetailsController controller = Get.put(OrderDetailsController());
 
   @override
   void initState() {
-    OrderDetailsController controller = Get.put(OrderDetailsController());
+
     controller.orderDetailsData(id);
     // TODO: implement initState
     super.initState();
@@ -62,7 +63,7 @@ class _BookNowState extends State<OrderDetailsEcreen> {
               children: [
                 controller.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,),):     Expanded(
                   child: ListView.builder(
-                    itemCount: controller.model.data?.items?.length,
+                    itemCount: controller.orders.length,
                     itemBuilder: (context, index) {
                       return Stack(
                         children: [

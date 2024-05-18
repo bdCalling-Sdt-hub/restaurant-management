@@ -7,17 +7,26 @@ import 'package:restaurant_management/model/booking_status_model.dart';
 import '../global/api_url_container.dart';
 import '../service/api_service.dart';
 
-class OrderStatusController extends GetxController{
- List  dataList = [];
-  BookingStatusModel model =BookingStatusModel();
+class OrderStatusController extends GetxController {
+  List dataList = [];
+  BookingStatusModel model = BookingStatusModel();
   bool isLoading = false;
-  Future<void> bookingData ()async{
+  List status = [
+    "unpaid",
+    "paid",
+  ];
+
+  Future<void> bookingData(int index) async {
     isLoading = true;
     update();
-    var response = await ApiService.getApi(ApiUrl.myOrder);
+    var response =
+        await ApiService.getApi("${ApiUrl.myOrder}?status=${status[index]}");
     print("===================Menu Response${response.responseJson}");
-    if(response.statusCode==200){
-      model  = BookingStatusModel.fromJson(jsonDecode(response.responseJson));
+    if (response.statusCode == 200) {
+      model = BookingStatusModel.fromJson(jsonDecode(response.responseJson));
+      if (model.data != null) {
+        dataList.addAll(model.data!);
+      }
 
       update();
       print(response.responseJson);
@@ -26,13 +35,5 @@ class OrderStatusController extends GetxController{
 
     isLoading = false;
     update();
-  }
-
-  @override
-  void onInit() {
-    bookingData();
-    update();
-    // TODO: implement onInit
-    super.onInit();
   }
 }

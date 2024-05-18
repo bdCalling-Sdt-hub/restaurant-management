@@ -7,6 +7,7 @@ import 'package:restaurant_management/view/screens/booking_details_screen/inner_
 import 'package:restaurant_management/view/screens/cart_screen/cart_screen.dart';
 import 'package:restaurant_management/view/screens/home_screen/home_screen.dart';
 import 'package:restaurant_management/view/screens/menu/menu_screen.dart';
+import 'package:restaurant_management/view/screens/my_orders/my_order_screen.dart';
 import 'package:restaurant_management/view/screens/notification/notification_screen.dart';
 import 'package:restaurant_management/view/screens/profile/profile_screen.dart';
 import 'package:restaurant_management/view/screens/settings/setting_screen.dart';
@@ -27,7 +28,6 @@ class AppRoute{
   static const String aboutUsScreen = "/about_us_screen";
   static const String splashScreen = "/splash_screen";
   static const String homeScreen = "/home_screen";
-  static const String myorders = "/myorder_screen";
   static const String showMenu = "/menu_screen";
   static const String orderDetailsScreen = "/order_detaials_screen";
   static const String orderCartScreen = "/order_list_screen";
@@ -63,6 +63,7 @@ class AppRoute{
     GetPage(name: setting, page: () => const SettingScreen()),
     GetPage(name: welcome, page: () => const WelcomeScreen()),
     GetPage(name: signup, page: () =>  const SignupScreen()),
+
     GetPage(name: signin, page: () => const SigninScreen()),
     GetPage(name: otpVerify, page: () =>  VerifyCodeScreen()),
     GetPage(name: noInternet, page: () =>  const NoInternet()),

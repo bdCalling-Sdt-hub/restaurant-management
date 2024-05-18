@@ -1,15 +1,14 @@
 class ApiUrl {
   ///<<<=================Local  Base Url=========================>>>
 
- //  static const baseUrl = "http://192.168.10.3:5000/api/v1";
- //  static const imageUrl = "http://192.168.10.3:5000";
- //  static const socketUrl = "http://192.168.10.3:9000";
+  //  static const baseUrl = "http://192.168.10.3:5000/api/v1";
+  //  static const imageUrl = "http://192.168.10.3:5000";
+  //  static const socketUrl = "http://192.168.10.3:9000";
   ///<<<=================Live  Base Url=========================>>>
 
-  static const baseUrl = "http://103.145.138.74:5000/api/v1";
-  static const imageUrl = "http://103.145.138.74:5000";
-  static const socketUrl = "http://103.145.138.74:9000";
-
+  static const baseUrl = "http://157.245.97.245:5005/api/v1";
+  static const imageUrl = "http://157.245.97.245:5005";
+  static const socketUrl = "http://157.245.97.245:5009";
 
   static const signUp = "$baseUrl/users/create-user";
   static const otpVerify = "$baseUrl/otp/verify-otp";
@@ -33,8 +32,8 @@ class ApiUrl {
   static const removeData = "$baseUrl/cart";
   static const myOrder = "$baseUrl/cart/my-orders";
   static const getSingleBooking = "$baseUrl/booking/details";
-  static const orderDetails= "$baseUrl/cart/details/";
-  static const showOrder= "$baseUrl/cart";
+  static const orderDetails = "$baseUrl/cart/details/";
+  static const showOrder = "$baseUrl/cart";
   static const removeList = "$baseUrl/cart";
   static const settingContent = "$baseUrl/content";
   static const removeorderData = "$baseUrl/cart";
@@ -43,5 +42,4 @@ class ApiUrl {
   static const notifications = "$baseUrl/notifications";
   static const review = "$baseUrl/menu/review";
   static const allReview = "$baseUrl/menu/review";
-
 }

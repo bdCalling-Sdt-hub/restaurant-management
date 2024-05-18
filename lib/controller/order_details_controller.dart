@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/api_url_container.dart';
 import 'package:restaurant_management/model/order_details_model.dart';
@@ -7,49 +8,54 @@ import 'package:restaurant_management/service/api_service.dart';
 
 import 'get_all_booking_data_controller.dart';
 
-class OrderDetailsController extends GetxController{
-  GetAllBookingDataController controller = Get.put(GetAllBookingDataController());
+class OrderDetailsController extends GetxController {
+  GetAllBookingDataController controller =
+      Get.put(GetAllBookingDataController());
+  List orders = [];
   OrderDetailsModel model = OrderDetailsModel();
-  bool isLoading =false;
-   Future<void> orderDetailsData(String id)async{
+  bool isLoading = false;
+
+  Future<void> orderDetailsData(String id) async {
     isLoading = true;
     update();
-     var response =await ApiService.getApi("${ApiUrl.orderDetails}$id");
-     if(response.statusCode==200){
-       orderDetailsData(controller.model.data?[0].sId.toString() ?? "");
-       update();
-       model = OrderDetailsModel.fromJson(jsonDecode(response.responseJson));
-     }
- isLoading = false;
-     update();
-   }
+    orders.clear();
+    var response = await ApiService.getApi("${ApiUrl.orderDetails}$id");
+    if (response.statusCode == 200) {
+      model = OrderDetailsModel.fromJson(jsonDecode(response.responseJson));
+      if (model.data?.items != null) {
+        orders.addAll(model.data!.items!);
+      }
+    }
+    isLoading = false;
+    update();
+  }
 
-  removeFromCart({required String bookingId,required  String itemId,required String amount})async{
+  removeFromCart(
+      {required String bookingId,
+      required String itemId,
+      required String amount}) async {
     var url = "${ApiUrl.removeorderData}/$bookingId";
     print("============ URL$url");
 
     print(url);
 
-    Map<String , String> body = {
-      "itemId":itemId,
-      "amount": amount
-    };
+    Map<String, String> body = {"itemId": itemId, "amount": amount};
     var enCodedBody = jsonEncode(body);
 
     print("=================BODY  $body");
-    var response = await ApiService.patchApi(url,body: enCodedBody);
+    var response = await ApiService.patchApi(url, body: enCodedBody);
 
     print(response.responseJson);
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       //orderDetailsData(controller.model.data?[0].sId.toString() ?? "");
-    //  update();
+      //  update();
 
-      print("=============ID ${controller.model.data?[0].sId.toString() ?? ""}");
+      print(
+          "=============ID ${controller.model.data?[0].sId.toString() ?? ""}");
 
       update();
       print(response.responseJson);
       print(response.message);
     }
   }
-
 }
