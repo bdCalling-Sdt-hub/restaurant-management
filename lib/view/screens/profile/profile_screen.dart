@@ -31,8 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         color: Colors.black,
       )
     },
-    {"routeName": "My Order", "icon": const Icon(Icons.fastfood_outlined)},
-    {"routeName": "My Booking", "icon": const Icon(Icons.card_travel_outlined)},
+    {"routeName": "My Booking", "icon": const Icon(Icons.fastfood_outlined)},
     {"routeName": "Settings", "icon": const Icon(Icons.settings_outlined)},
     {
       "routeName": "Logout",
@@ -155,15 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 status3: 'Paid',
                               ));
                             }
-                            if (index == 2) {
-                              Get.to(const MyOrderScreen(
-                                text: 'My Booking',
-                                index: 1,
-                                status1: 'Booked',
-                                status2: 'Cancelled',
-                                status3: 'Closed',
-                              ));
-                            }
+
                             if (index == 3) {
                               Get.to(const SettingScreen());
                             }

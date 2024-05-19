@@ -31,21 +31,21 @@ class MyOrderScreen extends StatefulWidget {
 class _MyOrderScreenState extends State<MyOrderScreen>
     with TickerProviderStateMixin {
   late TabController tabController;
-  late TabController orderTabController;
+  // late TabController orderTabController;
   String text1 = "";
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this);
-    orderTabController = TabController(length: 2, vsync: this);
+    // orderTabController = TabController(length: 2, vsync: this);
     text1 = widget.text;
   }
 
   @override
   void dispose() {
     tabController.dispose();
-    orderTabController.dispose();
+    // orderTabController.dispose();
     super.dispose();
   }
 
@@ -63,32 +63,32 @@ class _MyOrderScreenState extends State<MyOrderScreen>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
-              // controller: tabController1,
-              onTap: (value) {
-                setState(() {
-                  if (value == 0) {
-                    text1 = "My Orders";
-                  }
-                  if (value == 1) {
-                    text1 = "My Booking";
-                  }
-                });
-              },
-              dividerHeight: 1,
-              indicatorColor: Colors.green,
-              dividerColor: AppColors.greenLightActive,
-              labelColor: AppColors.greenNormal,
-              // Change this color as needed
-              unselectedLabelColor: Colors.black26,
-              tabs: const [
-                Tab(
-                  text: "Order",
-                ),
-                Tab(
-                  text: "Booking",
-                )
-              ]),
+          // bottom: TabBar(
+          //     // controller: tabController1,
+          //     onTap: (value) {
+          //       setState(() {
+          //         if (value == 0) {
+          //           text1 = "My Orders";
+          //         }
+          //         if (value == 1) {
+          //           text1 = "My Booking";
+          //         }
+          //       });
+          //     },
+          //     dividerHeight: 1,
+          //     indicatorColor: Colors.green,
+          //     dividerColor: AppColors.greenLightActive,
+          //     labelColor: AppColors.greenNormal,
+          //     // Change this color as needed
+          //     unselectedLabelColor: Colors.black26,
+          //     tabs: const [
+          //       Tab(
+          //         text: "Order",
+          //       ),
+          //       Tab(
+          //         text: "Booking",
+          //       )
+          //     ]),
           leading: Row(
             children: [
               GestureDetector(
@@ -122,58 +122,58 @@ class _MyOrderScreenState extends State<MyOrderScreen>
             // Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):
             // controller!.isLoading?const Center(child: CircularProgressIndicator(color: AppColors.greenNormal,)):
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: Column(
-                children: [
-                  TabBar(
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
-                    indicatorPadding:
-                        const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-                    dividerHeight: 0,
-                    controller: orderTabController,
-                    labelColor: AppColors.whiteColor,
-                    // Change this color as needed
-                    unselectedLabelColor: Colors.black,
-                    indicator: BoxDecoration(
-                      // Custom indicator for selected tab
-                      color: AppColors.greenNormal,
-                      borderRadius: BorderRadius.circular(
-                          32.0), // Change this color as needed
-                    ),
-                    tabs: const [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Tab(text: "Unpaid"),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Tab(text: "Paid"),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: orderTabController,
-                      // Specify the controller here
-                      children: [
-                        Center(
-                            child: OrderCard(
-                                status: widget.status1,
-                                index: 0,
-                                textColor: Color(0xffC57600))),
-                        Center(
-                            child: OrderCard(
-                          index: 1,
-                          status: widget.status3,
-                          textColor: AppColors.greenNormal,
-                        )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(vertical: 20.0),
+            //   child: Column(
+            //     children: [
+            //       TabBar(
+            //         overlayColor: MaterialStateProperty.all(Colors.transparent),
+            //         indicatorPadding:
+            //             const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+            //         dividerHeight: 0,
+            //         controller: orderTabController,
+            //         labelColor: AppColors.whiteColor,
+            //         // Change this color as needed
+            //         unselectedLabelColor: Colors.black,
+            //         indicator: BoxDecoration(
+            //           // Custom indicator for selected tab
+            //           color: AppColors.greenNormal,
+            //           borderRadius: BorderRadius.circular(
+            //               32.0), // Change this color as needed
+            //         ),
+            //         tabs: const [
+            //           Padding(
+            //             padding: EdgeInsets.symmetric(horizontal: 8.0),
+            //             child: Tab(text: "Unpaid"),
+            //           ),
+            //           Padding(
+            //             padding: EdgeInsets.symmetric(horizontal: 8.0),
+            //             child: Tab(text: "Paid"),
+            //           ),
+            //         ],
+            //       ),
+            //       Expanded(
+            //         child: TabBarView(
+            //           controller: orderTabController,
+            //           // Specify the controller here
+            //           children: [
+            //             Center(
+            //                 child: OrderCard(
+            //                     status: widget.status1,
+            //                     index: 0,
+            //                     textColor: Color(0xffC57600))),
+            //             Center(
+            //                 child: OrderCard(
+            //               index: 1,
+            //               status: widget.status3,
+            //               textColor: AppColors.greenNormal,
+            //             )),
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             // bookingDataController?.model.data==null || bookingDataController!.model.data!.isEmpty?
             // Center(child: CustomText(text: "No Data Found",color: AppColors.greenNormal,fontSize: 24,fontWeight: FontWeight.w600,)):
             Padding(
@@ -312,9 +312,14 @@ class _OrderCardState extends State<OrderCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
-                            text: controller.model.data?[0].items?[0].menu?.name
-                                    .toString() ??
-                                "",
+                            text: controller.model.data != null &&
+                                    controller.model.data!.isNotEmpty &&
+                                    controller.model.data?[0].items != null &&
+                                    controller.model.data![0].items!.isNotEmpty
+                                ? controller.model.data![0].items![0].menu?.name
+                                        .toString() ??
+                                    ""
+                                : "",
                             color: AppColors.blackNormal,
                             fontWeight: FontWeight.w400,
                           ),

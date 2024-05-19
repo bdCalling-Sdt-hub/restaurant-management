@@ -98,114 +98,117 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     )
                   : Expanded(
-                      child: ListView.builder(
-                        itemCount: controller.carList.length,
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                margin:
-                                    const EdgeInsets.only(top: 12, bottom: 12),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffC8E0BD),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 60,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            image: DecorationImage(
-                                              fit: BoxFit.fill,
-                                              image: NetworkImage(
-                                                  "${ApiUrl.imageUrl}${controller.model.data?.items?[index].menu?.image}"),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 12,
-                                        ),
-                                        Column(
-                                          children: [
-                                            CustomText(
-                                                text: (controller
-                                                        .model
-                                                        .data
-                                                        ?.items?[index]
-                                                        .menu
-                                                        ?.name
-                                                        .toString() ??
-                                                    ""),
-                                                fontSize: 16),
-                                            CustomText(
-                                                text:
-                                                    "\$ ${(controller.model.data?.items?[index].amount.toString() ?? "")}",
-                                                fontWeight: FontWeight.w500),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.whiteColor,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: CustomText(
-                                              text:
-                                                  "Quantity: ${(controller.model.data?.items?[index].quantity.toString() ?? "")}",
-                                              fontWeight: FontWeight.w500),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                      child: controller.carList.isEmpty
+                          ? const Center(
+                              child: CustomText(
+                                text: "No data found",
+                                fontSize: 24,
                               ),
-                              Positioned(
-                                top: 10,
-                                right: 0,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      controller.removeFromCart(
-                                          controller
-                                                  .model.data?.items?[index].id
-                                                  .toString() ??
-                                              "",
-                                          controller.model.data?.items?[index]
-                                                  .amount
-                                                  .toString() ??
-                                              "");
-                                      print(
-                                          "=====ID ${controller.model.data?.items?[index].id.toString() ?? ""}");
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppColors.whiteColor,
+                            )
+                          : ListView.builder(
+                              itemCount: controller.carList.length,
+                              itemBuilder: (context, index) {
+                                var item = controller.carList[index];
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+                                      margin: const EdgeInsets.only(
+                                          top: 12, bottom: 12),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffC8E0BD),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height: 60,
+                                                width: 60,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image: NetworkImage(
+                                                        "${ApiUrl.imageUrl}${item.menu?.image}"),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 12,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  CustomText(
+                                                      text: (item.menu?.name
+                                                              .toString() ??
+                                                          ""),
+                                                      fontSize: 16),
+                                                  CustomText(
+                                                      text:
+                                                          "\$ ${(item.amount.toString() ?? "")}",
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.whiteColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: CustomText(
+                                                    text:
+                                                        "Quantity: ${(item.quantity.toString() ?? "")}",
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    child: const Icon(Icons.close, size: 18),
-                                  ),
-                                ),
-                              )
-                            ],
-                          );
-                        },
-                      ),
+                                    controller.isLoadingClose
+                                        ? const CircularProgressIndicator()
+                                        : Positioned(
+                                            top: 10,
+                                            right: 0,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                controller.removeFromCart(
+                                                    item.id.toString() ?? "",
+                                                    item.amount.toString() ??
+                                                        "",
+                                                    PrefsHelper.afterbookingId);
+                                                print(
+                                                    "=====ID ${item.id.toString() ?? ""}");
+                                              },
+                                              child: Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: AppColors.whiteColor,
+                                                ),
+                                                child: const Icon(Icons.close,
+                                                    size: 18),
+                                              ),
+                                            ),
+                                          )
+                                  ],
+                                );
+                              },
+                            ),
                     ),
 
               ///=====================Amount=================================///
@@ -268,20 +271,23 @@ class _CartScreenState extends State<CartScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  controller.isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                          color: AppColors.greenNormal,
-                        ))
-                      : CustomElevatedButton(
-                          onPressed: () {
-                            Get.toNamed(AppRoute.paymentScreen,
-                                arguments: controller.model.data?.totalDue);
-                          },
-                          titleText: "Order Now",
-                          buttonHeight: 48,
-                          buttonWidth: Get.width / 1.5,
-                        )
+                  controller.model.data?.totalDue != null &&
+                          controller.model.data?.totalDue != 0
+                      ? controller.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                              color: AppColors.greenNormal,
+                            ))
+                          : CustomElevatedButton(
+                              onPressed: () {
+                                Get.toNamed(AppRoute.paymentScreen,
+                                    arguments: controller.model.data?.totalDue);
+                              },
+                              titleText: "Order Now",
+                              buttonHeight: 48,
+                              buttonWidth: Get.width / 1.5,
+                            )
+                      : const SizedBox()
                 ],
               )
             ],

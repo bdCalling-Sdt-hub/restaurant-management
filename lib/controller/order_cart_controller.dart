@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_management/global/share_prefes_helper.dart';
@@ -12,6 +11,7 @@ class OrderCartController extends GetxController {
   CardListModel model = CardListModel();
   List carList = [];
   bool isLoading = false;
+  bool isLoadingClose = false;
 
   Future<void> getAllCartData(String bookingId) async {
     isLoading = true;
@@ -26,6 +26,7 @@ class OrderCartController extends GetxController {
     }
 
     if (response.statusCode == 200) {
+      carList.clear();
       model = CardListModel.fromJson(jsonDecode(response.responseJson));
 
       if (model.data?.items != null) {
@@ -41,9 +42,11 @@ class OrderCartController extends GetxController {
     update();
   }
 
-  removeFromCart(String id, String amount) async {
+  removeFromCart(String id, String amount, String bookingId) async {
     var url = "${ApiUrl.removeData}/${PrefsHelper.afterbookingId}";
 
+    isLoading = true;
+    update();
     print(url);
 
     Map<String, String> body = {
@@ -57,9 +60,12 @@ class OrderCartController extends GetxController {
 
     print(response.responseJson);
     if (response.statusCode == 200) {
+      await getAllCartData(bookingId);
       print(response.responseJson);
       print(response.message);
     }
+    isLoading = false;
+    update();
   }
 
   int initialQuantity = 1;
