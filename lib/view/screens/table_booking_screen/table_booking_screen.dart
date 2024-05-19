@@ -88,32 +88,32 @@ class _TableBookingScreenState extends State<TableBookingScreen> {
                                 itemCount: controller
                                     .tableBookModel.data?.images?.length,
                                 itemBuilder: (BuildContext context,
-                                        int itemIndex, int pageIndex) =>
-                                    Container(
-                                  width: double.maxFinite,
-                                  margin:
-                                      const EdgeInsets.only(right: 5, left: 5),
-                                  decoration: BoxDecoration(
-                                    image: controller.tableBookModel.data
-                                                    ?.images ==
-                                                null ||
-                                            controller.tableBookModel.data!
-                                                .images!.isEmpty
-                                        ? const DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                                "assets/images/food_image.jpg"),
-                                          )
-                                        : DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                                "${ApiUrl.imageUrl}${controller.tableBookModel.data?.images?[itemIndex].url}"),
+                                        int itemIndex, int pageIndex) => Container(
+                                            width: double.maxFinite,
+                                            margin: const EdgeInsets.only(
+                                                right: 5, left: 5),
+                                            decoration: BoxDecoration(
+                                              image: controller.tableBookModel
+                                                              .data?.images ==
+                                                          null ||
+                                                      controller.tableBookModel
+                                                          .data!.images!.isEmpty
+                                                  ? const DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: NetworkImage(
+                                                          "assets/images/food_image.jpg"),
+                                                    )
+                                                  : DecorationImage(
+                                                      fit: BoxFit.fill,
+                                                      image: NetworkImage(
+                                                          "${ApiUrl.imageUrl}${controller.tableBookModel.data?.images?[itemIndex].url}"),
+                                                    ),
+                                              color: const Color(0xFFECECEC),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            alignment: Alignment.center,
                                           ),
-                                    color: const Color(0xFFECECEC),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  alignment: Alignment.center,
-                                ),
                                 options: CarouselOptions(
                                   onPageChanged: (index, reason) {
                                     setState(() {

@@ -124,65 +124,76 @@ class _MenuScreenState extends State<MenuScreen> {
                           ),
                         )
                       : Expanded(
-                          child: GridView.builder(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisExtent: 220,
-                            ),
-                            itemCount: controller.menuList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              print(
-                                  "Length =======>>${controller.menuList.length}");
-                              return Container(
-                                  padding: const EdgeInsets.all(8),
-                                  margin:
-                                      const EdgeInsets.only(left: 8, bottom: 8),
-                                  color: AppColors.greenLight,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: 100,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4),
-                                            topRight: Radius.circular(4),
-                                          ),
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "${ApiUrl.imageUrl}${controller.menuList[index].image.toString()}"),
-                                              fit: BoxFit.fill),
-                                        ),
-                                      ),
-                                      FittedBox(
-                                          child: CustomText(
-                                        text: controller.menuList[index].name
-                                            .toString(),
-                                        color: AppColors.blackNormal,
-                                        fontWeight: FontWeight.w700,
-                                      )),
-                                      CustomText(
-                                        text:
-                                            "\$ ${controller.menuList[index].price.toString()}",
-                                        color: AppColors.blackNormal,
-                                      ),
-                                      CustomElevatedButton(
-                                        onPressed: () {
-                                          Get.toNamed(
-                                              AppRoute.orderDetailsScreen,
-                                              arguments: controller
-                                                  .menuList[index].id);
-                                        },
-                                        titleText: "Order",
-                                        buttonHeight: 40,
-                                      )
-                                    ],
-                                  ));
-                            },
-                          ),
+                          child: controller.menuList.isEmpty
+                              ? Center(
+                                  child: CustomText(
+                                  text: "No data found".tr,
+                                  fontSize: 24,
+                                ))
+                              : GridView.builder(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    mainAxisExtent: 220,
+                                  ),
+                                  itemCount: controller.menuList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    print(
+                                        "Length =======>>${controller.menuList.length}");
+                                    return Container(
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.only(
+                                            left: 8, bottom: 8),
+                                        color: AppColors.greenLight,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 100,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(4),
+                                                  topRight: Radius.circular(4),
+                                                ),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "${ApiUrl.imageUrl}${controller.menuList[index].image.toString()}"),
+                                                    fit: BoxFit.fill),
+                                              ),
+                                            ),
+                                            FittedBox(
+                                                child: CustomText(
+                                              text: controller
+                                                  .menuList[index].name
+                                                  .toString(),
+                                              color: AppColors.blackNormal,
+                                              fontWeight: FontWeight.w700,
+                                            )),
+                                            CustomText(
+                                              text:
+                                                  "\$ ${controller.menuList[index].price.toString()}",
+                                              color: AppColors.blackNormal,
+                                            ),
+                                            CustomElevatedButton(
+                                              onPressed: () {
+                                                Get.toNamed(
+                                                    AppRoute.orderDetailsScreen,
+                                                    arguments: controller
+                                                        .menuList[index].id);
+                                              },
+                                              titleText: "Order",
+                                              buttonHeight: 40,
+                                            )
+                                          ],
+                                        ));
+                                  },
+                                ),
                         ),
                 ],
               );

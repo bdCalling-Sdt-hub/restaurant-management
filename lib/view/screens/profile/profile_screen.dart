@@ -61,11 +61,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<PersonalInfoController>(builder: (controller) {
-        return Column(
-          children: [
-            Flexible(
-              flex: 4,
-              child: controller.isLoading
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              controller.isLoading
                   ? const Center(
                       child: CircularProgressIndicator(
                       color: AppColors.greenNormal,
@@ -132,13 +131,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Flexible(
-              flex: 4,
-              child: Container(
+              const SizedBox(
+                height: 16,
+              ),
+              Container(
                 width: Get.width,
                 decoration: const BoxDecoration(color: AppColors.whiteColor),
                 child: Column(
@@ -207,8 +203,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
       bottomNavigationBar: const CustomBottomNavBar(currentIndex: 3),
