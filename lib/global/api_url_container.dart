@@ -6,9 +6,9 @@ class ApiUrl {
   //  static const socketUrl = "http://192.168.10.3:9000";
   ///<<<=================Live  Base Url=========================>>>
 
-  static const baseUrl = "http://157.245.97.245:5005/api/v1";
-  static const imageUrl = "http://157.245.97.245:5005";
-  static const socketUrl = "http://157.245.97.245:5009";
+  static const baseUrl = "https://bobysen.techhunter2024.online/api/v1";
+  static const imageUrl = "https://bobysen.techhunter2024.online:5005";
+  static const socketUrl = "https://bobysen.techhunter2024.online:5009";
 
   static const signUp = "$baseUrl/users/create-user";
   static const otpVerify = "$baseUrl/otp/verify-otp";
